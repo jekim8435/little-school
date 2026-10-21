@@ -1,0 +1,14 @@
+﻿파일 이름,읽을 문장,언어,쓰이는 곳,저장 위치,대사 ID
+writing.hub.name.mp3,또박또박 글씨,한국어,허브 — 또박또박 글씨 타일을 눌렀을 때,public/apps/writing/voice,writing.hub.name
+writing.category.ask.mp3,어떤 글자를 써 볼까?,한국어,카테고리 고르기 화면에 들어올 때,public/apps/writing/voice,writing.category.ask
+writing.category.digit.mp3,숫자,한국어,카테고리 고르기 — 숫자를 눌렀을 때,public/apps/writing/voice,writing.category.digit
+writing.category.consonant.mp3,자음,한국어,카테고리 고르기 — 자음을 눌렀을 때,public/apps/writing/voice,writing.category.consonant
+writing.category.vowel.mp3,모음,한국어,카테고리 고르기 — 모음을 눌렀을 때,public/apps/writing/voice,writing.category.vowel
+writing.category.double-consonant.mp3,쌍자음,한국어,카테고리 고르기 — 쌍자음을 눌렀을 때,public/apps/writing/voice,writing.category.double-consonant
+writing.category.compound-vowel.mp3,합성모음,한국어,카테고리 고르기 — 합성모음을 눌렀을 때,public/apps/writing/voice,writing.category.compound-vowel
+writing.category.lower.mp3,영어 소문자,한국어,카테고리 고르기 — 영어 소문자를 눌렀을 때,public/apps/writing/voice,writing.category.lower
+writing.category.upper.mp3,영어 대문자,한국어,카테고리 고르기 — 영어 대문자를 눌렀을 때,public/apps/writing/voice,writing.category.upper
+writing.mode.ask.mp3,따라 쓸까? 혼자 써 볼까?,한국어,쓰기 방법 고르기 화면에 들어올 때,public/apps/writing/voice,writing.mode.ask
+writing.mode.guided.mp3,따라 쓰기,한국어,쓰기 방법 — 따라 쓰기를 눌렀을 때,public/apps/writing/voice,writing.mode.guided
+writing.mode.free.mp3,혼자 쓰기,한국어,쓰기 방법 — 혼자 쓰기를 눌렀을 때,public/apps/writing/voice,writing.mode.free
+writing.round.later.mp3,끝까지 잘 썼어! 이 글자는 나중에 한 번 더 써 보자,한국어,따라 쓰기 — 틀린 획이 있었던 글자를 끝까지 썼을 때,public/apps/writing/voice,writing.round.later

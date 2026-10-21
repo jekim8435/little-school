@@ -30,6 +30,22 @@
     "sample.": {
       "emotion": "normal",
       "intensity": 1.0
+    },
+    "writing.praise.": {
+      "emotion": "happy",
+      "intensity": 1.4
+    },
+    "writing.ending.": {
+      "emotion": "happy",
+      "intensity": 1.4
+    },
+    "writing.round.": {
+      "emotion": "happy",
+      "intensity": 1.1
+    },
+    "writing.": {
+      "emotion": "normal",
+      "intensity": 1.0
     }
   }
 }

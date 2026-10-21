@@ -2,67 +2,80 @@
   "writing.hub.name": {
     "text": "또박또박 글씨",
     "tone": "또박또박, 밝게",
-    "where": "허브 — 또박또박 글씨 타일을 눌렀을 때"
+    "where": "허브 — 또박또박 글씨 타일을 눌렀을 때",
+    "producedText": "또박또박 글씨"
   },
   "writing.category.ask": {
     "text": "어떤 글자를 써 볼까?",
     "tone": "다정하게 물어보듯",
-    "where": "카테고리 고르기 화면에 들어올 때"
+    "where": "카테고리 고르기 화면에 들어올 때",
+    "producedText": "어떤 글자를 써 볼까?"
   },
   "writing.category.digit": {
     "text": "숫자",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 숫자를 눌렀을 때"
+    "where": "카테고리 고르기 — 숫자를 눌렀을 때",
+    "producedText": "숫자"
   },
   "writing.category.consonant": {
     "text": "자음",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 자음을 눌렀을 때"
+    "where": "카테고리 고르기 — 자음을 눌렀을 때",
+    "producedText": "자음"
   },
   "writing.category.vowel": {
     "text": "모음",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 모음을 눌렀을 때"
+    "where": "카테고리 고르기 — 모음을 눌렀을 때",
+    "producedText": "모음"
   },
   "writing.category.double-consonant": {
     "text": "쌍자음",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 쌍자음을 눌렀을 때"
+    "where": "카테고리 고르기 — 쌍자음을 눌렀을 때",
+    "producedText": "쌍자음"
   },
   "writing.category.compound-vowel": {
     "text": "합성모음",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 합성모음을 눌렀을 때"
+    "where": "카테고리 고르기 — 합성모음을 눌렀을 때",
+    "producedText": "합성모음"
   },
   "writing.category.lower": {
     "text": "영어 소문자",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 영어 소문자를 눌렀을 때"
+    "where": "카테고리 고르기 — 영어 소문자를 눌렀을 때",
+    "producedText": "영어 소문자"
   },
   "writing.category.upper": {
     "text": "영어 대문자",
     "tone": "또박또박",
-    "where": "카테고리 고르기 — 영어 대문자를 눌렀을 때"
+    "where": "카테고리 고르기 — 영어 대문자를 눌렀을 때",
+    "producedText": "영어 대문자"
   },
   "writing.mode.ask": {
     "text": "따라 쓸까? 혼자 써 볼까?",
     "tone": "다정하게 물어보듯",
-    "where": "쓰기 방법 고르기 화면에 들어올 때"
+    "where": "쓰기 방법 고르기 화면에 들어올 때",
+    "producedText": "따라 쓸까? 혼자 써 볼까?"
   },
   "writing.mode.guided": {
     "text": "따라 쓰기",
     "tone": "또박또박",
-    "where": "쓰기 방법 — 따라 쓰기를 눌렀을 때"
+    "where": "쓰기 방법 — 따라 쓰기를 눌렀을 때",
+    "producedText": "따라 쓰기"
   },
   "writing.mode.free": {
     "text": "혼자 쓰기",
     "tone": "또박또박",
-    "where": "쓰기 방법 — 혼자 쓰기를 눌렀을 때"
+    "where": "쓰기 방법 — 혼자 쓰기를 눌렀을 때",
+    "producedText": "혼자 쓰기"
   },
   "writing.round.later": {
     "text": "끝까지 잘 썼어! 이 글자는 나중에 한 번 더 써 보자",
     "tone": "칭찬하듯 다정하게",
-    "where": "따라 쓰기 — 틀린 획이 있었던 글자를 끝까지 썼을 때"
+    "where": "따라 쓰기 — 틀린 획이 있었던 글자를 끝까지 썼을 때",
+    "producedText": "끝까지 잘 썼어! 이 글자는 나중에 한 번 더 써 보자"
   },
   "writing.char.u0030": {
     "text": "영",
