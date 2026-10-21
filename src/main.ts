@@ -25,6 +25,7 @@ import { startScreen } from './screens/start';
 import { stickerHistoryScreen, stickersScreen } from './screens/stickers';
 import type { Shell } from './shell';
 import { closeDialogs, orientationOverlay } from './ui/components';
+import { installDevInfo } from './ui/devInfo';
 import { PRESS_START_EVENTS } from './ui/input';
 import { setupPwa } from './pwa';
 import voices from './voices.json';
@@ -136,6 +137,8 @@ onViewportChange((now) => {
 router.start({ name: 'start' });
 
 setupPwa();
+// 개발 기간: 아이 화면 새 버전 배너 + 하단 버전 표시 (src/config.ts)
+installDevInfo();
 
 // 부모 모드에서 5분 동안 조작이 없으면 잠그고 아이 화면으로 (명세 8-1)
 const markParentActive = () => {

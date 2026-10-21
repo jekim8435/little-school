@@ -1477,3 +1477,45 @@ textarea {
 .p-alert.is-new {
   background: #e3f0ff;
 }
+
+/* ── 개발 기간 표시 (src/config.ts DEV_PERIOD) ── */
+.dev-version {
+  position: fixed;
+  right: 8px;
+  bottom: 4px;
+  z-index: 90;
+  color: rgba(128, 128, 128, 0.6); /* 밝은 화면·어두운 ‘오늘 끝’ 화면 둘 다에서 옅게 보이게 */
+  font-size: 11px;
+  pointer-events: none;
+}
+.update-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 95;
+  display: flex;
+  align-items: center;
+  padding: 8px 10px 8px 24px;
+  border-radius: 22px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  white-space: nowrap;
+  transform: translateX(-50%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.update-banner > * + * {
+  margin-left: 12px;
+}
+.update-banner .btn {
+  min-height: 52px;
+  font-size: 20px;
+}
+.btn.update-close {
+  min-width: 52px;
+  border-color: transparent;
+  background: transparent;
+  color: #fff;
+  box-shadow: none;
+}
