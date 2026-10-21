@@ -1,6 +1,6 @@
 /**
  * 부모 모드 > 기기 정보 (명세 2-5). 아이패드는 PC 원격 디버깅이 어려워 문제를 확인하는 주된 수단.
- * 부모 모드 틀(잠금·메뉴)은 1단계 8번에서 씌운다. 그전까지는 허브 자리의 임시 버튼으로 들어온다.
+ * 부모 모드 틀(잠금·메뉴)은 1단계 8번에서 씌운다. 그전까지는 허브 오른쪽 위 3초 길게 누르기 → ‘준비 중’ 잠금 자리의 임시 버튼으로 들어온다.
  */
 import type { SfxName } from '../../core/audio';
 import { displayMode } from '../../core/device';
@@ -59,7 +59,7 @@ export function deviceScreen(shell: Shell): Screen {
   const el = h(
     'div',
     { class: 'screen parent scroll' },
-    h('div', { class: 'parent-head row' }, button('◀ 돌아가기', () => shell.router.go({ name: 'hub' })), h('h1', { class: 'parent-title' }, '기기 정보')),
+    h('div', { class: 'parent-head row' }, button('◀ 허브로', () => shell.router.go({ name: 'hub' })), h('h1', { class: 'parent-title' }, '기기 정보')),
     info,
     h('h2', { class: 'parent-sub' }, '소리 시험'),
     h(

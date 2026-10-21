@@ -14,9 +14,9 @@ export function placeholderScreen(route: Route, shell: Shell): Screen {
     h(
       'div',
       { class: 'row' },
-      button('처음으로', () => shell.router.go({ name: 'start' }), { kind: 'primary', big: true }),
-      // 허브(5번)·부모 모드(8번)가 생기기 전까지 기기 정보로 가는 임시 길
-      route.name === 'hub' ? button('기기 정보', () => shell.router.go({ name: 'parent', page: 'device' }), { big: true }) : null,
+      button('허브로', () => shell.router.go({ name: 'hub' }), { kind: 'primary', big: true }),
+      // 부모 모드(8번)가 생기기 전까지 잠금 자리에서 기기 정보로 가는 임시 길
+      route.name === 'parent' && route.page === 'gate' ? button('기기 정보', () => shell.router.go({ name: 'parent', page: 'device' }), { big: true }) : null,
     ),
   );
   return { el };
