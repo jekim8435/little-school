@@ -2,11 +2,11 @@
  * 과목 모듈에 넘기는 ctx 만들기 (명세 4-3).
  * 과목은 localStorage·별 계산·소리 설정을 직접 다루지 않고 이것만 쓴다.
  */
-import type { AppContext, AppEntry, SettingField, SettingValue, StarResult } from '../apps/types';
+import type { AppContext, AppEntry, SettingField, SettingValue } from '../apps/types';
 import { attachInput, type InputHandlers } from '../ui/input';
 import type { AudioService } from './audio';
 import { recordLog } from './log';
-import { grantStar, rewardStatus } from './rewards';
+import { grantStar, rewardStatus, type StarOutcome } from './rewards';
 import type { Store } from './storage';
 
 export interface CtxDeps {
@@ -20,7 +20,7 @@ export interface CtxDeps {
   /** 정답·오답 연출 (화면을 가진 app-host가 맡는다) */
   feedback(kind: 'correct' | 'oops'): void;
   /** 별을 받았을 때 (상단 바 갱신·별 연출) */
-  onStar?(r: StarResult): void;
+  onStar?(r: StarOutcome): void;
   baseUrl: string;
 }
 
@@ -57,7 +57,8 @@ export function createContext(d: CtxDeps): { ctx: AppContext; dispose(): void } 
         const r = grantStar(d.store, id, n);
         if (r.accepted) d.audio.sfx('star');
         if (d.onStar) d.onStar(r);
-        return r;
+        // 과목에는 규약의 필드만 돌려준다
+        return { accepted: r.accepted, stars: r.stars, ratio: r.ratio, stickerGranted: r.stickerGranted, doneToday: r.doneToday };
       },
       status: () => rewardStatus(d.store, id),
     },
