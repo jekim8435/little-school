@@ -9,6 +9,7 @@
 | `docs/little-school-step1-shell.md` | 1단계 껍데기 앱 구현 명세 + 2단계(한글쓰기 앱 이식) 가이드 + 음원 관리(15장) |
 | `docs/little-school-apps.md` | 과목 목록, 과목별 활동·별 기준·설정 |
 | `docs/planning-log.md` | 기획 변경 기록 (날짜순) |
+| `docs/ipad-checklist.md` | 1단계 10번 아이패드 실기기 점검표(명세 13장, PC 확인 항목 표시) |
 | `docs/galaxy-tab-checklist.md` | 갤럭시 탭 실기기 확인 보류 목록. 단계마다 확인할 항목을 덧붙이고, 기기가 준비되면 한 번에 확인·일괄 수정 |
 | `docs/voice/_template/` | 한글쓰기 앱의 Typecast 음원 도구 사본(`voice-make.mjs`, `typecast.json`, `대사목록.csv`) — 음원 도구의 바탕 |
 | `legacy/writing-practice/` | 2단계 이식용 한글쓰기 앱 소스 사본(읽기 전용, git 제외, 2단계 후 삭제). 원본: `D:\@기타\@개인\쓰기App` |
