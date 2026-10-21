@@ -587,6 +587,7 @@ export default app;
     "audio": { "sfxOn": true, "sfxVolume": "normal", "voiceOn": true, "voiceVolume": "normal", "voiceRate": "slow" },
     "parentLock": { "type": "math", "pin": null },
     "penOnly": false,
+    "audioEdited": false,
     "subjects": [
       { "id": "writing", "enabled": true, "order": 0, "starsPerSticker": 3 },
       { "id": "sample", "enabled": false, "order": 1, "starsPerSticker": 3 }
@@ -625,6 +626,7 @@ export default app;
 
 - `settings.dailyMinutes`: 10/15/20/30, `null` = 제한 없음(8-6)
 - `settings.penOnly`: 펜으로만 쓰기(8-6). `device.penSeen`: 이 기기에 펜 입력이 한 번이라도 들어왔는지(항목 표시 조건, 2-5)
+- `settings.audioEdited`: 부모가 공통 설정의 소리를 바꾼 적이 있는지(한글쓰기 앱 설정 이전 때 덮어쓰지 않게, 14-4)
 - `lastBackupAt`: 마지막 백업 날짜(부모 모드 홈 ‘마지막 백업: N일 전’, 11-4)
 - `settings.audio`: 공통 소리 설정(8-6). 과목별 설정에는 소리 항목을 두지 않는다
 - `apps.<id>.settings`: 과목별 설정 페이지(8-5)의 값. 없는 키는 `settingsSchema`의 `default`
@@ -769,7 +771,7 @@ export default app;
 | `src/canvas/` (`stage.ts` 캔버스 2장 구조, `guide.ts`·`guideView.ts` 가이드 그리기) | `src/shared/canvas/` | 공통으로 승격 |
 | `src/ui/input.ts`, `src/ui/compat.ts` | `src/ui/` | 1단계에서 이미 가져옴. 차이가 있으면 최신 쪽으로 합침. 갤럭시 탭 S펜 처리(2-5) 추가 |
 | `src/audio/` (`sfx.ts` 효과음 합성, `speaker.ts` 음성, `lines.ts` 대사, `apply.ts` 설정 반영) | `sfx.ts`·`speaker.ts` → `src/core/audio.ts`(1단계) / `lines.ts` → `src/apps/writing/voices.json` | 과목 코드는 `ctx.audio`만 사용. `apply.ts`의 설정 반영은 공통 설정이 대신함 |
-| `src/data/glyphs/`, `glyphs.ts`, `groups.ts`, `types.ts`, `svgPath.ts` (102자, 7개 그룹) | `src/apps/writing/data/` | 쓰기 전용이므로 과목 안에 둠. `groups.ts`의 그룹이 14-3의 카테고리 |
+| `src/data/glyphs/`, `glyphs.ts`, `groups.ts`, `types.ts`, `svgPath.ts` (102자, 7개 그룹) | `src/apps/writing/data/` | 쓰기 전용이므로 과목 안에 둠. `groups.ts`의 그룹이 14-3의 카테고리(그룹 id는 그대로, 카테고리 id·이름·순서는 `src/apps/writing/categories.ts`). 판정·가이드가 쓰는 Point·Stroke·Glyph 모양은 `src/shared/types.ts` |
 | `src/data/messages.ts` (칭찬·안내 문장) | `src/apps/writing/voices.json` | 문장은 대사 목록으로 옮기고 코드는 대사 ID로 부름. 공통으로 쓸 칭찬은 껍데기 `shell.praise.*`로 |
 | `editor.html`, `preview.html`, `src/dev/` (글자 편집기·미리보기) | `tools/glyph-editor.html`, `tools/glyph-preview.html`, `tools/dev/` | 개발 서버에서만 열리게 하고 배포 빌드에서 제외 |
 | `src/router.ts` + `src/screens/` (`home.ts` → `modeSelect.ts` → `practice.ts` → `ending.ts`) | `src/apps/writing/screens/` + 과목 내부 미니 라우터 | 과목 안에서만 화면 전환(주소 해시는 `#/app/writing` 유지). 기존 ‘홈’은 과목 첫 화면(카테고리 선택)으로, ‘엔딩’은 별 지급 후 `ctx.exit()` |
@@ -779,7 +781,7 @@ export default app;
 | `voice/대사목록.csv`, `voice/typecast.json`, `scripts/voice-make.mjs`, `scripts/voice-lines.ts` | `docs/voice/_template/`에 사본 보관 완료 → 15장 음원 도구의 바탕 | 15-3 참고 |
 | `public/sw-bridge.js`, `src/pwa.ts`, 아이콘, 워크플로 | 꼬마학교 것 사용 | 과목 쪽에서는 삭제 |
 | `vite.config.ts`의 `base: './'`(상대 경로) | 꼬마학교 `vite.config.ts` | 1단계에서 `/little-school/`로 정함(Capacitor 빌드만 `./`). 과목은 리소스 경로를 `ctx.baseUrl`로 계산 |
-| Vitest 테스트 298개 | `tests/shared/judge/`, `tests/apps/writing/` | 경로만 고쳐 모두 이전. 2단계 완료 기준에 “298개 그대로 통과” 포함 |
+| Vitest 테스트 298개(이식 시점 305개) | `tests/shared/judge/`, `tests/apps/writing/` | 판정·글자 데이터·편집기 266개는 경로만 고쳐 그대로 통과. 삭제한 코드(설정 저장소·녹음 재생기·메모리 진행 기록·옛 호환성 검사)의 테스트는 새 구조의 테스트로 대신함 |
 
 ### 14-2. 작업 순서
 
@@ -810,7 +812,11 @@ export default app;
 | 영어 소문자 | `lower` | a ~ z | 26 |
 | 영어 대문자 | `upper` | A ~ Z | 26 |
 
-**클리어 규칙**
+**클리어 규칙** (2026-10-21 부모 결정 반영)
+
+- 회차는 카테고리마다 하나. 따라 쓰기·혼자 쓰기 어느 쪽으로 써도 같은 회차에 반영된다
+- ‘획 순서 오류 없이’ = 한 글자를 끝까지 쓴 한 번의 시도에 틀린 획이 하나도 없음. 따라 쓰기에서 한 획이라도 틀렸으면 그 글자는 회차 끝에 다시 나온다. 혼자 쓰기는 [확인]에서 틀리면 회차 끝에 다시, [다시 쓰기]로 맞히면 클리어
+- 위쪽 글자 띠: 이번 회차 클리어 ✓, 나중에 다시 쓸 글자 표시, 눌러서 아무 글자로 옮겨 갈 수 있다
 
 - 클리어 = 그 카테고리의 모든 글자를 이번 회차에서 한 번씩 **획 순서 오류 없이** 완성
 - 틀린 글자는 회차 끝에 다시 나온다(맞힐 때까지)
@@ -860,18 +866,18 @@ export default app;
 
 ### 14-5. 2단계 완료 기준
 
-- [ ] 기존 테스트 298개 + 꼬마학교 테스트 전체 통과, 호환성 검사 통과
-- [ ] 102자 모두 기존 앱과 같은 판정 결과(같은 입력에 같은 결과 — 판정 테스트로 확인)
+- [x] 기존 테스트(판정·데이터·편집기 266개, 이식 시점 305개 중 삭제 코드 몫은 새 테스트로) + 꼬마학교 테스트 전체 통과(421개), 호환성 검사 통과
+- [x] 102자 모두 기존 앱과 같은 판정 결과(같은 입력에 같은 결과 — 판정 테스트로 확인)
 - [ ] 카테고리 클리어 시 별이 쌓이고, 3개면 스티커로 교환된다. 그 뒤로는 그날 별이 더 나오지 않는다
 - [ ] 부모 모드에 ‘자주 틀린 글자’가 보인다
 - [ ] 기존 앱에서 쓰던 설정·진도가 첫 실행 때 옮겨져 있다(설정 4개는 또박또박 글씨 설정, 효과음·음성은 공통 설정)
 - [ ] 또박또박 글씨 설정 페이지에서 바꾼 4개 항목이 과목을 다시 열면 반영된다
 - [ ] 공통 설정에서 효과음·음성 읽기를 끄면 또박또박 글씨에서도 꺼진다
 - [ ] 아이 화면에 설정 버튼이 남아 있지 않다
-- [ ] 글자 편집기는 개발 서버에서 열리고, 배포판에는 없다
+- [x] 글자 편집기는 개발 서버에서 열리고, 배포판에는 없다
 - [ ] 또박또박 글씨의 모든 화면이 가로에서 스크롤 없이 보이고, 세로 전용 코드가 남아 있지 않다
-- [ ] 기존 Typecast 음원이 모두 `say(id)`로 재생되고, `npm run voice:check` 통과
-- [ ] 이식하면서 새로 생긴 대사(카테고리 클리어, 오늘 스티커 받음 등)를 정리해 `docs/voice/step2-writing/`에 제작 자료를 만들고, 음원을 제작해 넣었다
+- [x] 기존 Typecast 음원이 모두 `say(id)`로 재생되고, `npm run voice:check` 통과
+- [x] 이식하면서 새로 생긴 대사(카테고리 클리어, 오늘 스티커 받음 등)를 정리해 `docs/voice/step2-writing/`에 제작 자료를 만들고, 음원을 제작해 넣었다
 
 ---
 
