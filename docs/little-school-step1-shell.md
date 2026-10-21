@@ -309,6 +309,8 @@ export default app;
                         +--우상단 3초 길게 누르기--> [부모 잠금] --정답--> [부모 모드]
 ```
 
+**주소 목록** (`src/router.ts`): `#/start`, `#/hub`, `#/app/<id>`, `#/stickers`, `#/stickers/history`, `#/done`, `#/parent`(부모 홈), `#/parent/gate`, `#/parent/records`, `#/parent/subjects`, `#/parent/subjects/<id>`, `#/parent/settings`, `#/parent/rewards`(보상 지급), `#/parent/reward-history`, `#/parent/backup`, `#/parent/lock-guide`, `#/parent/device`(기기 정보). 모르는 주소는 시작 화면으로. 부모 잠금 등은 라우터 가드(`setGuard`)로 돌린다
+
 ### 5-1. 시작 화면 (`#/start`)
 
 - 앱 이름 로고 “꼬마학교”, 큰 “시작!” 버튼
@@ -568,12 +570,15 @@ export default app;
 {
   "schemaVersion": 1,
   "createdAt": "2026-10-20",
+  "lastBackupAt": null,
+  "device": { "penSeen": false },
   "settings": {
     "dailyMinutes": 20,
     "graceMinutes": 5,
     "boardSize": 10,
     "audio": { "sfxOn": true, "sfxVolume": "normal", "voiceOn": true, "voiceVolume": "normal", "voiceRate": "slow" },
     "parentLock": { "type": "math", "pin": null },
+    "penOnly": false,
     "subjects": [
       { "id": "writing", "enabled": true, "order": 0, "starsPerSticker": 3 },
       { "id": "sample", "enabled": false, "order": 1, "starsPerSticker": 3 }
@@ -610,6 +615,9 @@ export default app;
 }
 ```
 
+- `settings.dailyMinutes`: 10/15/20/30, `null` = 제한 없음(8-6)
+- `settings.penOnly`: 펜으로만 쓰기(8-6). `device.penSeen`: 이 기기에 펜 입력이 한 번이라도 들어왔는지(항목 표시 조건, 2-5)
+- `lastBackupAt`: 마지막 백업 날짜(부모 모드 홈 ‘마지막 백업: N일 전’, 11-4)
 - `settings.audio`: 공통 소리 설정(8-6). 과목별 설정에는 소리 항목을 두지 않는다
 - `apps.<id>.settings`: 과목별 설정 페이지(8-5)의 값. 없는 키는 `settingsSchema`의 `default`
 - `rewards.stars`: 과목별로 쌓인 교환 전 별. 날짜가 바뀌어도 유지(6-3 ‘모자란 별’)
@@ -623,6 +631,8 @@ export default app;
 - `days`는 최근 90일만 보관
 - 저장은 변경 후 300ms 디바운스로 한 번에
 - `schemaVersion`이 바뀌면 `storage.migrate()`에서 순차 변환
+- 읽을 때 형식에 맞지 않는 값은 기본값으로 바꾼다(`storage.normalize()`). JSON이 깨져 읽을 수 없으면 원본을 `little-school:v1:broken`에 남기고 새로 시작한다
+- 앱이 가려질 때(`visibilitychange`·`pagehide`)는 디바운스를 기다리지 않고 바로 저장
 
 ---
 
