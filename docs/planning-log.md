@@ -4,6 +4,8 @@
 
 ## 2026-10-21
 
+- 갤럭시 탭 S6 Lite 실기기 확인을 보류하고 아이패드 에어1 기준으로 먼저 진행. 갤럭시 탭 대응 코드는 명세대로 넣되, 확인할 항목은 `docs/galaxy-tab-checklist.md`에 단계마다 쌓아 두었다가 기기가 준비되면 한 번에 확인·일괄 수정 — 명세 13장, CLAUDE.md 규칙 1
+
 - 1단계 1~2번 구현 중 정한 것 — 명세 2-2, 11-3, 14-1
   - `base`는 `/little-school/`로 통일(명세 11-3). Capacitor용 빌드(`VITE_NATIVE=1`)만 상대 경로 `./`. 2단계에서 과목도 이 값을 따른다
   - flex/grid `gap`은 CSS에서 전면 금지(명세 2-2 그대로). 한글쓰기 앱의 `no-flexgap` 대체 규칙 방식과 `markFlexGapSupport()`는 가져오지 않았다 → 2단계 이식 때 쓰기 앱 CSS의 `gap`을 자식 `margin`으로 바꿔야 한다
