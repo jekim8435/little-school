@@ -940,7 +940,7 @@ say(id)로 재생                 · 대사 목록(voice-list.md)               
 | `대사목록.csv` | `voice-make.mjs`가 읽는 형식(파일 이름, 읽을 문장, 언어, 쓰이는 곳) — 한글쓰기 앱과 같은 형식 |
 
 - 대상은 `producedText`가 없거나 `text`와 다른 대사, 그리고 `tts: true`가 아닌 대사뿐이다. 이미 만든 음원은 다시 나오지 않는다
-- 제작: `npm run voice:make -- --csv docs/voice/<대상>/대사목록.csv --out <음원 폴더>` (먼저 `--dry-run`으로 확인)
+- 제작: `npm run voice:make -- --csv docs/voice/<대상>/대사목록.csv` (먼저 `--dry-run`으로 확인). 저장 위치는 CSV의 ‘저장 위치’ 칸을 따르고, 만든 대사의 `producedText`는 자동으로 갱신된다. Typecast 설정은 `docs/voice/typecast.json`
 - Typecast API 키는 환경변수 `TYPECAST_API_KEY`로만 넣고 저장소에 넣지 않는다
 
 ### 15-4. 음원 넣기와 확인
