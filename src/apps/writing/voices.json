@@ -1,0 +1,861 @@
+{
+  "writing.hub.name": {
+    "text": "또박또박 글씨",
+    "tone": "또박또박, 밝게",
+    "where": "허브 — 또박또박 글씨 타일을 눌렀을 때"
+  },
+  "writing.category.ask": {
+    "text": "어떤 글자를 써 볼까?",
+    "tone": "다정하게 물어보듯",
+    "where": "카테고리 고르기 화면에 들어올 때"
+  },
+  "writing.category.digit": {
+    "text": "숫자",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 숫자를 눌렀을 때"
+  },
+  "writing.category.consonant": {
+    "text": "자음",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 자음을 눌렀을 때"
+  },
+  "writing.category.vowel": {
+    "text": "모음",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 모음을 눌렀을 때"
+  },
+  "writing.category.double-consonant": {
+    "text": "쌍자음",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 쌍자음을 눌렀을 때"
+  },
+  "writing.category.compound-vowel": {
+    "text": "합성모음",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 합성모음을 눌렀을 때"
+  },
+  "writing.category.lower": {
+    "text": "영어 소문자",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 영어 소문자를 눌렀을 때"
+  },
+  "writing.category.upper": {
+    "text": "영어 대문자",
+    "tone": "또박또박",
+    "where": "카테고리 고르기 — 영어 대문자를 눌렀을 때"
+  },
+  "writing.mode.ask": {
+    "text": "따라 쓸까? 혼자 써 볼까?",
+    "tone": "다정하게 물어보듯",
+    "where": "쓰기 방법 고르기 화면에 들어올 때"
+  },
+  "writing.mode.guided": {
+    "text": "따라 쓰기",
+    "tone": "또박또박",
+    "where": "쓰기 방법 — 따라 쓰기를 눌렀을 때"
+  },
+  "writing.mode.free": {
+    "text": "혼자 쓰기",
+    "tone": "또박또박",
+    "where": "쓰기 방법 — 혼자 쓰기를 눌렀을 때"
+  },
+  "writing.round.later": {
+    "text": "끝까지 잘 썼어! 이 글자는 나중에 한 번 더 써 보자",
+    "tone": "칭찬하듯 다정하게",
+    "where": "따라 쓰기 — 틀린 획이 있었던 글자를 끝까지 썼을 때"
+  },
+  "writing.char.u0030": {
+    "text": "영",
+    "where": "글자 0",
+    "file": "digit-0.mp3",
+    "producedText": "영"
+  },
+  "writing.char.u0030-native": {
+    "text": "영",
+    "where": "글자 0 (하나, 둘로 읽기)",
+    "file": "digit-0.mp3",
+    "producedText": "영"
+  },
+  "writing.char.u0031": {
+    "text": "일",
+    "where": "글자 1",
+    "file": "digit-1.mp3",
+    "producedText": "일"
+  },
+  "writing.char.u0031-native": {
+    "text": "하나",
+    "where": "글자 1 (하나, 둘로 읽기)",
+    "file": "digit-native-1.mp3",
+    "producedText": "하나"
+  },
+  "writing.char.u0032": {
+    "text": "이",
+    "where": "글자 2",
+    "file": "digit-2.mp3",
+    "producedText": "이"
+  },
+  "writing.char.u0032-native": {
+    "text": "둘",
+    "where": "글자 2 (하나, 둘로 읽기)",
+    "file": "digit-native-2.mp3",
+    "producedText": "둘"
+  },
+  "writing.char.u0033": {
+    "text": "삼",
+    "where": "글자 3",
+    "file": "digit-3.mp3",
+    "producedText": "삼"
+  },
+  "writing.char.u0033-native": {
+    "text": "셋",
+    "where": "글자 3 (하나, 둘로 읽기)",
+    "file": "digit-native-3.mp3",
+    "producedText": "셋"
+  },
+  "writing.char.u0034": {
+    "text": "사",
+    "where": "글자 4",
+    "file": "digit-4.mp3",
+    "producedText": "사"
+  },
+  "writing.char.u0034-native": {
+    "text": "넷",
+    "where": "글자 4 (하나, 둘로 읽기)",
+    "file": "digit-native-4.mp3",
+    "producedText": "넷"
+  },
+  "writing.char.u0035": {
+    "text": "오",
+    "where": "글자 5",
+    "file": "digit-5.mp3",
+    "producedText": "오"
+  },
+  "writing.char.u0035-native": {
+    "text": "다섯",
+    "where": "글자 5 (하나, 둘로 읽기)",
+    "file": "digit-native-5.mp3",
+    "producedText": "다섯"
+  },
+  "writing.char.u0036": {
+    "text": "육",
+    "where": "글자 6",
+    "file": "digit-6.mp3",
+    "producedText": "육"
+  },
+  "writing.char.u0036-native": {
+    "text": "여섯",
+    "where": "글자 6 (하나, 둘로 읽기)",
+    "file": "digit-native-6.mp3",
+    "producedText": "여섯"
+  },
+  "writing.char.u0037": {
+    "text": "칠",
+    "where": "글자 7",
+    "file": "digit-7.mp3",
+    "producedText": "칠"
+  },
+  "writing.char.u0037-native": {
+    "text": "일곱",
+    "where": "글자 7 (하나, 둘로 읽기)",
+    "file": "digit-native-7.mp3",
+    "producedText": "일곱"
+  },
+  "writing.char.u0038": {
+    "text": "팔",
+    "where": "글자 8",
+    "file": "digit-8.mp3",
+    "producedText": "팔"
+  },
+  "writing.char.u0038-native": {
+    "text": "여덟",
+    "where": "글자 8 (하나, 둘로 읽기)",
+    "file": "digit-native-8.mp3",
+    "producedText": "여덟"
+  },
+  "writing.char.u0039": {
+    "text": "구",
+    "where": "글자 9",
+    "file": "digit-9.mp3",
+    "producedText": "구"
+  },
+  "writing.char.u0039-native": {
+    "text": "아홉",
+    "where": "글자 9 (하나, 둘로 읽기)",
+    "file": "digit-native-9.mp3",
+    "producedText": "아홉"
+  },
+  "writing.char.u3131": {
+    "text": "기역",
+    "where": "글자 기역",
+    "file": "consonant-01.mp3",
+    "producedText": "기역"
+  },
+  "writing.char.u3134": {
+    "text": "니은",
+    "where": "글자 니은",
+    "file": "consonant-02.mp3",
+    "producedText": "니은"
+  },
+  "writing.char.u3137": {
+    "text": "디귿",
+    "where": "글자 디귿",
+    "file": "consonant-03.mp3",
+    "producedText": "디귿"
+  },
+  "writing.char.u3139": {
+    "text": "리을",
+    "where": "글자 리을",
+    "file": "consonant-04.mp3",
+    "producedText": "리을"
+  },
+  "writing.char.u3141": {
+    "text": "미음",
+    "where": "글자 미음",
+    "file": "consonant-05.mp3",
+    "producedText": "미음"
+  },
+  "writing.char.u3142": {
+    "text": "비읍",
+    "where": "글자 비읍",
+    "file": "consonant-06.mp3",
+    "producedText": "비읍"
+  },
+  "writing.char.u3145": {
+    "text": "시옷",
+    "where": "글자 시옷",
+    "file": "consonant-07.mp3",
+    "producedText": "시옷"
+  },
+  "writing.char.u3147": {
+    "text": "이응",
+    "where": "글자 이응",
+    "file": "consonant-08.mp3",
+    "producedText": "이응"
+  },
+  "writing.char.u3148": {
+    "text": "지읒",
+    "where": "글자 지읒",
+    "file": "consonant-09.mp3",
+    "producedText": "지읒"
+  },
+  "writing.char.u314a": {
+    "text": "치읓",
+    "where": "글자 치읓",
+    "file": "consonant-10.mp3",
+    "producedText": "치읓"
+  },
+  "writing.char.u314b": {
+    "text": "키읔",
+    "where": "글자 키읔",
+    "file": "consonant-11.mp3",
+    "producedText": "키읔"
+  },
+  "writing.char.u314c": {
+    "text": "티읕",
+    "where": "글자 티읕",
+    "file": "consonant-12.mp3",
+    "producedText": "티읕"
+  },
+  "writing.char.u314d": {
+    "text": "피읖",
+    "where": "글자 피읖",
+    "file": "consonant-13.mp3",
+    "producedText": "피읖"
+  },
+  "writing.char.u314e": {
+    "text": "히읗",
+    "where": "글자 히읗",
+    "file": "consonant-14.mp3",
+    "producedText": "히읗"
+  },
+  "writing.char.u314f": {
+    "text": "아",
+    "where": "글자 아",
+    "file": "vowel-01.mp3",
+    "producedText": "아"
+  },
+  "writing.char.u3151": {
+    "text": "야",
+    "where": "글자 야",
+    "file": "vowel-02.mp3",
+    "producedText": "야"
+  },
+  "writing.char.u3153": {
+    "text": "어",
+    "where": "글자 어",
+    "file": "vowel-03.mp3",
+    "producedText": "어"
+  },
+  "writing.char.u3155": {
+    "text": "여",
+    "where": "글자 여",
+    "file": "vowel-04.mp3",
+    "producedText": "여"
+  },
+  "writing.char.u3157": {
+    "text": "오",
+    "where": "글자 오",
+    "file": "digit-5.mp3",
+    "producedText": "오"
+  },
+  "writing.char.u315b": {
+    "text": "요",
+    "where": "글자 요",
+    "file": "vowel-06.mp3",
+    "producedText": "요"
+  },
+  "writing.char.u315c": {
+    "text": "우",
+    "where": "글자 우",
+    "file": "vowel-07.mp3",
+    "producedText": "우"
+  },
+  "writing.char.u3160": {
+    "text": "유",
+    "where": "글자 유",
+    "file": "vowel-08.mp3",
+    "producedText": "유"
+  },
+  "writing.char.u3161": {
+    "text": "으",
+    "where": "글자 으",
+    "file": "vowel-09.mp3",
+    "producedText": "으"
+  },
+  "writing.char.u3163": {
+    "text": "이",
+    "where": "글자 이",
+    "file": "digit-2.mp3",
+    "producedText": "이"
+  },
+  "writing.char.u3132": {
+    "text": "쌍기역",
+    "where": "글자 쌍기역",
+    "file": "double-01.mp3",
+    "producedText": "쌍기역"
+  },
+  "writing.char.u3138": {
+    "text": "쌍디귿",
+    "where": "글자 쌍디귿",
+    "file": "double-02.mp3",
+    "producedText": "쌍디귿"
+  },
+  "writing.char.u3143": {
+    "text": "쌍비읍",
+    "where": "글자 쌍비읍",
+    "file": "double-03.mp3",
+    "producedText": "쌍비읍"
+  },
+  "writing.char.u3146": {
+    "text": "쌍시옷",
+    "where": "글자 쌍시옷",
+    "file": "double-04.mp3",
+    "producedText": "쌍시옷"
+  },
+  "writing.char.u3149": {
+    "text": "쌍지읒",
+    "where": "글자 쌍지읒",
+    "file": "double-05.mp3",
+    "producedText": "쌍지읒"
+  },
+  "writing.char.u3150": {
+    "text": "애",
+    "where": "글자 애",
+    "file": "complex-01.mp3",
+    "producedText": "애"
+  },
+  "writing.char.u3152": {
+    "text": "얘",
+    "where": "글자 얘",
+    "file": "complex-02.mp3",
+    "producedText": "얘"
+  },
+  "writing.char.u3154": {
+    "text": "에",
+    "where": "글자 에",
+    "file": "complex-03.mp3",
+    "producedText": "에"
+  },
+  "writing.char.u3156": {
+    "text": "예",
+    "where": "글자 예",
+    "file": "complex-04.mp3",
+    "producedText": "예"
+  },
+  "writing.char.u3158": {
+    "text": "와",
+    "where": "글자 와",
+    "file": "complex-05.mp3",
+    "producedText": "와"
+  },
+  "writing.char.u3159": {
+    "text": "왜",
+    "where": "글자 왜",
+    "file": "complex-06.mp3",
+    "producedText": "왜"
+  },
+  "writing.char.u315a": {
+    "text": "외",
+    "where": "글자 외",
+    "file": "complex-07.mp3",
+    "producedText": "외"
+  },
+  "writing.char.u315d": {
+    "text": "워",
+    "where": "글자 워",
+    "file": "complex-08.mp3",
+    "producedText": "워"
+  },
+  "writing.char.u315e": {
+    "text": "웨",
+    "where": "글자 웨",
+    "file": "complex-09.mp3",
+    "producedText": "웨"
+  },
+  "writing.char.u315f": {
+    "text": "위",
+    "where": "글자 위",
+    "file": "complex-10.mp3",
+    "producedText": "위"
+  },
+  "writing.char.u3162": {
+    "text": "의",
+    "where": "글자 의",
+    "file": "complex-11.mp3",
+    "producedText": "의"
+  },
+  "writing.char.u0061": {
+    "text": "A",
+    "where": "글자 a",
+    "lang": "en-US",
+    "file": "letter-a.mp3",
+    "producedText": "A"
+  },
+  "writing.char.u0062": {
+    "text": "B",
+    "where": "글자 b",
+    "lang": "en-US",
+    "file": "letter-b.mp3",
+    "producedText": "B"
+  },
+  "writing.char.u0063": {
+    "text": "C",
+    "where": "글자 c",
+    "lang": "en-US",
+    "file": "letter-c.mp3",
+    "producedText": "C"
+  },
+  "writing.char.u0064": {
+    "text": "D",
+    "where": "글자 d",
+    "lang": "en-US",
+    "file": "letter-d.mp3",
+    "producedText": "D"
+  },
+  "writing.char.u0065": {
+    "text": "E",
+    "where": "글자 e",
+    "lang": "en-US",
+    "file": "letter-e.mp3",
+    "producedText": "E"
+  },
+  "writing.char.u0066": {
+    "text": "F",
+    "where": "글자 f",
+    "lang": "en-US",
+    "file": "letter-f.mp3",
+    "producedText": "F"
+  },
+  "writing.char.u0067": {
+    "text": "G",
+    "where": "글자 g",
+    "lang": "en-US",
+    "file": "letter-g.mp3",
+    "producedText": "G"
+  },
+  "writing.char.u0068": {
+    "text": "H",
+    "where": "글자 h",
+    "lang": "en-US",
+    "file": "letter-h.mp3",
+    "producedText": "H"
+  },
+  "writing.char.u0069": {
+    "text": "I",
+    "where": "글자 i",
+    "lang": "en-US",
+    "file": "letter-i.mp3",
+    "producedText": "I"
+  },
+  "writing.char.u006a": {
+    "text": "J",
+    "where": "글자 j",
+    "lang": "en-US",
+    "file": "letter-j.mp3",
+    "producedText": "J"
+  },
+  "writing.char.u006b": {
+    "text": "K",
+    "where": "글자 k",
+    "lang": "en-US",
+    "file": "letter-k.mp3",
+    "producedText": "K"
+  },
+  "writing.char.u006c": {
+    "text": "L",
+    "where": "글자 l",
+    "lang": "en-US",
+    "file": "letter-l.mp3",
+    "producedText": "L"
+  },
+  "writing.char.u006d": {
+    "text": "M",
+    "where": "글자 m",
+    "lang": "en-US",
+    "file": "letter-m.mp3",
+    "producedText": "M"
+  },
+  "writing.char.u006e": {
+    "text": "N",
+    "where": "글자 n",
+    "lang": "en-US",
+    "file": "letter-n.mp3",
+    "producedText": "N"
+  },
+  "writing.char.u006f": {
+    "text": "O",
+    "where": "글자 o",
+    "lang": "en-US",
+    "file": "letter-o.mp3",
+    "producedText": "O"
+  },
+  "writing.char.u0070": {
+    "text": "P",
+    "where": "글자 p",
+    "lang": "en-US",
+    "file": "letter-p.mp3",
+    "producedText": "P"
+  },
+  "writing.char.u0071": {
+    "text": "Q",
+    "where": "글자 q",
+    "lang": "en-US",
+    "file": "letter-q.mp3",
+    "producedText": "Q"
+  },
+  "writing.char.u0072": {
+    "text": "R",
+    "where": "글자 r",
+    "lang": "en-US",
+    "file": "letter-r.mp3",
+    "producedText": "R"
+  },
+  "writing.char.u0073": {
+    "text": "S",
+    "where": "글자 s",
+    "lang": "en-US",
+    "file": "letter-s.mp3",
+    "producedText": "S"
+  },
+  "writing.char.u0074": {
+    "text": "T",
+    "where": "글자 t",
+    "lang": "en-US",
+    "file": "letter-t.mp3",
+    "producedText": "T"
+  },
+  "writing.char.u0075": {
+    "text": "U",
+    "where": "글자 u",
+    "lang": "en-US",
+    "file": "letter-u.mp3",
+    "producedText": "U"
+  },
+  "writing.char.u0076": {
+    "text": "V",
+    "where": "글자 v",
+    "lang": "en-US",
+    "file": "letter-v.mp3",
+    "producedText": "V"
+  },
+  "writing.char.u0077": {
+    "text": "W",
+    "where": "글자 w",
+    "lang": "en-US",
+    "file": "letter-w.mp3",
+    "producedText": "W"
+  },
+  "writing.char.u0078": {
+    "text": "X",
+    "where": "글자 x",
+    "lang": "en-US",
+    "file": "letter-x.mp3",
+    "producedText": "X"
+  },
+  "writing.char.u0079": {
+    "text": "Y",
+    "where": "글자 y",
+    "lang": "en-US",
+    "file": "letter-y.mp3",
+    "producedText": "Y"
+  },
+  "writing.char.u007a": {
+    "text": "Z",
+    "where": "글자 z",
+    "lang": "en-US",
+    "file": "letter-z.mp3",
+    "producedText": "Z"
+  },
+  "writing.char.u0041": {
+    "text": "A",
+    "where": "글자 A",
+    "lang": "en-US",
+    "file": "letter-a.mp3",
+    "producedText": "A"
+  },
+  "writing.char.u0042": {
+    "text": "B",
+    "where": "글자 B",
+    "lang": "en-US",
+    "file": "letter-b.mp3",
+    "producedText": "B"
+  },
+  "writing.char.u0043": {
+    "text": "C",
+    "where": "글자 C",
+    "lang": "en-US",
+    "file": "letter-c.mp3",
+    "producedText": "C"
+  },
+  "writing.char.u0044": {
+    "text": "D",
+    "where": "글자 D",
+    "lang": "en-US",
+    "file": "letter-d.mp3",
+    "producedText": "D"
+  },
+  "writing.char.u0045": {
+    "text": "E",
+    "where": "글자 E",
+    "lang": "en-US",
+    "file": "letter-e.mp3",
+    "producedText": "E"
+  },
+  "writing.char.u0046": {
+    "text": "F",
+    "where": "글자 F",
+    "lang": "en-US",
+    "file": "letter-f.mp3",
+    "producedText": "F"
+  },
+  "writing.char.u0047": {
+    "text": "G",
+    "where": "글자 G",
+    "lang": "en-US",
+    "file": "letter-g.mp3",
+    "producedText": "G"
+  },
+  "writing.char.u0048": {
+    "text": "H",
+    "where": "글자 H",
+    "lang": "en-US",
+    "file": "letter-h.mp3",
+    "producedText": "H"
+  },
+  "writing.char.u0049": {
+    "text": "I",
+    "where": "글자 I",
+    "lang": "en-US",
+    "file": "letter-i.mp3",
+    "producedText": "I"
+  },
+  "writing.char.u004a": {
+    "text": "J",
+    "where": "글자 J",
+    "lang": "en-US",
+    "file": "letter-j.mp3",
+    "producedText": "J"
+  },
+  "writing.char.u004b": {
+    "text": "K",
+    "where": "글자 K",
+    "lang": "en-US",
+    "file": "letter-k.mp3",
+    "producedText": "K"
+  },
+  "writing.char.u004c": {
+    "text": "L",
+    "where": "글자 L",
+    "lang": "en-US",
+    "file": "letter-l.mp3",
+    "producedText": "L"
+  },
+  "writing.char.u004d": {
+    "text": "M",
+    "where": "글자 M",
+    "lang": "en-US",
+    "file": "letter-m.mp3",
+    "producedText": "M"
+  },
+  "writing.char.u004e": {
+    "text": "N",
+    "where": "글자 N",
+    "lang": "en-US",
+    "file": "letter-n.mp3",
+    "producedText": "N"
+  },
+  "writing.char.u004f": {
+    "text": "O",
+    "where": "글자 O",
+    "lang": "en-US",
+    "file": "letter-o.mp3",
+    "producedText": "O"
+  },
+  "writing.char.u0050": {
+    "text": "P",
+    "where": "글자 P",
+    "lang": "en-US",
+    "file": "letter-p.mp3",
+    "producedText": "P"
+  },
+  "writing.char.u0051": {
+    "text": "Q",
+    "where": "글자 Q",
+    "lang": "en-US",
+    "file": "letter-q.mp3",
+    "producedText": "Q"
+  },
+  "writing.char.u0052": {
+    "text": "R",
+    "where": "글자 R",
+    "lang": "en-US",
+    "file": "letter-r.mp3",
+    "producedText": "R"
+  },
+  "writing.char.u0053": {
+    "text": "S",
+    "where": "글자 S",
+    "lang": "en-US",
+    "file": "letter-s.mp3",
+    "producedText": "S"
+  },
+  "writing.char.u0054": {
+    "text": "T",
+    "where": "글자 T",
+    "lang": "en-US",
+    "file": "letter-t.mp3",
+    "producedText": "T"
+  },
+  "writing.char.u0055": {
+    "text": "U",
+    "where": "글자 U",
+    "lang": "en-US",
+    "file": "letter-u.mp3",
+    "producedText": "U"
+  },
+  "writing.char.u0056": {
+    "text": "V",
+    "where": "글자 V",
+    "lang": "en-US",
+    "file": "letter-v.mp3",
+    "producedText": "V"
+  },
+  "writing.char.u0057": {
+    "text": "W",
+    "where": "글자 W",
+    "lang": "en-US",
+    "file": "letter-w.mp3",
+    "producedText": "W"
+  },
+  "writing.char.u0058": {
+    "text": "X",
+    "where": "글자 X",
+    "lang": "en-US",
+    "file": "letter-x.mp3",
+    "producedText": "X"
+  },
+  "writing.char.u0059": {
+    "text": "Y",
+    "where": "글자 Y",
+    "lang": "en-US",
+    "file": "letter-y.mp3",
+    "producedText": "Y"
+  },
+  "writing.char.u005a": {
+    "text": "Z",
+    "where": "글자 Z",
+    "lang": "en-US",
+    "file": "letter-z.mp3",
+    "producedText": "Z"
+  },
+  "writing.praise.1": {
+    "text": "우와~ 정말 잘한다~!",
+    "where": "글자를 다 썼을 때 칭찬",
+    "file": "praise-1.mp3",
+    "producedText": "우와~ 정말 잘한다~!",
+    "tone": "신나게, 또래가 칭찬하듯"
+  },
+  "writing.praise.2": {
+    "text": "대박! 완전 멋지다!",
+    "where": "글자를 다 썼을 때 칭찬",
+    "file": "praise-2.mp3",
+    "producedText": "대박! 완전 멋지다!",
+    "tone": "신나게, 또래가 칭찬하듯"
+  },
+  "writing.praise.3": {
+    "text": "오~ 진짜 잘 썼다!",
+    "where": "글자를 다 썼을 때 칭찬",
+    "file": "praise-3.mp3",
+    "producedText": "오~ 진짜 잘 썼다!",
+    "tone": "신나게, 또래가 칭찬하듯"
+  },
+  "writing.praise.4": {
+    "text": "최고야 최고! 짱이다!",
+    "where": "글자를 다 썼을 때 칭찬",
+    "file": "praise-4.mp3",
+    "producedText": "최고야 최고! 짱이다!",
+    "tone": "신나게, 또래가 칭찬하듯"
+  },
+  "writing.praise.5": {
+    "text": "와아~ 글씨 천재다!",
+    "where": "글자를 다 썼을 때 칭찬",
+    "file": "praise-5.mp3",
+    "producedText": "와아~ 글씨 천재다!",
+    "tone": "신나게, 또래가 칭찬하듯"
+  },
+  "writing.retry.1": {
+    "text": "괜찮아~ 다시 해 보자!",
+    "where": "따라 쓰기 — 획이 틀렸을 때",
+    "file": "retry-1.mp3",
+    "producedText": "괜찮아~ 다시 해 보자!",
+    "tone": "다정하게"
+  },
+  "writing.retry.2": {
+    "text": "아깝다! 한 번만 더!",
+    "where": "따라 쓰기 — 획이 틀렸을 때",
+    "file": "retry-2.mp3",
+    "producedText": "아깝다! 한 번만 더!",
+    "tone": "다정하게"
+  },
+  "writing.retry.3": {
+    "text": "천천히 다시 써 볼까?",
+    "where": "따라 쓰기 — 획이 틀렸을 때",
+    "file": "retry-3.mp3",
+    "producedText": "천천히 다시 써 볼까?",
+    "tone": "다정하게"
+  },
+  "writing.free.fail": {
+    "text": "아깝다~! 바른 순서 같이 볼까?",
+    "where": "혼자 쓰기 — 틀렸을 때",
+    "file": "free-fail.mp3",
+    "producedText": "아깝다~! 바른 순서 같이 볼까?",
+    "tone": "다정하게"
+  },
+  "writing.ending.all": {
+    "text": "우와~ 다 했다! 진짜 대단하다!",
+    "where": "카테고리 하나를 모두 클리어했을 때",
+    "file": "ending-all.mp3",
+    "producedText": "우와~ 다 했다! 진짜 대단하다!",
+    "tone": "아주 신나게"
+  }
+}

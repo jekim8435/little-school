@@ -1,6 +1,9 @@
 import type { Point } from '../types';
 import { observeResize } from '../../ui/compat';
-import { attachInput, type InputPoint } from '../../ui/input';
+import { attachInput, type InputHandlers, type InputPoint } from '../../ui/input';
+
+/** 입력 등록 함수 (과목에서는 ctx.input.attach를 넘긴다 — 손바닥 무시·펜으로만 쓰기 적용) */
+export type AttachFn = (el: HTMLElement, h: InputHandlers, opts?: { canvas?: boolean }) => () => void;
 
 /** 펜 굵기: 캔버스 한 변의 4% */
 export const PEN_WIDTH_RATIO = 0.04;
@@ -44,7 +47,7 @@ export class WritingStage {
   /** 그리기 입력을 받을지 여부 */
   enabled = true;
 
-  constructor() {
+  constructor(attach: AttachFn = attachInput) {
     this.el = document.createElement('div');
     this.el.className = 'stage';
     this.guideCanvas = document.createElement('canvas');
@@ -56,12 +59,12 @@ export class WritingStage {
     this.inkCtx = this.inkCanvas.getContext('2d')!;
 
     const ink = this.inkCanvas;
-    this.detachInput = attachInput(ink, {
+    this.detachInput = attach(ink, {
       down: this.onDown,
       move: this.onMove,
       up: this.onUp,
       cancel: this.onCancel,
-    });
+    }, { canvas: true });
     ink.addEventListener('contextmenu', (e) => e.preventDefault());
 
     this.stopObserving = observeResize(this.el, () => this.resize());

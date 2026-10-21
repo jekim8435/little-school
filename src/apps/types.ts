@@ -108,8 +108,11 @@ export interface AppContext {
     readonly sfxOn: boolean;
   };
   input: {
-    /** Touch/Pointer 차이를 감춘 입력 등록. 돌려받은 함수로 해제 */
-    attach(el: HTMLElement, handlers: InputHandlers): () => void;
+    /**
+     * Touch/Pointer 차이를 감춘 입력 등록. 돌려받은 함수로 해제.
+     * 쓰기 캔버스면 { canvas: true } — 손바닥 무시·‘펜으로만 쓰기’를 껍데기가 처리한다 (명세 2-5)
+     */
+    attach(el: HTMLElement, handlers: InputHandlers, opts?: { canvas?: boolean }): () => void;
   };
   ui: {
     /** 공통 정답·오답 연출 (오답은 흔들림만, 벌점 없음) */

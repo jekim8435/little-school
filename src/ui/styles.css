@@ -1519,3 +1519,35 @@ textarea {
   color: #fff;
   box-shadow: none;
 }
+
+/* ── 쓰기 캔버스 (src/shared/canvas, 여러 과목·글자 편집기가 함께 씀) ── */
+.stage {
+  position: relative;
+  border-radius: 20px;
+  background: #fff;
+  box-shadow: 0 0 0 3px #eadfd0;
+  touch-action: none;
+}
+.stage-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: inherit;
+}
+.stage-ink {
+  touch-action: none;
+  cursor: crosshair;
+}
+/* 오답 검토: 정답 가이드를 아이가 쓴 획 위에 반투명하게 겹친다 */
+.stage.is-review .stage-layer:first-child {
+  z-index: 1;
+  opacity: 0.55;
+  pointer-events: none;
+}
+.stage.is-review .stage-ink {
+  cursor: default;
+}

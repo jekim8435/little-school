@@ -24,15 +24,52 @@ export const hasPointerEvents = typeof window !== 'undefined' && 'PointerEvent' 
 /** 마우스는 손가락과 겹치지 않는 번호를 쓴다 */
 const MOUSE_ID = -1;
 
-export function attachInput(el: HTMLElement, h: InputHandlers): () => void {
-  return hasPointerEvents ? attachPointer(el, h) : attachTouchAndMouse(el, h);
+export interface AttachOptions {
+  /**
+   * 쓰기 캔버스 (명세 2-5 ‘펜 입력’): 펜으로 쓰는 동안과 펜을 뗀 뒤 PALM_MS 안에는
+   * 손가락(touch) 입력을 무시한다(손바닥이 닿아도 선이 생기지 않게)
+   */
+  canvas?: boolean;
+  /** ‘펜으로만 쓰기’: 캔버스에서 펜 입력만 받는다 */
+  penOnly?: boolean;
 }
 
-function attachPointer(el: HTMLElement, h: InputHandlers): () => void {
+/** 펜을 쓴 뒤 이 시간 안에는 손가락으로 획을 시작하지 않는다 (명세 2-5) */
+export const PALM_MS = 2000;
+
+/** 기기 전체에서 펜이 눌려 있는지, 마지막으로 펜을 쓴 시각 (손바닥 무시용) */
+const pen = { down: 0, lastAt: -Infinity };
+
+/** 캔버스에서 이 포인터 입력을 받을지 (S펜 호버는 pointerdown이 없어 애초에 획이 되지 않는다) */
+export function acceptPointer(type: string, opts: AttachOptions, now: number, penState = pen): boolean {
+  if (!opts.canvas) return true;
+  if (type === 'pen') return true;
+  if (opts.penOnly) return false;
+  if (type === 'touch' && (penState.down > 0 || now - penState.lastAt < PALM_MS)) return false;
+  return true;
+}
+
+export function attachInput(el: HTMLElement, h: InputHandlers, opts: AttachOptions = {}): () => void {
+  return hasPointerEvents ? attachPointer(el, h, opts) : attachTouchAndMouse(el, h);
+}
+
+function attachPointer(el: HTMLElement, h: InputHandlers, opts: AttachOptions): () => void {
   const active = new Set<number>();
+  const pens = new Set<number>();
+  const penUp = (id: number) => {
+    if (!pens.delete(id)) return;
+    pen.down = Math.max(0, pen.down - 1);
+    pen.lastAt = Date.now();
+  };
   const down = (e: PointerEvent) => {
     if (e.pointerType === 'mouse' && e.button !== 0) return;
     e.preventDefault();
+    if (!acceptPointer(e.pointerType, opts, Date.now())) return;
+    if (e.pointerType === 'pen') {
+      pens.add(e.pointerId);
+      pen.down += 1;
+      pen.lastAt = Date.now();
+    }
     if (!h.down(e.pointerId, pt(e))) return;
     active.add(e.pointerId);
     try {
@@ -47,10 +84,12 @@ function attachPointer(el: HTMLElement, h: InputHandlers): () => void {
     h.move(e.pointerId, (coalesced.length ? coalesced : [e]).map(pt));
   };
   const up = (e: PointerEvent) => {
+    penUp(e.pointerId);
     if (!active.delete(e.pointerId)) return;
     h.up(e.pointerId, pt(e));
   };
   const cancel = (e: PointerEvent) => {
+    penUp(e.pointerId);
     if (!active.delete(e.pointerId)) return;
     h.cancel(e.pointerId);
   };
@@ -63,6 +102,7 @@ function attachPointer(el: HTMLElement, h: InputHandlers): () => void {
     el.removeEventListener('pointermove', move);
     el.removeEventListener('pointerup', up);
     el.removeEventListener('pointercancel', cancel);
+    for (const id of Array.from(pens)) penUp(id);
   };
 }
 

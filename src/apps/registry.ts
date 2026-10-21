@@ -5,10 +5,13 @@
 import type { AppEntry } from './types';
 import sampleIcon from './sample/icon.svg';
 import sampleVoices from './sample/voices.json';
+import writingIcon from './writing/icon.svg';
+import writingVoices from './writing/voices.json';
 
 export const apps: AppEntry[] = [
+  { id: 'writing', name: '또박또박 글씨', icon: writingIcon, color: '#A8E6A3', voices: writingVoices, load: () => import('./writing/index') },
+  // 규약 검증용. 2단계부터 처음에는 꺼 둔다 (부모 모드 > 과목 관리에서 켤 수 있음)
   { id: 'sample', name: '샘플', icon: sampleIcon, color: '#FFD54F', voices: sampleVoices, load: () => import('./sample/index') },
-  // 2단계: { id: 'writing', name: '또박또박 글씨', ..., load: () => import('./writing/index') },
 ];
 
 export function findApp(id: string): AppEntry | undefined {

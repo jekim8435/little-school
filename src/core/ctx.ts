@@ -3,7 +3,7 @@
  * 과목은 localStorage·별 계산·소리 설정을 직접 다루지 않고 이것만 쓴다.
  */
 import type { AppContext, AppEntry, SettingField, SettingValue } from '../apps/types';
-import { attachInput, type InputHandlers } from '../ui/input';
+import { attachInput, type AttachOptions, type InputHandlers } from '../ui/input';
 import type { AudioService } from './audio';
 import { recordLog } from './log';
 import { grantStar, rewardStatus, type StarOutcome } from './rewards';
@@ -93,8 +93,10 @@ export function createContext(d: CtxDeps): { ctx: AppContext; dispose(): void } 
       },
     },
     input: {
-      attach(el: HTMLElement, handlers: InputHandlers) {
-        const off = attachInput(el, handlers);
+      attach(el: HTMLElement, handlers: InputHandlers, opts: AttachOptions = {}) {
+        // 쓰기 캔버스에는 공통 설정 ‘펜으로만 쓰기’를 껍데기가 적용한다 (과목은 신경 쓰지 않음)
+        const penOnly = !!opts.canvas && d.store.data.settings.penOnly;
+        const off = attachInput(el, handlers, { canvas: opts.canvas, penOnly });
         let done = false;
         const detach = () => {
           if (done) return;

@@ -39,7 +39,17 @@ if (store.data.apps._check) {
   store.changed();
 }
 // registry에 새로 생긴 과목을 과목 설정에 붙인다 (명세 4-1)
+const hadWriting = store.data.settings.subjects.some((s) => s.id === 'writing');
 if (syncSubjects(store.data.settings.subjects, apps.map((a) => a.id))) store.changed();
+// 또박또박 글씨가 처음 들어올 때 한 번: 맨 앞에 두고 샘플 과목은 숨긴다 (명세 14-2 10번)
+if (!hadWriting) {
+  for (const s of store.data.settings.subjects) {
+    if (s.id === 'writing') s.order = -1;
+    if (s.id === 'sample') s.enabled = false;
+  }
+  store.data.settings.subjects.sort((a, b) => a.order - b.order).forEach((s, i) => (s.order = i));
+  store.changed();
+}
 // 앱이 가려지거나 닫힐 때는 기다리지 않고 저장한다 (iOS는 pagehide, 그 밖은 visibilitychange)
 document.addEventListener('visibilitychange', () => {
   if (document.visibilityState === 'hidden') store.flush();
