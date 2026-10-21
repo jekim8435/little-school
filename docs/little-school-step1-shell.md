@@ -111,7 +111,7 @@
 | 설치 | Safari 공유 > 홈 화면에 추가 | Chrome 메뉴 > 앱 설치(홈 화면에 추가) | 부모 모드 안내 화면에 기기별 방법 표시 |
 | 화면 고정 | 사용법 유도 | 앱 고정 | 잠금 안내 화면을 기기별로(8-7) |
 | 가로 고정 | 회전 잠금 + 안내 화면 | manifest로 고정 + 안내 화면 | 2-4 |
-| 상태 표시줄 | `black-translucent` 메타 | manifest `"display": "fullscreen"` | 11-1 |
+| 상태 표시줄 | `default` 메타(흰 띠 + 검은 시계, 앱 화면은 그 아래 1024×748) | manifest `"display": "fullscreen"`(가려짐) | 11-1 |
 | 글꼴 | Apple SD Gothic Neo | 삼성/Noto 한글 글꼴 | 글꼴 목록에 둘 다 지정. 글자 폭이 달라지므로 두 기기에서 넘침 확인 |
 | 음성 | mp3 우선 + 내장 음성 | mp3 우선 + 내장 음성(목소리 목록이 늦게 채워짐) | `voiceschanged`를 기다린 뒤 한국어 음성 선택. 대부분 mp3라 영향 적음 |
 | 저장소 | localStorage (지워질 수 있음) | localStorage (`navigator.storage.persist()` 요청 가능) | 갤럭시에서는 지속 저장 요청. 백업은 동일 |
@@ -638,10 +638,10 @@ export default app;
 
 ## 10. 디자인 기준
 
-- 화면 기준: **가로 1024×768pt 고정**(2-4). 세로 레이아웃은 만들지 않는다
-- **두 기기 비율 대응**: 아이패드 4:3, 갤럭시 탭 약 5:3. **높이를 기준**으로 크기를 정하고(배율 = 화면 높이 ÷ 768), 가로는 1024~1280 범위에서 늘어난다고 보고 설계한다. 늘어난 폭은 칸 사이 간격과 양옆 여백이 흡수한다(격자 칸 수는 바꾸지 않음)
+- 화면 기준: **가로 1024×768pt 고정**(2-4). 아이패드 홈 화면 앱은 상태 표시줄(20pt) 아래 **1024×748pt**가 앱 화면이다(11-1). 세로 레이아웃은 만들지 않는다
+- **두 기기 비율 대응**: 아이패드 4:3, 갤럭시 탭 약 5:3. **높이를 기준**으로 크기를 정하고(배율 `--u` = 앱 화면 높이 ÷ 748 → 아이패드에서 1), 가로는 1024~1280 범위에서 늘어난다고 보고 설계한다. 늘어난 폭은 칸 사이 간격과 양옆 여백이 흡수한다(격자 칸 수는 바꾸지 않음)
 - 크기는 CSS 변수 `--u`(높이 기준 단위)로 계산해 두 기기에서 같은 비율로 보이게 한다
-- 아이 화면의 사용 영역: 위쪽 상태 표시줄(20pt)과 상단 바(64pt)를 빼면 과목 영역은 약 **1024×684pt**. 과목은 이 안에 모두 들어가게 설계한다
+- 아이 화면의 사용 영역: 앱 화면 748pt에서 상단 바(64pt)를 빼면 과목 영역은 약 **1024×684pt**. 과목은 이 안에 모두 들어가게 설계한다
 - **아이 화면에는 세로 스크롤을 두지 않는다.** 한 화면에 안 들어가면 페이지를 옆으로 넘기거나 단계를 나눈다
 - 화면 배치는 가로 비율을 활용한다: 왼쪽에 문제·그림, 오른쪽에 보기·버튼처럼 좌우로 나누는 배치를 기본으로 한다
 - 터치 대상 최소 60×60px, 주요 버튼 88px 이상, 버튼 사이 간격 16px 이상
@@ -659,13 +659,14 @@ export default app;
 
 ```html
 <meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <meta name="apple-mobile-web-app-title" content="꼬마학교">
 <link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
 <link rel="manifest" href="manifest.webmanifest">
 ```
 
 - iOS 12는 manifest보다 위 `apple-*` 메타를 우선 사용하므로 둘 다 넣는다
+- 상태 표시줄은 `default`(흰 띠 + 검은 시계). `black-translucent`는 시계가 흰 글씨로 고정되어 밝은 배경에 묻혀 안 보였다(2026-10-21 아이패드 확인)
 - manifest(갤럭시 탭 Chrome이 사용): `"display": "fullscreen"`, `"orientation": "landscape"`, `"start_url"`, `"scope"`를 `/little-school/`로, 아이콘 192·512px(+ `maskable`). `make-icons.mjs`가 안드로이드용 아이콘도 만들게 한다
 - iOS 12 홈 화면 앱은 앱 내 페이지 이동 시 Safari로 튈 수 있다 → **페이지 이동 없이 해시 라우팅만** 사용
 
@@ -736,7 +737,7 @@ export default app;
 - [ ] 백업 JSON 복사 → 전체 초기화 → 복원 시 별·스티커·기록이 그대로 돌아온다
 - [ ] 앱 종료 후 다시 열어도 데이터가 유지된다
 - [ ] 사용법 유도 상태에서 모든 화면이 정상 동작한다
-- [ ] 모든 아이 화면이 가로 1024×768에 스크롤 없이 들어간다
+- [ ] 모든 아이 화면이 가로 1024×748(아이패드 앱 화면)에 스크롤 없이 들어간다
 - [ ] 세로로 돌리면 ‘옆으로 돌려 주세요’ 안내가 뜨고 학습 시간이 멈춘다. 가로로 돌리면 이어진다
 - [ ] 외부로 나가는 링크가 하나도 없다
 - [ ] `npm run voice:check` 통과: 껍데기 대사 ID가 모두 `voices.json`에 있고, 음원이 모두 들어 있다
