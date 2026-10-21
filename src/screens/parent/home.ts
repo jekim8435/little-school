@@ -9,6 +9,7 @@ import type { Route } from '../../router';
 import type { Shell } from '../../shell';
 import { button, toast } from '../../ui/components';
 import { h } from '../../ui/dom';
+import { pwa } from '../../pwa';
 import { formatMinutes, parentPage, section } from './common';
 
 export function parentHomeScreen(shell: Shell): Screen {
@@ -19,6 +20,18 @@ export function parentHomeScreen(shell: Shell): Screen {
 
   // ── 알림 ──
   const alerts: HTMLElement[] = [];
+  // 새 버전 (명세 11-2): 아이 화면에는 띄우지 않고 여기서만. 부모가 ‘업데이트’를 누르면 새로 연다
+  const updateBox = h('div', {});
+  const renderUpdate = () =>
+    updateBox.replaceChildren(
+      ...(pwa.needRefresh
+        ? [h('div', { class: 'p-alert is-new' }, h('span', {}, '🆕 새 버전이 있어요'), button('업데이트', () => pwa.update(), { kind: 'primary' }))]
+        : []),
+    );
+  renderUpdate();
+  const offUpdate = pwa.onChange(renderUpdate);
+  pwa.check(); // 부모 모드를 열 때마다 새 버전이 있는지 물어본다
+  alerts.push(updateBox);
   if (waiting) {
     alerts.push(
       h(
@@ -91,5 +104,5 @@ export function parentHomeScreen(shell: Shell): Screen {
   );
 
   const el = parentPage(shell, '부모 모드', [...alerts, section('오늘', timeLine, ...rows), section('메뉴', menu)], { isHome: true });
-  return { el };
+  return { el, destroy: offUpdate };
 }

@@ -406,36 +406,6 @@ textarea {
   word-break: break-all;
 }
 
-/* ── 새 버전 배너 ── */
-.update-banner {
-  position: fixed;
-  left: 50%;
-  bottom: 16px;
-  bottom: calc(16px + env(safe-area-inset-bottom));
-  z-index: 30;
-  display: flex;
-  align-items: center;
-  max-width: 90%;
-  white-space: nowrap;
-  padding: 10px 12px 10px 24px;
-  border-radius: 22px;
-  background: var(--ink);
-  color: #fff;
-  font-size: 20px;
-  font-weight: 700;
-  transform: translateX(-50%);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
-}
-.update-banner > * + * {
-  margin-left: 12px;
-}
-.update-banner .btn:not(.btn-primary) {
-  background: transparent;
-  color: #fff;
-  border-color: transparent;
-  box-shadow: none;
-}
-
 /* ── 허브 (명세 5-2) ── */
 .hub {
   padding: calc(var(--u) * 20) calc(var(--u) * 24) calc(var(--u) * 12);
@@ -1503,4 +1473,7 @@ textarea {
 }
 .gate .gate-body {
   flex: 1 1 auto;
+}
+.p-alert.is-new {
+  background: #e3f0ff;
 }

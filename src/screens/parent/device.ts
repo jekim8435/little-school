@@ -10,6 +10,7 @@ import { button } from '../../ui/components';
 import { h } from '../../ui/dom';
 import { PRESS_START_EVENTS } from '../../ui/input';
 import { parentPage, section } from './common';
+import { pwa } from '../../pwa';
 
 const SFX_TEST: [SfxName, string][] = [
   ['tap', '톡'],
@@ -45,7 +46,8 @@ export function deviceScreen(shell: Shell): Screen {
       ['사용 중인 음성', audio.voiceName],
       ['소리 설정', `효과음 ${a.sfxOn ? '켜짐' : '꺼짐'} · 음성 ${a.voiceOn ? '켜짐' : '꺼짐'} · 속도 ${a.voiceRate === 'slow' ? '천천히' : '보통'}`],
       ['저장 공간', `${(savedBytes / 1024).toFixed(1)} KB${store.saveFailed ? ' · 마지막 저장 실패' : ''}`],
-      ['앱 버전', `${__APP_VERSION__} (빌드 ${__BUILD_TIME__})`],
+      ['앱 버전', `${__APP_VERSION__} (빌드 ${__BUILD_TIME__})${pwa.needRefresh ? ' · 새 버전 있음' : ''}`],
+      ['오프라인', !pwa.enabled ? '쓰지 않음 (개발 서버)' : pwa.offlineReady ? '준비됨 (비행기 모드에서도 열려요)' : '준비 중… 앱을 한 번 닫았다 열어 주세요'],
     ];
     info.replaceChildren(...rows.map(([k, v]) => h('div', {}, h('dt', {}, k), h('dd', {}, v))));
   };
