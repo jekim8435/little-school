@@ -11,6 +11,7 @@ import { hubScreen } from './screens/hub';
 import { deviceScreen } from './screens/parent/device';
 import { placeholderScreen } from './screens/placeholder';
 import { startScreen } from './screens/start';
+import { stickerHistoryScreen, stickersScreen } from './screens/stickers';
 import type { Shell } from './shell';
 import { closeDialogs, orientationOverlay } from './ui/components';
 import { setupPwa } from './pwa';
@@ -59,6 +60,8 @@ function createScreen(route: Route): Screen {
   if (route.name === 'start') return startScreen(shell);
   if (route.name === 'hub') return hubScreen(shell);
   if (route.name === 'app') return appHostScreen(shell, route.id);
+  if (route.name === 'stickers') return stickersScreen(shell);
+  if (route.name === 'sticker-history') return stickerHistoryScreen(shell);
   // 부모 모드 틀(잠금)은 8번에서. 그전까지 기기 정보만 바로 연다
   if (route.name === 'parent' && route.page === 'device') return deviceScreen(shell);
   return placeholderScreen(route, shell);

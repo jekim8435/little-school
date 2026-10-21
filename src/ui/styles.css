@@ -731,3 +731,305 @@ textarea {
     transform: translateX(14px);
   }
 }
+
+/* ── 상단 바의 진행 표시가 별을 받을 때 통통 ── */
+.app-progress.is-bump {
+  animation: bump 0.4s;
+}
+@keyframes bump {
+  50% {
+    transform: scale(1.3);
+  }
+}
+
+/* ── 별·스티커 연출 (명세 6-2~6-4) ── */
+.fx-star {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 40;
+  width: calc(var(--u) * 180);
+  height: calc(var(--u) * 180);
+  margin: calc(var(--u) * -90) 0 0 calc(var(--u) * -90);
+  pointer-events: none;
+}
+.fx-star.is-pop {
+  animation: pop-in 0.3s ease-out;
+}
+.fx-star svg,
+.fx-sticker-art svg {
+  width: 100%;
+  height: 100%;
+}
+.fx-sticker,
+.fx-board {
+  position: absolute;
+  z-index: 40;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--u) * 28) calc(var(--u) * 48);
+  border-radius: calc(var(--u) * 36);
+  background: #fff;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  animation: sticker-show 2s ease-in-out forwards;
+}
+.fx-sticker-art {
+  width: calc(var(--u) * 220);
+  height: calc(var(--u) * 220);
+}
+.fx-sticker-text,
+.fx-board-text {
+  margin-top: calc(var(--u) * 12);
+  font-size: calc(var(--u) * 40);
+  font-weight: 800;
+}
+.fx-board {
+  background: var(--soft);
+  animation: sticker-show 3s ease-in-out forwards;
+}
+.fx-board-text {
+  margin-top: 0;
+  font-size: calc(var(--u) * 56);
+}
+.fx-board-sub {
+  margin-top: calc(var(--u) * 8);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+@keyframes sticker-show {
+  0% {
+    opacity: 0;
+    transform: scale(0.4) rotate(-8deg);
+  }
+  15% {
+    opacity: 1;
+    transform: scale(1.08) rotate(3deg);
+  }
+  25%,
+  80% {
+    opacity: 1;
+    transform: scale(1) rotate(0deg);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(35vw, -40vh) scale(0.2);
+  }
+}
+
+/* ── 스티커판 한 장 ── */
+.board-grid {
+  display: flex;
+  flex-wrap: wrap;
+  width: calc(var(--u) * 640);
+}
+.board-cell {
+  position: relative;
+  width: 20%;
+  height: calc(var(--u) * 116);
+  padding: calc(var(--u) * 6);
+}
+.board-grid.rows-4 .board-cell {
+  height: calc(var(--u) * 92);
+}
+.board-grid.rows-1 .board-cell {
+  height: calc(var(--u) * 140);
+}
+.board-cell::before {
+  content: '';
+  position: absolute;
+  top: calc(var(--u) * 6);
+  right: calc(var(--u) * 6);
+  bottom: calc(var(--u) * 6);
+  left: calc(var(--u) * 6);
+  border: 3px dashed var(--line);
+  border-radius: calc(var(--u) * 18);
+}
+.board-cell.is-filled::before {
+  border-style: solid;
+  border-color: transparent;
+  background: #fff7d6;
+}
+.board-art {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+.board-art svg {
+  width: 100%;
+  height: 100%;
+}
+.board-subject {
+  position: absolute;
+  right: calc(var(--u) * 4);
+  bottom: calc(var(--u) * 4);
+  width: calc(var(--u) * 30);
+  height: calc(var(--u) * 30);
+  padding: 2px;
+  border-radius: 50%;
+  background: #fff;
+}
+.board-grid.is-mini {
+  width: 200px;
+}
+.board-grid.is-mini .board-cell {
+  height: 40px;
+  padding: 2px;
+}
+.board-grid.is-mini .board-cell::before {
+  top: 2px;
+  right: 2px;
+  bottom: 2px;
+  left: 2px;
+  border-width: 2px;
+  border-radius: 8px;
+}
+
+/* ── 스티커판 화면 (명세 5-4) ── */
+.stickers {
+  padding: calc(var(--u) * 12) calc(var(--u) * 20) calc(var(--u) * 8);
+  background: #fdf3e1;
+}
+.stk-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 0 0 auto;
+  height: calc(var(--u) * 72);
+}
+.stk-bar-title {
+  margin: 0;
+  font-size: calc(var(--u) * 38);
+}
+.stk-bar-space {
+  width: 80px;
+}
+.stk-body {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-height: 0;
+}
+.btn.stk-arrow {
+  flex: 0 0 auto;
+  padding: 0;
+  font-size: calc(var(--u) * 40);
+}
+.stk-viewport {
+  flex: 1 1 auto;
+  height: 100%;
+  margin: 0 calc(var(--u) * 16);
+  overflow: hidden;
+  touch-action: none;
+}
+.stk-track {
+  display: flex;
+  height: 100%;
+}
+.stk-slot {
+  flex: 0 0 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.stk-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: calc(var(--u) * 20) calc(var(--u) * 28);
+  border-radius: calc(var(--u) * 32);
+  background: #fff;
+  box-shadow: 0 calc(var(--u) * 8) 0 rgba(0, 0, 0, 0.08);
+}
+.stk-card.is-complete {
+  background: #fffbe8;
+}
+.stk-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  margin-bottom: calc(var(--u) * 10);
+}
+.stk-title {
+  font-size: calc(var(--u) * 32);
+  font-weight: 800;
+}
+.stk-date {
+  color: var(--muted);
+  font-size: calc(var(--u) * 24);
+  font-weight: 700;
+}
+.stk-ribbon {
+  margin-top: calc(var(--u) * 12);
+  padding: calc(var(--u) * 8) calc(var(--u) * 24);
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-size: calc(var(--u) * 26);
+  font-weight: 800;
+}
+.stk-today {
+  display: flex;
+  justify-content: center;
+  margin-top: calc(var(--u) * 14);
+}
+.stk-today-item {
+  display: flex;
+  align-items: center;
+  padding: 4px 14px 4px 6px;
+  border-radius: 999px;
+  background: #f4efe7;
+  font-size: calc(var(--u) * 24);
+  font-weight: 800;
+}
+.stk-today-item + .stk-today-item {
+  margin-left: 12px;
+}
+.stk-today-item.is-done {
+  background: #dff3e5;
+}
+.stk-today-item img {
+  width: calc(var(--u) * 34);
+  height: calc(var(--u) * 34);
+  margin-right: 6px;
+}
+
+/* ── 보상 기록 (가로로 넘기는 카드) ── */
+.hist-list {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  padding: 0 8px;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+}
+.hist-card {
+  flex: 0 0 auto;
+  width: 260px;
+  padding: 20px 30px;
+  border-radius: 28px;
+  background: #fff;
+  box-shadow: 0 6px 0 rgba(0, 0, 0, 0.08);
+}
+.hist-card + .hist-card {
+  margin-left: 20px;
+}
+.hist-title {
+  margin-bottom: 10px;
+  font-size: 26px;
+  font-weight: 800;
+}
+.hist-reward {
+  margin-top: 14px;
+  font-size: 24px;
+  font-weight: 800;
+}
+.hist-dates {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.5;
+}

@@ -26,3 +26,9 @@ function utc(key: string): number {
 function pad(n: number): string {
   return n < 10 ? `0${n}` : String(n);
 }
+
+/** '2026-10-28' → '10월 28일' (아이·부모 화면 표시용) */
+export function formatDay(key: string): string {
+  const [, m, d] = key.split('-').map(Number);
+  return `${m}월 ${d}일`;
+}

@@ -62,6 +62,8 @@ function canScroll(target: EventTarget | null): boolean {
   while (el && el !== document.body && el !== document.documentElement) {
     const style = getComputedStyle(el);
     if (/(auto|scroll)/.test(style.overflowY) && el.scrollHeight > el.clientHeight + 1) return true;
+    // 가로로 넘기는 목록(보상 기록 카드 등)
+    if (/(auto|scroll)/.test(style.overflowX) && el.scrollWidth > el.clientWidth + 1) return true;
     el = el.parentElement;
   }
   return false;
