@@ -21,31 +21,37 @@ export function settingsScreen(shell: Shell): Screen {
     store.changed();
     toast('저장했어요', 1000);
   };
+  /** 소리 설정을 바꿀 때: 부모가 직접 정한 값이므로 한글쓰기 앱 설정 이전이 덮어쓰지 않게 표시 */
+  const savedAudio = () => {
+    s.audioEdited = true;
+    store.changed();
+    toast('저장했어요', 1000);
+  };
 
   const sound = section(
     '소리',
     settingRow('효과음', toggleSwitch(s.audio.sfxOn, (v) => {
       s.audio.sfxOn = v;
-      saved();
+      savedAudio();
       audio.sfx('tap');
     }), '끄면 모든 화면의 효과음이 나지 않아요(연출 애니메이션은 그대로)'),
     settingRow('효과음 크기', segmented(VOLUMES, s.audio.sfxVolume, (v) => {
       s.audio.sfxVolume = v;
-      saved();
+      savedAudio();
       audio.sfx('correct');
     })),
     settingRow('음성 읽기', toggleSwitch(s.audio.voiceOn, (v) => {
       s.audio.voiceOn = v;
-      saved();
+      savedAudio();
     }), '끄면 지시문·글자 읽기가 모두 꺼지고, 지시문은 글자로 크게 보여 줘요'),
     settingRow('음성 크기', segmented(VOLUMES, s.audio.voiceVolume, (v) => {
       s.audio.voiceVolume = v;
-      saved();
+      savedAudio();
       audio.say('shell.start.hello');
     })),
     settingRow('음성 속도', segmented([{ value: 'slow' as const, label: '천천히' }, { value: 'normal' as const, label: '보통' }], s.audio.voiceRate, (v) => {
       s.audio.voiceRate = v;
-      saved();
+      savedAudio();
       audio.say('shell.start.hello');
     }), '기기 내장 음성에만 적용돼요(만들어 넣은 음원은 그대로)'),
   );

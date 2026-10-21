@@ -7,6 +7,7 @@ import { ParentLock } from './core/parentLock';
 import { StudySession } from './core/session';
 import { browserStorage, requestPersist, Store } from './core/storage';
 import { syncSubjects, visibleSubjects } from './core/subjects';
+import { migrateWritingFromLegacy } from './core/migrateWriting';
 import { Router, type Route, type Screen } from './router';
 import { appHostScreen } from './screens/app-host';
 import { doneScreen } from './screens/done';
@@ -31,8 +32,11 @@ import { setupPwa } from './pwa';
 import voices from './voices.json';
 
 // ── 저장소 ──
-const store = new Store(browserStorage());
+const kv = browserStorage();
+const store = new Store(kv);
 store.load();
+// 한글쓰기 앱 설정 1회 이전 (명세 14-4)
+migrateWritingFromLegacy(store, kv);
 // 1단계 2~3번 확인용 화면이 남긴 값 정리
 if (store.data.apps._check) {
   delete store.data.apps._check;

@@ -31,6 +31,8 @@ export interface Settings {
   parentLock: { type: 'math' | 'pin'; pin: string | null };
   /** 펜으로만 쓰기 (명세 2-5, 8-6) */
   penOnly: boolean;
+  /** 부모가 공통 설정의 소리를 바꾼 적이 있는지 (한글쓰기 앱 설정 이전 때 덮어쓰지 않게, 명세 14-4) */
+  audioEdited: boolean;
   subjects: SubjectSetting[];
 }
 
@@ -97,6 +99,7 @@ export function defaultSettings(): Settings {
     audio: { sfxOn: true, sfxVolume: 'normal', voiceOn: true, voiceVolume: 'normal', voiceRate: 'slow' },
     parentLock: { type: 'math', pin: null },
     penOnly: false,
+    audioEdited: false,
     subjects: [],
   };
 }
@@ -166,6 +169,7 @@ export function normalize(raw: unknown, today: string): SaveData {
       pin: typeof lock.pin === 'string' && /^\d{4}$/.test(lock.pin) ? lock.pin : null,
     },
     penOnly: bool(s.penOnly, false),
+    audioEdited: bool(s.audioEdited, false),
     subjects: arr(s.subjects)
       .map(obj)
       .filter((x) => typeof x.id === 'string' && x.id !== '')
