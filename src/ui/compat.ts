@@ -1,8 +1,28 @@
 /**
- * 옛 아이패드 Safari(13.x)에 없는 기능을 채운다. main.ts에서 가장 먼저 불러온다.
+ * 옛 아이패드 Safari(12)에 없는 기능을 채운다. main.ts에서 가장 먼저 불러온다.
  * - Element.replaceChildren: Safari 14부터
+ * - Promise.allSettled: Safari 13부터. 우리 코드는 쓰지 않지만 Vite가 과목 코드를 불러오는
+ *   동적 import 도우미(__vitePreload) 안에서 쓴다 → 없으면 과목 화면이 열리지 않는다
  * - ResizeObserver: Safari 13.4부터 → observeResize()로 감싸서 없으면 창 크기 변경으로 대신한다
+ * 여기서 채우는 기능은 scripts/check-compat.mjs의 POLYFILLED 목록과 맞춘다.
  */
+
+if (typeof Promise !== 'undefined' && typeof (Promise as { allSettled?: unknown }).allSettled !== 'function') {
+  Object.defineProperty(Promise, 'allSettled', {
+    configurable: true,
+    writable: true,
+    value: function allSettled<T>(items: Iterable<T>) {
+      return Promise.all(
+        Array.from(items, (p) =>
+          Promise.resolve(p).then(
+            (value) => ({ status: 'fulfilled' as const, value }),
+            (reason: unknown) => ({ status: 'rejected' as const, reason }),
+          ),
+        ),
+      );
+    },
+  });
+}
 
 if (typeof Element !== 'undefined' && !('replaceChildren' in Element.prototype)) {
   Object.defineProperty(Element.prototype, 'replaceChildren', {

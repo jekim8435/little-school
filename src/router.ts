@@ -142,9 +142,37 @@ export class Router {
     this.screen = null;
     prev?.destroy?.();
     this.route = to;
-    const screen = this.factory(to, this);
+    let screen: Screen;
+    try {
+      screen = this.factory(to, this);
+    } catch (e) {
+      // 화면을 만들다 오류가 나면 이전 화면이 멈춘 채 남지 않게 오류 화면을 띄운다
+      // (아이패드에는 개발자 도구가 없으므로 내용을 화면에 보여 준다)
+      console.error(e);
+      screen = errorScreen(e, to);
+    }
     this.root.replaceChildren(screen.el);
     this.root.setAttribute('data-screen', to.name);
     this.screen = screen;
   }
+}
+
+function errorScreen(e: unknown, route: Route): Screen {
+  const el = document.createElement('div');
+  el.className = 'screen center router-error';
+  const title = document.createElement('p');
+  title.className = 'text-big';
+  title.textContent = '화면을 열지 못했어요';
+  const detail = document.createElement('p');
+  detail.className = 'text-muted';
+  detail.textContent = `${formatRoute(route)} — ${e instanceof Error ? e.message : String(e)}`;
+  const back = document.createElement('button');
+  back.className = 'btn btn-primary btn-big';
+  back.type = 'button';
+  back.textContent = '처음으로';
+  back.addEventListener('click', () => {
+    location.hash = '#/start';
+  });
+  el.append(title, detail, back);
+  return { el };
 }

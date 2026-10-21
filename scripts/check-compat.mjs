@@ -4,6 +4,7 @@
 // 검사 항목
 //  1. JS: ES2019 문법만 쓰는지 (??, ?., 클래스 필드, #private 등이 남아 있으면 Safari 12가 파일을 못 읽는다)
 //     동적 import()와 import.meta는 Safari 11.1부터 되므로 허용한다. 정규식 lookbehind도 금지.
+//     + Safari 12에 없는 기능(API)을 부르는지 — Vite·라이브러리가 넣는 코드까지 (compat.ts가 채운 것은 허용)
 //  2. index.html 안의 인라인 스크립트: 옛 브라우저에서도 오류 화면을 띄울 수 있게 ES5인지
 //  3. CSS: Safari 12가 모르는 것 — inset 속성, gap, aspect-ratio, :is()/:where(), dvh 등 새 뷰포트 단위,
 //     대체값 없는 clamp()/min()/max(), 그리고 iOS 12에서 숨김이 안 먹는 display:contents (명세 2-2)
@@ -33,6 +34,42 @@ for (const f of readdirSync(assets).filter((f) => f.endsWith('.js'))) {
     const at = code.slice(Math.max(0, e.pos - 40), e.pos + 40);
     problems.push(`JS ${f}: Safari 12가 읽지 못하는 문법 (${e.message})\n    …${at}…`);
   }
+}
+
+// 1-2. JS 기능(API): 문법은 맞아도 Safari 12에 없는 기능을 부르면 그 순간 오류가 난다.
+//      우리 코드는 tests/compat.test.ts가 막지만, Vite·라이브러리가 넣는 코드는 여기서만 잡힌다.
+//      (예: Vite의 동적 import 도우미가 Promise.allSettled를 써서 과목 화면이 열리지 않았음, 2026-10-21)
+//      POLYFILLED: src/ui/compat.ts가 채우는 기능. 채우는 코드가 빌드에 들어 있으면 허용한다
+const MISSING_APIS = [
+  ['Promise.allSettled', /\bPromise\.allSettled\b/, 'Safari 13'],
+  ['Promise.any', /\bPromise\.any\(/, 'Safari 14'],
+  ['String.replaceAll', /\.replaceAll\(/, 'Safari 13.1'],
+  ['String.matchAll', /\.matchAll\(/, 'Safari 13'],
+  ['structuredClone', /\bstructuredClone\(/, 'Safari 15.4'],
+  ['Object.hasOwn', /\bObject\.hasOwn\(/, 'Safari 15.4'],
+  ['Array.prototype.at', /\.at\(-?\d/, 'Safari 15.4'],
+  ['findLast', /\.findLast(Index)?\(/, 'Safari 15.4'],
+  ['globalThis', /\bglobalThis\b/, 'Safari 12.1'],
+  ['queueMicrotask', /\bqueueMicrotask\(/, 'Safari 12.1'],
+  ['ResizeObserver', /\bnew ResizeObserver\b/, 'Safari 13.4 (observeResize()로 감쌀 것)'],
+];
+const POLYFILLED = { 'Promise.allSettled': /defineProperty\(Promise,\s*["']allSettled["']/ };
+const allJs = readdirSync(assets)
+  .filter((f) => f.endsWith('.js'))
+  .map((f) => [f, readFileSync(join(assets, f), 'utf8')]);
+const bundle = allJs.map(([, c]) => c).join('\n');
+for (const [name, re, since] of MISSING_APIS) {
+  const filled = POLYFILLED[name] && POLYFILLED[name].test(bundle);
+  for (const [f, code] of allJs) {
+    const m = code.match(re);
+    if (!m) continue;
+    // 채우는 코드 자체나, 있는지 먼저 확인하는 코드는 문제가 아니다
+    if (filled) continue;
+    if (name === 'ResizeObserver' && /typeof ResizeObserver/.test(code)) continue;
+    const at = code.slice(Math.max(0, m.index - 40), m.index + 40);
+    problems.push(`JS ${f}: ${name} — ${since}부터 (src/ui/compat.ts에 채우거나 쓰지 마세요)\n    …${at}…`);
+  }
+  if (filled) ok.push(`JS ${name}: compat.ts가 채움`);
 }
 
 // 2. index.html 인라인 스크립트
