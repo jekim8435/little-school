@@ -4,6 +4,10 @@
 
 ## 2026-10-21
 
+- 1단계 음원 제작: 껍데기 7개 + 샘플 2개를 Typecast ‘아찌’(`tc_66596206b7bd6e89c3a2c54e`, 한글쓰기 앱과 같은 목소리)로 만들어 `public/voice/`, `public/apps/sample/voice/`에 넣음. 배포 워크플로에 `voice:check` 추가 — 명세 15장
+  - PC에 ffmpeg가 없어 Typecast mp3(44.1kHz 모노 **320kbps**, 대사당 40~170KB, 9개 약 1MB)를 그대로 넣었다. 명세 15-4 규격(22kHz 64kbps)보다 크다. **ffmpeg를 설치하면 `npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --compress`로 다시 받지 않고 줄인다**(크레딧 안 씀)
+  - 과목에 들어갈 때 ‘오늘 스티커는 받았어요’ 안내가 과목 첫 안내(샘플 ‘동그라미를 모두…’)를 끊는다. 2단계에서 대사 순서(이어 말하기)를 정리한다
+
 - 1단계 11번(음원 마무리) 도구 — 명세 15-3, 15-4
   - `npm run voice:list -- <대상> [폴더]`: 대상은 `shell`·과목 id·쉼표로 여러 개·`all`. 1단계는 `shell,sample` → `docs/voice/step1-shell/`
   - 대사목록.csv는 한글쓰기 앱 칸(파일 이름, 읽을 문장, 언어, 쓰이는 곳)에 **저장 위치**(public/voice, public/apps/<id>/voice)와 **대사 ID**를 더함

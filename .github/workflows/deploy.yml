@@ -26,6 +26,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm test
+      # 음원 확인 (명세 15-4): 빠진 음원·바뀐 문장·남는 파일이 있으면 배포 중단
+      - run: npm run voice:check
       - run: npm run build
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3

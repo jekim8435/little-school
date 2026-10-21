@@ -8,6 +8,8 @@
 //   목소리 고르기:  npm run voice:make -- --list-voices [--age child] [--lang kor]
 //   미리 보기:      npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --dry-run
 //   만들기:         npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv [--only shell.done] [--force]
+//   줄이기:         npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --compress
+//                   (ffmpeg 없이 만든 320kbps 파일을 다시 받지 않고 규격대로 줄임 — 크레딧 안 씀)
 //
 // 필요: Node 18+, 환경변수 TYPECAST_API_KEY(저장소에 넣지 않음), (권장) ffmpeg
 // 설정: docs/voice/typecast.json (목소리 ID, 모델, 말투) — 한글쓰기 앱과 같은 목소리
@@ -38,6 +40,7 @@ const ONLY = opt('only', '')
   .filter(Boolean);
 const FORCE = flag('force');
 const DRY = flag('dry-run');
+const COMPRESS = flag('compress');
 
 const KEY = process.env.TYPECAST_API_KEY;
 
@@ -160,9 +163,10 @@ const TRIM =
   'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,' +
   'areverse';
 
-async function toMp3(wav, outFile) {
-  const tmp = path.join(os.tmpdir(), `tc-${process.pid}-${Date.now()}.wav`);
-  await writeFile(tmp, wav);
+async function toMp3(audio, outFile) {
+  // 입력은 Typecast wav 또는 이미 있는 mp3(--compress). ffmpeg가 내용을 보고 읽는다
+  const tmp = path.join(os.tmpdir(), `tc-${process.pid}-${Date.now()}.audio`);
+  await writeFile(tmp, audio);
   try {
     // 명세 15-4 규격: mp3 모노, 22kHz, 64kbps 안팎, 앞뒤 무음 0.1초 이하
     await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmp, '-af', TRIM,
@@ -176,7 +180,7 @@ const exists = (p) => access(p).then(() => true, () => false);
 
 // ---------- 실행 ----------
 async function main() {
-  if (!KEY && !DRY) {
+  if (!KEY && !DRY && !COMPRESS) {
     console.error('TYPECAST_API_KEY 환경변수를 먼저 설정하세요. (README의 "API 키" 참고)');
     process.exit(1);
   }
@@ -202,6 +206,22 @@ async function main() {
   }));
   if (lines.some((l) => !l.dir)) throw new Error('CSV에 저장 위치가 없으면 --out 폴더를 지정하세요');
   if (ONLY.length) lines = lines.filter((l) => ONLY.some((p) => l.id.startsWith(p) || l.file.startsWith(p)));
+
+  if (COMPRESS) {
+    // 이미 있는 음원을 ffmpeg로 규격(22kHz 모노 64kbps, 앞뒤 무음 자르기)에 맞춘다
+    if (!(await checkFfmpeg())) throw new Error('ffmpeg가 필요합니다 (winget install Gyan.FFmpeg)');
+    let n = 0;
+    for (const l of lines) {
+      const file = path.join(l.dir, l.file);
+      if (!(await exists(file))) continue;
+      await toMp3(await readFile(file), file);
+      n++;
+      console.log(`줄임: ${file}`);
+    }
+    console.log(`
+${n}개를 줄였습니다`);
+    return;
+  }
 
   if (!DRY) {
     hasFfmpeg = await checkFfmpeg();
