@@ -124,6 +124,14 @@ export class Router {
     }
   };
 
+  /** 지금 화면을 다시 그린다 (부모 모드에서 값을 바꾼 뒤 등) */
+  refresh(): void {
+    const r = this.route;
+    if (!r) return;
+    this.route = null;
+    this.render(r);
+  }
+
   private onHashChange = (): void => {
     const r = parseHash(location.hash);
     if (r) this.render(r);

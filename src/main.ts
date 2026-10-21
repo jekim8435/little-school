@@ -3,6 +3,7 @@ import './ui/styles.css';
 import { apps, findApp } from './apps/registry';
 import { AudioService } from './core/audio';
 import { watchInput } from './core/device';
+import { ParentLock } from './core/parentLock';
 import { StudySession } from './core/session';
 import { browserStorage, requestPersist, Store } from './core/storage';
 import { syncSubjects, visibleSubjects } from './core/subjects';
@@ -10,12 +11,21 @@ import { Router, type Route, type Screen } from './router';
 import { appHostScreen } from './screens/app-host';
 import { doneScreen } from './screens/done';
 import { hubScreen } from './screens/hub';
+import { backupScreen } from './screens/parent/backup';
 import { deviceScreen } from './screens/parent/device';
-import { placeholderScreen } from './screens/placeholder';
+import { gateScreen } from './screens/parent/gate';
+import { parentHomeScreen } from './screens/parent/home';
+import { lockGuideScreen } from './screens/parent/lock-guide';
+import { recordsScreen } from './screens/parent/records';
+import { rewardHistoryScreen, rewardsScreen } from './screens/parent/rewards';
+import { settingsScreen } from './screens/parent/settings';
+import { subjectSettingsScreen } from './screens/parent/subject-settings';
+import { subjectsScreen } from './screens/parent/subjects';
 import { startScreen } from './screens/start';
 import { stickerHistoryScreen, stickersScreen } from './screens/stickers';
 import type { Shell } from './shell';
 import { closeDialogs, orientationOverlay } from './ui/components';
+import { PRESS_START_EVENTS } from './ui/input';
 import { setupPwa } from './pwa';
 import voices from './voices.json';
 
@@ -65,15 +75,45 @@ function createScreen(route: Route): Screen {
   if (route.name === 'done') return doneScreen(shell);
   if (route.name === 'stickers') return stickersScreen(shell);
   if (route.name === 'sticker-history') return stickerHistoryScreen(shell);
-  // 부모 모드 틀(잠금)은 8번에서. 그전까지 기기 정보만 바로 연다
-  if (route.name === 'parent' && route.page === 'device') return deviceScreen(shell);
-  return placeholderScreen(route, shell);
+  // 부모 모드 (명세 8장)
+  switch (route.page) {
+    case 'gate':
+      return gateScreen(shell);
+    case 'home':
+      return parentHomeScreen(shell);
+    case 'records':
+      return recordsScreen(shell);
+    case 'subjects':
+      return subjectsScreen(shell);
+    case 'subject-settings':
+      return subjectSettingsScreen(shell, route.id || '');
+    case 'settings':
+      return settingsScreen(shell);
+    case 'rewards':
+      return rewardsScreen(shell);
+    case 'reward-history':
+      return rewardHistoryScreen(shell);
+    case 'backup':
+      return backupScreen(shell);
+    case 'lock-guide':
+      return lockGuideScreen(shell);
+    case 'device':
+      return deviceScreen(shell);
+  }
 }
 
 const router = new Router(document.getElementById('app')!, createScreen);
-const shell: Shell = { store, audio, input, router, session: new StudySession(store) };
-// 없거나 꺼진 과목 주소는 허브로
+const shell: Shell = { store, audio, input, router, session: new StudySession(store), parent: new ParentLock() };
 router.setGuard((to) => {
+  // 부모 모드는 잠금을 푼 뒤에만. 부모 모드를 떠나면 다시 잠근다 (명세 8-1)
+  if (to.name === 'parent') {
+    if (to.page !== 'gate' && !shell.parent.unlocked) return { name: 'parent', page: 'gate' };
+    if (to.page === 'gate' && shell.parent.unlocked) return { name: 'parent', page: 'home' };
+    shell.parent.active();
+    return to;
+  }
+  shell.parent.lock();
+  // 없거나 꺼진 과목 주소는 허브로
   if (to.name === 'app' && (!findApp(to.id) || visibleSubjects(store.data.settings.subjects, [to.id]).length === 0)) return { name: 'hub' };
   // 오늘 시간이 다 됐으면 과목 대신 ‘오늘 공부 끝’ (명세 5-2, 5-5)
   if (to.name === 'app' && shell.session.isTimeUp()) return { name: 'done' };
@@ -96,3 +136,15 @@ onViewportChange((now) => {
 router.start({ name: 'start' });
 
 setupPwa();
+
+// 부모 모드에서 5분 동안 조작이 없으면 잠그고 아이 화면으로 (명세 8-1)
+const markParentActive = () => {
+  if (shell.parent.unlocked) shell.parent.active();
+};
+for (const type of PRESS_START_EVENTS.concat(['keydown'])) document.addEventListener(type, markParentActive, true);
+window.setInterval(() => {
+  if (shell.parent.idle()) {
+    shell.parent.lock();
+    router.go({ name: 'hub' });
+  }
+}, 10000);

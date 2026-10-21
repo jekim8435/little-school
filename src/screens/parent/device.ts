@@ -1,6 +1,5 @@
 /**
  * 부모 모드 > 기기 정보 (명세 2-5). 아이패드는 PC 원격 디버깅이 어려워 문제를 확인하는 주된 수단.
- * 부모 모드 틀(잠금·메뉴)은 1단계 8번에서 씌운다. 그전까지는 허브 오른쪽 위 3초 길게 누르기 → ‘준비 중’ 잠금 자리의 임시 버튼으로 들어온다.
  */
 import type { SfxName } from '../../core/audio';
 import { displayMode } from '../../core/device';
@@ -10,6 +9,7 @@ import type { Shell } from '../../shell';
 import { button } from '../../ui/components';
 import { h } from '../../ui/dom';
 import { PRESS_START_EVENTS } from '../../ui/input';
+import { parentPage, section } from './common';
 
 const SFX_TEST: [SfxName, string][] = [
   ['tap', '톡'],
@@ -56,19 +56,18 @@ export function deviceScreen(shell: Shell): Screen {
   window.addEventListener('resize', render);
   render();
 
-  const el = h(
-    'div',
-    { class: 'screen parent scroll' },
-    h('div', { class: 'parent-head row' }, button('◀ 허브로', () => shell.router.go({ name: 'hub' })), h('h1', { class: 'parent-title' }, '기기 정보')),
-    info,
-    h('h2', { class: 'parent-sub' }, '소리 시험'),
-    h(
-      'div',
-      { class: 'row wrap' },
-      ...SFX_TEST.map(([name, label]) => button(label, () => audio.sfx(name))),
-      button('음성 읽기', () => audio.say('shell.start.hello'), { kind: 'soft' }),
+  const el = parentPage(shell, '기기 정보', [
+    section(null, info),
+    section(
+      '소리 시험',
+      h(
+        'div',
+        { class: 'row wrap' },
+        ...SFX_TEST.map(([name, label]) => button(label, () => audio.sfx(name))),
+        button('음성 읽기', () => audio.say('shell.start.hello'), { kind: 'soft' }),
+      ),
     ),
-  );
+  ]);
 
   return {
     el,
