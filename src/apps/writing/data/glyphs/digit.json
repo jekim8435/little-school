@@ -1,0 +1,74 @@
+[
+  {
+    "id": "0", "group": "digit", "name": "0", "speak": "영", "speakNative": "영", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 50 12 C 35.6 12 24 29 24 50 C 24 71 35.6 88 50 88 C 64.4 88 76 71 76 50 C 76 29 64.4 12 50 12" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "1", "group": "digit", "name": "1", "speak": "일", "speakNative": "하나", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[50, 12], [50, 88]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "2", "group": "digit", "name": "2", "speak": "이", "speakNative": "둘", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 24 32 C 24 18 36 10 50 10 C 66 10 76 20 76 33 C 76 50 58 62 24 90 L 80 90" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "3", "group": "digit", "name": "3", "speak": "삼", "speakNative": "셋", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 26 22 C 32 13 42 10 51 10 C 64 10 73 18 73 29 C 73 40 63 48 50 48 C 65 48 77 57 77 69 C 77 81 66 90 51 90 C 40 90 30 86 24 78" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "4", "group": "digit", "name": "4", "speak": "사", "speakNative": "넷", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[56, 12], [22, 64], [80, 64]] },
+      { "points": [[64, 34], [64, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "5", "group": "digit", "name": "5", "speak": "오", "speakNative": "다섯", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 30 12 L 28 46 C 36 40 44 38 52 38 C 66 38 76 48 76 62 C 76 78 64 90 50 90 C 40 90 31 86 25 79" },
+      { "points": [[30, 12], [74, 12]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "6", "group": "digit", "name": "6", "speak": "육", "speakNative": "여섯", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 68 14 C 63 11 57 10 51 10 C 35 10 25 30 25 56 C 25 76 35 90 51 90 C 66 90 76 79 76 66 C 76 52 66 43 52 43 C 39 43 29 51 26 60" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "7", "group": "digit", "name": "7", "speak": "칠", "speakNative": "일곱", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[24, 14], [76, 14], [42, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "8", "group": "digit", "name": "8", "speak": "팔", "speakNative": "여덟", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 70 22 C 66 14 58 10 50 10 C 38 10 29 18 29 28 C 29 38 38 44 50 50 C 64 56 74 63 74 73 C 74 83 63 90 50 90 C 37 90 26 83 26 73 C 26 63 36 56 50 50 C 62 44 72 38 72 28 C 72 25 71 23 70 22" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "9", "group": "digit", "name": "9", "speak": "구", "speakNative": "아홉", "lang": "ko-KR",
+    "strokes": [
+      { "path": "M 74 30 C 72 18 62 10 50 10 C 36 10 26 20 26 32 C 26 45 36 54 49 54 C 63 54 74 45 74 30 L 74 56 C 74 76 64 90 48 90 C 40 90 33 87 28 82" }
+    ],
+    "alternateOrders": []
+  }
+]

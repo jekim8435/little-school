@@ -1,0 +1,203 @@
+[
+  {
+    "id": "a", "group": "lower", "name": "a", "speak": "A", "lang": "en-US",
+    "strokes": [
+      { "path": "M 64 47 C 61 42 55 40 49 40 C 39 40 31 48 31 57 C 31 67 39 74 49 74 C 55 74 61 71 64 66" },
+      { "points": [[65, 40], [65, 74]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "b", "group": "lower", "name": "b", "speak": "B", "lang": "en-US",
+    "strokes": [
+      { "points": [[33, 10], [33, 74]] },
+      { "path": "M 33 54 C 37 45 44 40 51 40 C 61 40 69 48 69 57 C 69 67 61 74 51 74 C 44 74 37 70 33 64" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "c", "group": "lower", "name": "c", "speak": "C", "lang": "en-US",
+    "strokes": [
+      { "path": "M 67 46 C 63 42 57 40 51 40 C 40 40 32 48 32 57 C 32 67 40 74 51 74 C 57 74 63 72 67 68" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "d", "group": "lower", "name": "d", "speak": "D", "lang": "en-US",
+    "strokes": [
+      { "path": "M 64 47 C 61 42 55 40 49 40 C 39 40 31 48 31 57 C 31 67 39 74 49 74 C 55 74 61 71 64 66" },
+      { "points": [[66, 10], [66, 74]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "e", "group": "lower", "name": "e", "speak": "E", "lang": "en-US",
+    "strokes": [
+      { "path": "M 32 57 L 68 57 C 68 47 60 40 50 40 C 39 40 32 48 32 57 C 32 67 40 74 51 74 C 58 74 64 71 67 67" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "f", "group": "lower", "name": "f", "speak": "F", "lang": "en-US",
+    "strokes": [
+      { "path": "M 66 14 C 62 11 58 10 55 10 C 47 10 43 15 43 23 L 43 74" },
+      { "points": [[30, 40], [62, 40]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "g", "group": "lower", "name": "g", "speak": "G", "lang": "en-US",
+    "strokes": [
+      { "path": "M 64 47 C 61 42 55 40 49 40 C 39 40 31 48 31 57 C 31 67 39 74 49 74 C 55 74 61 71 64 66" },
+      { "path": "M 65 40 L 65 82 C 65 91 58 96 49 96 C 42 96 36 93 33 89" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "h", "group": "lower", "name": "h", "speak": "H", "lang": "en-US",
+    "strokes": [
+      { "points": [[33, 10], [33, 74]] },
+      { "path": "M 33 52 C 37 44 44 40 51 40 C 60 40 66 46 66 54 L 66 74" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "i", "group": "lower", "name": "i", "speak": "I", "lang": "en-US",
+    "strokes": [
+      { "points": [[50, 40], [50, 74]] },
+      { "points": [[50, 24]], "type": "dot" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "j", "group": "lower", "name": "j", "speak": "J", "lang": "en-US",
+    "strokes": [
+      { "path": "M 56 40 L 56 84 C 56 92 50 96 43 96 C 38 96 34 94 31 91" },
+      { "points": [[56, 24]], "type": "dot" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "k", "group": "lower", "name": "k", "speak": "K", "lang": "en-US",
+    "strokes": [
+      { "points": [[34, 10], [34, 74]] },
+      { "points": [[66, 40], [35, 60], [68, 74]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "l", "group": "lower", "name": "l", "speak": "L", "lang": "en-US",
+    "strokes": [
+      { "points": [[50, 10], [50, 74]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "m", "group": "lower", "name": "m", "speak": "M", "lang": "en-US",
+    "strokes": [
+      { "points": [[24, 40], [24, 74]] },
+      { "path": "M 24 50 C 27 43 32 40 37 40 C 44 40 50 44 50 52 L 50 74" },
+      { "path": "M 50 50 C 53 43 58 40 63 40 C 70 40 76 44 76 52 L 76 74" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "n", "group": "lower", "name": "n", "speak": "N", "lang": "en-US",
+    "strokes": [
+      { "points": [[32, 40], [32, 74]] },
+      { "path": "M 32 52 C 36 44 43 40 50 40 C 60 40 67 46 67 54 L 67 74" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "o", "group": "lower", "name": "o", "speak": "O", "lang": "en-US",
+    "strokes": [
+      { "path": "M 50 40 C 40 40 32 48 32 57 C 32 66 40 74 50 74 C 60 74 68 66 68 57 C 68 48 60 40 50 40" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "p", "group": "lower", "name": "p", "speak": "P", "lang": "en-US",
+    "strokes": [
+      { "points": [[33, 40], [33, 94]] },
+      { "path": "M 33 50 C 37 44 44 40 51 40 C 61 40 69 48 69 57 C 69 67 61 74 51 74 C 44 74 37 70 33 64" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "q", "group": "lower", "name": "q", "speak": "Q", "lang": "en-US",
+    "strokes": [
+      { "path": "M 64 47 C 61 42 55 40 49 40 C 39 40 31 48 31 57 C 31 67 39 74 49 74 C 55 74 61 71 64 66" },
+      { "points": [[66, 40], [66, 94]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "r", "group": "lower", "name": "r", "speak": "R", "lang": "en-US",
+    "strokes": [
+      { "points": [[36, 40], [36, 74]] },
+      { "path": "M 36 54 C 40 45 47 40 55 40 C 60 40 64 41 67 44" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "s", "group": "lower", "name": "s", "speak": "S", "lang": "en-US",
+    "strokes": [
+      { "path": "M 66 45 C 62 41 57 40 50 40 C 41 40 34 44 34 50 C 34 56 41 57 50 58 C 59 59 66 61 66 67 C 66 72 59 74 50 74 C 43 74 37 72 33 69" }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "t", "group": "lower", "name": "t", "speak": "T", "lang": "en-US",
+    "strokes": [
+      { "path": "M 45 18 L 45 66 C 45 71 49 74 54 74 C 58 74 62 73 64 71" },
+      { "points": [[32, 40], [62, 40]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "u", "group": "lower", "name": "u", "speak": "U", "lang": "en-US",
+    "strokes": [
+      { "path": "M 33 40 L 33 60 C 33 68 40 74 49 74 C 57 74 64 68 66 60" },
+      { "points": [[67, 40], [67, 74]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "v", "group": "lower", "name": "v", "speak": "V", "lang": "en-US",
+    "strokes": [
+      { "points": [[30, 40], [50, 74], [70, 40]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "w", "group": "lower", "name": "w", "speak": "W", "lang": "en-US",
+    "strokes": [
+      { "points": [[22, 40], [35, 74], [50, 46], [65, 74], [78, 40]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "x", "group": "lower", "name": "x", "speak": "X", "lang": "en-US",
+    "strokes": [
+      { "points": [[32, 40], [68, 74]] },
+      { "points": [[68, 40], [32, 74]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "y", "group": "lower", "name": "y", "speak": "Y", "lang": "en-US",
+    "strokes": [
+      { "points": [[32, 40], [51, 70]] },
+      { "points": [[70, 40], [42, 96]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "z", "group": "lower", "name": "z", "speak": "Z", "lang": "en-US",
+    "strokes": [
+      { "points": [[32, 40], [68, 40], [32, 74], [68, 74]] }
+    ],
+    "alternateOrders": []
+  }
+]

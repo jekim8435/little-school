@@ -1,0 +1,108 @@
+[
+  {
+    "id": "ㅐ", "group": "complex", "name": "애", "speak": "애", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[30, 10], [30, 90]] },
+      { "points": [[30, 50], [54, 50]] },
+      { "points": [[66, 10], [66, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅒ", "group": "complex", "name": "얘", "speak": "얘", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[30, 10], [30, 90]] },
+      { "points": [[30, 38], [54, 38]] },
+      { "points": [[30, 62], [54, 62]] },
+      { "points": [[66, 10], [66, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅔ", "group": "complex", "name": "에", "speak": "에", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[20, 50], [46, 50]] },
+      { "points": [[46, 10], [46, 90]] },
+      { "points": [[70, 10], [70, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅖ", "group": "complex", "name": "예", "speak": "예", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[20, 38], [46, 38]] },
+      { "points": [[20, 62], [46, 62]] },
+      { "points": [[46, 10], [46, 90]] },
+      { "points": [[70, 10], [70, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅘ", "group": "complex", "name": "와", "speak": "와", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[32, 40], [32, 64]] },
+      { "points": [[8, 64], [58, 64]] },
+      { "points": [[68, 10], [68, 90]] },
+      { "points": [[68, 50], [88, 50]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅙ", "group": "complex", "name": "왜", "speak": "왜", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[26, 40], [26, 64]] },
+      { "points": [[6, 64], [48, 64]] },
+      { "points": [[58, 10], [58, 90]] },
+      { "points": [[58, 50], [74, 50]] },
+      { "points": [[84, 10], [84, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅚ", "group": "complex", "name": "외", "speak": "외", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[34, 40], [34, 64]] },
+      { "points": [[8, 64], [62, 64]] },
+      { "points": [[74, 10], [74, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅝ", "group": "complex", "name": "워", "speak": "워", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[6, 36], [56, 36]] },
+      { "points": [[32, 36], [32, 72]] },
+      { "points": [[50, 54], [72, 54]] },
+      { "points": [[72, 10], [72, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅞ", "group": "complex", "name": "웨", "speak": "웨", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[4, 36], [46, 36]] },
+      { "points": [[25, 36], [25, 72]] },
+      { "points": [[44, 54], [60, 54]] },
+      { "points": [[60, 10], [60, 90]] },
+      { "points": [[82, 10], [82, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅟ", "group": "complex", "name": "위", "speak": "위", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[8, 36], [60, 36]] },
+      { "points": [[34, 36], [34, 72]] },
+      { "points": [[74, 10], [74, 90]] }
+    ],
+    "alternateOrders": []
+  },
+  {
+    "id": "ㅢ", "group": "complex", "name": "의", "speak": "의", "lang": "ko-KR",
+    "strokes": [
+      { "points": [[8, 58], [62, 58]] },
+      { "points": [[74, 10], [74, 90]] }
+    ],
+    "alternateOrders": []
+  }
+]
