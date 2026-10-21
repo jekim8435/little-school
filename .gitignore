@@ -1,0 +1,6 @@
+node_modules/
+dist/
+.env
+# 2단계 이식용 한글쓰기 앱 사본 (원본: GitHub jekim8435/writing-practice). 2단계 후 삭제
+legacy/
+dev-dist/

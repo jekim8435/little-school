@@ -1,0 +1,97 @@
+﻿파일 이름,읽을 문장,언어,쓰이는 곳
+digit-0.mp3,영,한국어,글자 0
+digit-1.mp3,일,한국어,글자 1
+digit-native-1.mp3,하나,한국어,"글자 1 (하나, 둘로 읽기)"
+digit-2.mp3,이,한국어,글자 2
+digit-native-2.mp3,둘,한국어,"글자 2 (하나, 둘로 읽기)"
+digit-3.mp3,삼,한국어,글자 3
+digit-native-3.mp3,셋,한국어,"글자 3 (하나, 둘로 읽기)"
+digit-4.mp3,사,한국어,글자 4
+digit-native-4.mp3,넷,한국어,"글자 4 (하나, 둘로 읽기)"
+digit-5.mp3,오,한국어,글자 5
+digit-native-5.mp3,다섯,한국어,"글자 5 (하나, 둘로 읽기)"
+digit-6.mp3,육,한국어,글자 6
+digit-native-6.mp3,여섯,한국어,"글자 6 (하나, 둘로 읽기)"
+digit-7.mp3,칠,한국어,글자 7
+digit-native-7.mp3,일곱,한국어,"글자 7 (하나, 둘로 읽기)"
+digit-8.mp3,팔,한국어,글자 8
+digit-native-8.mp3,여덟,한국어,"글자 8 (하나, 둘로 읽기)"
+digit-9.mp3,구,한국어,글자 9
+digit-native-9.mp3,아홉,한국어,"글자 9 (하나, 둘로 읽기)"
+letter-a.mp3,A,영어,글자 a
+letter-b.mp3,B,영어,글자 b
+letter-c.mp3,C,영어,글자 c
+letter-d.mp3,D,영어,글자 d
+letter-e.mp3,E,영어,글자 e
+letter-f.mp3,F,영어,글자 f
+letter-g.mp3,G,영어,글자 g
+letter-h.mp3,H,영어,글자 h
+letter-i.mp3,I,영어,글자 i
+letter-j.mp3,J,영어,글자 j
+letter-k.mp3,K,영어,글자 k
+letter-l.mp3,L,영어,글자 l
+letter-m.mp3,M,영어,글자 m
+letter-n.mp3,N,영어,글자 n
+letter-o.mp3,O,영어,글자 o
+letter-p.mp3,P,영어,글자 p
+letter-q.mp3,Q,영어,글자 q
+letter-r.mp3,R,영어,글자 r
+letter-s.mp3,S,영어,글자 s
+letter-t.mp3,T,영어,글자 t
+letter-u.mp3,U,영어,글자 u
+letter-v.mp3,V,영어,글자 v
+letter-w.mp3,W,영어,글자 w
+letter-x.mp3,X,영어,글자 x
+letter-y.mp3,Y,영어,글자 y
+letter-z.mp3,Z,영어,글자 z
+consonant-01.mp3,기역,한국어,글자 기역
+consonant-02.mp3,니은,한국어,글자 니은
+consonant-03.mp3,디귿,한국어,글자 디귿
+consonant-04.mp3,리을,한국어,글자 리을
+consonant-05.mp3,미음,한국어,글자 미음
+consonant-06.mp3,비읍,한국어,글자 비읍
+consonant-07.mp3,시옷,한국어,글자 시옷
+consonant-08.mp3,이응,한국어,글자 이응
+consonant-09.mp3,지읒,한국어,글자 지읒
+consonant-10.mp3,치읓,한국어,글자 치읓
+consonant-11.mp3,키읔,한국어,글자 키읔
+consonant-12.mp3,티읕,한국어,글자 티읕
+consonant-13.mp3,피읖,한국어,글자 피읖
+consonant-14.mp3,히읗,한국어,글자 히읗
+double-01.mp3,쌍기역,한국어,글자 쌍기역
+double-02.mp3,쌍디귿,한국어,글자 쌍디귿
+double-03.mp3,쌍비읍,한국어,글자 쌍비읍
+double-04.mp3,쌍시옷,한국어,글자 쌍시옷
+double-05.mp3,쌍지읒,한국어,글자 쌍지읒
+vowel-01.mp3,아,한국어,글자 아
+vowel-02.mp3,야,한국어,글자 야
+vowel-03.mp3,어,한국어,글자 어
+vowel-04.mp3,여,한국어,글자 여
+vowel-06.mp3,요,한국어,글자 요
+vowel-07.mp3,우,한국어,글자 우
+vowel-08.mp3,유,한국어,글자 유
+vowel-09.mp3,으,한국어,글자 으
+complex-01.mp3,애,한국어,글자 애
+complex-02.mp3,얘,한국어,글자 얘
+complex-03.mp3,에,한국어,글자 에
+complex-04.mp3,예,한국어,글자 예
+complex-05.mp3,와,한국어,글자 와
+complex-06.mp3,왜,한국어,글자 왜
+complex-07.mp3,외,한국어,글자 외
+complex-08.mp3,워,한국어,글자 워
+complex-09.mp3,웨,한국어,글자 웨
+complex-10.mp3,위,한국어,글자 위
+complex-11.mp3,의,한국어,글자 의
+praise-1.mp3,우와~ 정말 잘한다~!,한국어,칭찬
+praise-2.mp3,대박! 완전 멋지다!,한국어,칭찬
+praise-3.mp3,오~ 진짜 잘 썼다!,한국어,칭찬
+praise-4.mp3,최고야 최고! 짱이다!,한국어,칭찬
+praise-5.mp3,와아~ 글씨 천재다!,한국어,칭찬
+retry-1.mp3,괜찮아~ 다시 해 보자!,한국어,틀렸을 때
+retry-2.mp3,아깝다! 한 번만 더!,한국어,틀렸을 때
+retry-3.mp3,천천히 다시 써 볼까?,한국어,틀렸을 때
+free-fail.mp3,아깝다~! 바른 순서 같이 볼까?,한국어,혼자 쓰기에서 틀렸을 때
+ending-all.mp3,우와~ 다 했다! 진짜 대단하다!,한국어,한 그룹을 모두 끝냈을 때
+voice-on.mp3,음성을 켰어요,한국어,설정: 음성 켜기
+number-sino.mp3,"일, 이, 삼",한국어,설정: 숫자 읽기
+number-native.mp3,"하나, 둘, 셋",한국어,설정: 숫자 읽기

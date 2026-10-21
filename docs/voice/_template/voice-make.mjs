@@ -1,0 +1,239 @@
+#!/usr/bin/env node
+// Typecast API로 voice/대사목록.csv 의 대사를 음원(mp3)으로 만듭니다.
+//
+//   목소리 고르기:  node scripts/voice-make.mjs --list-voices [--age child] [--lang kor]
+//   미리 보기:      node scripts/voice-make.mjs --dry-run
+//   만들기:         node scripts/voice-make.mjs [--only praise,retry] [--force]
+//
+// 필요: Node 18+, 환경변수 TYPECAST_API_KEY, (권장) ffmpeg
+// 설정: voice/typecast.json (목소리 ID, 모델, 말투)
+
+import { readFile, writeFile, mkdir, access, rm } from 'node:fs/promises';
+import { execFile } from 'node:child_process';
+import { promisify } from 'node:util';
+import path from 'node:path';
+import os from 'node:os';
+
+const run = promisify(execFile);
+const API = 'https://api.typecast.ai';
+
+// ---------- 인자 ----------
+const args = process.argv.slice(2);
+const flag = (n) => args.includes(`--${n}`);
+const opt = (n, d) => {
+  const i = args.indexOf(`--${n}`);
+  return i >= 0 && args[i + 1] && !args[i + 1].startsWith('--') ? args[i + 1] : d;
+};
+
+const CSV_PATH = opt('csv', 'voice/대사목록.csv');
+const OUT_DIR = opt('out', 'voice/clips');
+const CONFIG_PATH = opt('config', 'voice/typecast.json');
+const ONLY = opt('only', '')
+  .split(',')
+  .map((s) => s.trim())
+  .filter(Boolean);
+const FORCE = flag('force');
+const DRY = flag('dry-run');
+
+const KEY = process.env.TYPECAST_API_KEY;
+
+// ---------- CSV (따옴표 포함 칸 처리) ----------
+function parseCsv(text) {
+  const rows = [];
+  let row = [], cell = '', q = false;
+  text = text.replace(/^﻿/, '');
+  for (let i = 0; i < text.length; i++) {
+    const c = text[i];
+    if (q) {
+      if (c === '"' && text[i + 1] === '"') { cell += '"'; i++; }
+      else if (c === '"') q = false;
+      else cell += c;
+    } else if (c === '"') q = true;
+    else if (c === ',') { row.push(cell); cell = ''; }
+    else if (c === '\n' || c === '\r') {
+      if (c === '\r' && text[i + 1] === '\n') i++;
+      row.push(cell); cell = '';
+      if (row.some((v) => v !== '')) rows.push(row);
+      row = [];
+    } else cell += c;
+  }
+  if (cell || row.length) { row.push(cell); if (row.some((v) => v !== '')) rows.push(row); }
+  return rows;
+}
+
+// ---------- 말투 고르기 ----------
+// 파일 이름 앞부분으로 감정을 정합니다. typecast.json 의 "styles" 로 바꿀 수 있습니다.
+const DEFAULT_STYLES = {
+  'praise-': { emotion: 'happy', intensity: 1.4 },
+  'ending-': { emotion: 'happy', intensity: 1.4 },
+  'retry-': { emotion: 'normal', intensity: 1.0 },
+  'free-fail': { emotion: 'normal', intensity: 1.0 },
+  '*': { emotion: 'normal', intensity: 1.0 },
+};
+
+function styleFor(file, styles) {
+  const key = Object.keys(styles)
+    .filter((k) => k !== '*' && file.startsWith(k))
+    .sort((a, b) => b.length - a.length)[0];
+  return styles[key ?? '*'] ?? DEFAULT_STYLES['*'];
+}
+
+// ---------- API ----------
+async function api(pathname, init = {}, tries = 4) {
+  for (let t = 1; ; t++) {
+    const res = await fetch(API + pathname, {
+      ...init,
+      headers: { 'X-API-KEY': KEY, ...(init.headers || {}) },
+    });
+    if (res.ok) return res;
+    if ((res.status === 429 || res.status >= 500) && t < tries) {
+      const wait = 2000 * t;
+      console.warn(`  ${res.status} — ${wait / 1000}초 후 다시 시도`);
+      await new Promise((r) => setTimeout(r, wait));
+      continue;
+    }
+    const body = await res.text().catch(() => '');
+    const hint = {
+      401: 'API 키가 틀렸습니다',
+      402: '크레딧이 부족합니다',
+      404: '목소리 ID를 찾을 수 없습니다',
+      422: '이 문장을 읽을 수 없습니다 (문장을 조금 바꿔 보세요)',
+    }[res.status];
+    throw new Error(`${res.status}${hint ? ` (${hint})` : ''}: ${body.slice(0, 300)}`);
+  }
+}
+
+async function listVoices() {
+  const qs = new URLSearchParams();
+  for (const k of ['model', 'gender', 'age']) if (opt(k)) qs.set(k, opt(k));
+  const res = await api(`/v3/voices${qs.size ? `?${qs}` : ''}`);
+  let voices = await res.json();
+  if (!Array.isArray(voices)) voices = voices.voices ?? voices.data ?? [];
+  const lang = opt('lang');
+  console.log(`목소리 ${voices.length}개\n`);
+  for (const v of voices) {
+    const name = typeof v.voice_name === 'object'
+      ? (v.voice_name[lang] ?? v.voice_name.kor ?? v.voice_name.eng ?? Object.values(v.voice_name)[0])
+      : v.voice_name;
+    const models = (v.models || [])
+      .map((m) => `${m.version}[${(m.emotions || []).join('/')}]`)
+      .join(' ');
+    console.log(`${v.voice_id}  ${name}  (${v.gender ?? '-'}, ${v.age ?? '-'})  ${models}`);
+    if (v.preview_url) console.log(`    미리듣기: ${v.preview_url}`);
+  }
+}
+
+async function synth({ text, voiceId, lang, style, cfg }) {
+  const body = {
+    voice_id: voiceId,
+    text,
+    model: cfg.model,
+    language: lang,
+    prompt:
+      cfg.model === 'ssfm-v21'
+        ? { emotion_preset: style.emotion, emotion_intensity: style.intensity }
+        : { emotion_type: 'preset', emotion_preset: style.emotion, emotion_intensity: style.intensity },
+    output: {
+      audio_format: cfg._mp3 ? 'mp3' : 'wav',
+      audio_tempo: cfg.tempo ?? 1.0,
+      audio_pitch: cfg.pitch ?? 0,
+      target_lufs: cfg.lufs ?? -16,
+    },
+  };
+  const res = await api('/v1/text-to-speech', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  return Buffer.from(await res.arrayBuffer());
+}
+
+// ---------- ffmpeg: 앞뒤 무음 자르기 + mp3 모노 64kbps ----------
+let hasFfmpeg;
+async function checkFfmpeg() {
+  try { await run('ffmpeg', ['-version']); return true; } catch { return false; }
+}
+
+const TRIM =
+  'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,' +
+  'areverse,' +
+  'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,' +
+  'areverse';
+
+async function toMp3(wav, outFile) {
+  const tmp = path.join(os.tmpdir(), `tc-${process.pid}-${Date.now()}.wav`);
+  await writeFile(tmp, wav);
+  try {
+    await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmp, '-af', TRIM,
+      '-ac', '1', '-ar', '44100', '-codec:a', 'libmp3lame', '-b:a', '64k', outFile]);
+  } finally {
+    await rm(tmp, { force: true });
+  }
+}
+
+const exists = (p) => access(p).then(() => true, () => false);
+
+// ---------- 실행 ----------
+async function main() {
+  if (!KEY && !DRY) {
+    console.error('TYPECAST_API_KEY 환경변수를 먼저 설정하세요. (README의 "API 키" 참고)');
+    process.exit(1);
+  }
+  if (flag('list-voices')) return listVoices();
+
+  const cfg = JSON.parse(await readFile(CONFIG_PATH, 'utf8'));
+  cfg.model ??= 'ssfm-v30';
+  const styles = { ...DEFAULT_STYLES, ...(cfg.styles || {}) };
+  const replace = cfg.replace || {}; // 예: { "~": "" }
+
+  const [header, ...rows] = parseCsv(await readFile(CSV_PATH, 'utf8'));
+  const col = (n) => header.indexOf(n);
+  const [iFile, iText, iLang] = [col('파일 이름'), col('읽을 문장'), col('언어')];
+  if ([iFile, iText, iLang].includes(-1)) throw new Error('CSV 머리줄(파일 이름, 읽을 문장, 언어)을 찾을 수 없습니다');
+
+  let lines = rows.map((r) => ({ file: r[iFile].trim(), text: r[iText].trim(), langKo: r[iLang].trim() }));
+  if (ONLY.length) lines = lines.filter((l) => ONLY.some((p) => l.file.startsWith(p)));
+
+  if (!DRY) {
+    hasFfmpeg = await checkFfmpeg();
+    if (!hasFfmpeg) console.warn('⚠ ffmpeg가 없어 무음 자르기·압축을 건너뛰고 Typecast mp3를 그대로 저장합니다.\n');
+    await mkdir(OUT_DIR, { recursive: true });
+  }
+
+  let made = 0, skipped = 0, failed = 0, chars = 0;
+  for (const l of lines) {
+    const out = path.join(OUT_DIR, l.file);
+    if (!FORCE && (await exists(out))) { skipped++; continue; }
+
+    const isEn = l.langKo === '영어';
+    const voiceId = isEn ? cfg.enVoice : cfg.koVoice;
+    const lang = isEn ? 'eng' : 'kor';
+    const style = styleFor(l.file, styles);
+    let text = l.text;
+    for (const [from, to] of Object.entries(replace)) text = text.split(from).join(to);
+    chars += text.length;
+
+    console.log(`${l.file.padEnd(22)} ${lang} ${style.emotion}(${style.intensity})  "${text}"`);
+    if (DRY) continue;
+    if (!voiceId) throw new Error(`typecast.json 에 ${isEn ? 'enVoice' : 'koVoice'} 를 넣어 주세요`);
+
+    try {
+      if (hasFfmpeg) {
+        await toMp3(await synth({ text, voiceId, lang, style, cfg }), out);
+      } else {
+        await writeFile(out, await synth({ text, voiceId, lang, style, cfg: { ...cfg, _mp3: true } }));
+      }
+      made++;
+    } catch (e) {
+      failed++;
+      console.error(`  ✗ ${e.message}`);
+    }
+    await new Promise((r) => setTimeout(r, cfg.delayMs ?? 300));
+  }
+
+  console.log(`\n${DRY ? '만들 예정' : '만든'} ${DRY ? lines.length - skipped : made}개 · 이미 있음 ${skipped}개${failed ? ` · 실패 ${failed}개` : ''} · 글자 수 ${chars}`);
+  if (!DRY) console.log('확인: npm run voice:lines');
+  if (failed) process.exit(1);
+}
+
+main().catch((e) => { console.error(e.message); process.exit(1); });

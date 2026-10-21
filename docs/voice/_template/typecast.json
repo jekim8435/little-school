@@ -1,0 +1,15 @@
+{
+  "model": "ssfm-v30",
+  "koVoice": "tc_66596206b7bd6e89c3a2c54e",
+  "enVoice": "tc_645b39b760386589fd851133",
+  "tempo": 1.0,
+  "pitch": 0,
+  "lufs": -16,
+  "replace": {},
+  "styles": {
+    "praise-": { "emotion": "happy", "intensity": 1.4 },
+    "ending-": { "emotion": "happy", "intensity": 1.4 },
+    "retry-": { "emotion": "normal", "intensity": 1.0 },
+    "free-fail": { "emotion": "normal", "intensity": 1.0 }
+  }
+}
