@@ -4,6 +4,10 @@
 
 ## 2026-10-21
 
+- **1단계 완료 — v0.1.0** (12장 12번). 아이패드 에어1 실기기 점검표(`docs/ipad-checklist.md`, 명세 13장) 전 항목 정상, 1단계 음원 9개 청취 확인
+  - 남은 것: 갤럭시 탭 실기기 확인(`docs/galaxy-tab-checklist.md`, 보류 중), 음원 크기 줄이기(ffmpeg 설치 후 `--compress`), 개발 기간 표시 끄기(과목을 어느 정도 만든 뒤, CLAUDE.md ‘나중에 할 일’)
+  - 다음: 2단계 한글쓰기 앱 이식(명세 14장)
+
 - 1단계 음원 제작: 껍데기 7개 + 샘플 2개를 Typecast ‘아찌’(`tc_66596206b7bd6e89c3a2c54e`, 한글쓰기 앱과 같은 목소리)로 만들어 `public/voice/`, `public/apps/sample/voice/`에 넣음. 배포 워크플로에 `voice:check` 추가 — 명세 15장
   - PC에 ffmpeg가 없어 Typecast mp3(44.1kHz 모노 **320kbps**, 대사당 40~170KB, 9개 약 1MB)를 그대로 넣었다. 명세 15-4 규격(22kHz 64kbps)보다 크다. **ffmpeg를 설치하면 `npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --compress`로 다시 받지 않고 줄인다**(크레딧 안 씀)
   - 과목에 들어갈 때 ‘오늘 스티커는 받았어요’ 안내가 과목 첫 안내(샘플 ‘동그라미를 모두…’)를 끊는다. 2단계에서 대사 순서(이어 말하기)를 정리한다
