@@ -1,0 +1,9 @@
+{
+  // 테스트는 Node에서 돌므로 Node 타입을 더한다. 앱 코드(src/)의 설정에는 넣지 않는다
+  // (Node 타입이 섞이면 브라우저에 없는 API를 써도 타입 검사가 통과해 버린다)
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "types": ["vite/client", "vite-plugin-pwa/client", "node"]
+  },
+  "include": ["."]
+}

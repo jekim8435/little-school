@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="description" content="꼬마를 위한 놀이 학습 앱" />
+    <meta name="theme-color" content="#fff8ef" />
+    <!-- iOS 홈 화면 앱 (iOS 12는 manifest보다 이 메타를 따른다, 명세 11-1) -->
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="꼬마학교" />
+    <link rel="apple-touch-icon" href="./icons/apple-touch-icon-180.png" />
+    <link rel="apple-touch-icon" sizes="167x167" href="./icons/apple-touch-icon-167.png" />
+    <link rel="apple-touch-icon" sizes="152x152" href="./icons/apple-touch-icon-152.png" />    <link rel="icon" type="image/png" href="./icons/icon-192.png" />
+    <title>꼬마학교</title>
+    <!--
+      빈 화면 안전장치: 앱이 뜨지 못하면 4초 뒤 오류 내용과 [다시 시도]를 화면에 보여준다.
+      아이패드에는 개발자 도구가 없으므로 이 문구로 원인을 찾는다. 옛 브라우저도 읽도록 ES5로 쓴다.
+    -->
+    <script>
+      (function () {
+        var errors = [];
+        window.addEventListener('error', function (e) {
+          var t = e.target;
+          if (t && t !== window && (t.src || t.href)) {
+            errors.push('파일을 불러오지 못함: ' + (t.src || t.href));
+          } else {
+            errors.push((e.message || '알 수 없는 오류') + (e.filename ? ' @ ' + e.filename + ':' + e.lineno : ''));
+          }
+        }, true);
+        window.addEventListener('unhandledrejection', function (e) {
+          errors.push('Promise: ' + (e.reason && (e.reason.stack || e.reason.message) || e.reason));
+        });
+        window.__bootErrors = errors;
+        setTimeout(function () {
+          var app = document.getElementById('app');
+          if (!app || app.children.length > 0) return;
+          var esc = function (s) { return String(s).replace(/[&<>]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;' }[c]; }); };
+          app.innerHTML =
+            '<div style="padding:24px;font:16px/1.5 -apple-system,sans-serif;color:#2a2522">' +
+            '<h1 style="font-size:24px">화면을 불러오지 못했어요</h1>' +
+            '<p>아래 내용을 알려 주시면 원인을 찾을 수 있어요.</p>' +
+            '<pre style="white-space:pre-wrap;word-break:break-all;background:#f3ece2;padding:12px;border-radius:8px;font:13px/1.5 -apple-system,sans-serif">' +
+            esc((errors.length ? errors.join('\n') : '오류 메시지 없음 (스크립트가 실행되지 않음)') + '\n\n' + navigator.userAgent) +
+            '</pre>' +
+            '<button onclick="location.reload()" style="font-size:20px;padding:12px 24px;border-radius:14px;border:0;background:#e8574f;color:#fff;margin:0 8px 8px 0">다시 시도</button>' +
+            '<button onclick="__resetApp()" style="font-size:20px;padding:12px 24px;border-radius:14px;border:2px solid #e8574f;background:#fff;color:#e8574f">캐시 지우고 다시 시도</button>' +
+            '<p style="color:#8a7f76;font-size:14px">예전 버전이 기기에 남아 문제가 생겼다면 [캐시 지우고 다시 시도]가 고쳐 줘요. 기록은 그대로 남아요.</p>' +
+            '</div>';
+        }, 4000);
+
+        // 서비스 워커와 미리 받아 둔 파일(캐시)을 지우고 새로 받는다
+        window.__resetApp = function () {
+          var tasks = [];
+          if (navigator.serviceWorker && navigator.serviceWorker.getRegistrations) {
+            tasks.push(navigator.serviceWorker.getRegistrations().then(function (regs) {
+              return Promise.all(regs.map(function (r) { return r.unregister(); }));
+            }));
+          }
+          if (window.caches && caches.keys) {
+            tasks.push(caches.keys().then(function (keys) {
+              return Promise.all(keys.map(function (k) { return caches['delete'](k); }));
+            }));
+          }
+          Promise.all(tasks).then(done, done);
+          function done() { location.reload(); }
+        };
+      })();
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
+    <script type="module" src="./src/main.ts"></script>
+    <script nomodule>
+      window.__bootErrors && window.__bootErrors.push('이 브라우저는 너무 오래되어 앱을 실행할 수 없어요 (ES 모듈 미지원)');
+    </script>
+  </body>
+</html>

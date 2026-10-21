@@ -1,0 +1,152 @@
+/* 공통 스타일. Safari 12 규칙(명세 2-2): flex/grid의 gap 대신 자식 margin, inset 대신 top/right/bottom/left */
+:root {
+  --bg: #fff8ef;
+  --surface: #ffffff;
+  --ink: #2a2522;
+  --muted: #8a7f76;
+  --line: #eadfd0;
+  --accent: #e8574f;
+  --radius: 20px;
+  --btn: 88px; /* 주요 버튼 최소 크기 (명세 10장) */
+  font-family: -apple-system, 'Apple SD Gothic Neo', 'Noto Sans KR', 'Noto Sans CJK KR', sans-serif;
+  color: var(--ink);
+  background: var(--bg);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* 아이 전용 사용 설정 (명세 2-3): 확대·선택·길게 누르기 메뉴·당겨서 새로고침·바운스 스크롤 차단 */
+html {
+  touch-action: manipulation; /* 두 번 눌러 확대 막기 */
+}
+html,
+body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+  -webkit-tap-highlight-color: transparent;
+  background: var(--bg);
+}
+body {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+#app {
+  height: 100%;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+button {
+  font: inherit;
+  color: inherit;
+  cursor: pointer;
+  touch-action: manipulation;
+}
+
+.screen {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+/* ── 버튼 ── */
+.btn {
+  min-width: var(--btn);
+  min-height: var(--btn);
+  padding: 0 28px;
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  background: var(--surface);
+  font-size: 28px;
+  font-weight: 700;
+  box-shadow: 0 4px 0 var(--line);
+}
+.btn:active:not(:disabled) {
+  transform: translateY(2px);
+  box-shadow: 0 2px 0 var(--line);
+}
+.btn-primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 0 #b8403a;
+}
+
+/* ── 빈 화면 (1단계 2번 확인용) ── */
+.blank {
+  align-items: center;
+  justify-content: center;
+}
+.blank-title {
+  margin: 0;
+  font-size: 72px;
+}
+.blank-sub {
+  margin: 8px 0 24px;
+  color: var(--muted);
+  font-size: 24px;
+}
+.blank-info {
+  margin: 0 0 32px;
+  font-size: 24px;
+}
+.blank-info > div {
+  display: flex;
+}
+.blank-info > div + div {
+  margin-top: 4px;
+}
+.blank-info dt {
+  width: 160px;
+  color: var(--muted);
+}
+.blank-info dd {
+  margin: 0;
+  font-weight: 700;
+}
+
+/* ── 새 버전 배너 ── */
+.update-banner {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  bottom: calc(16px + env(safe-area-inset-bottom));
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  max-width: 90%;
+  white-space: nowrap;
+  padding: 10px 12px 10px 24px;
+  border-radius: 22px;
+  background: var(--ink);
+  color: #fff;
+  font-size: 20px;
+  font-weight: 700;
+  transform: translateX(-50%);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.update-banner > * + * {
+  margin-left: 12px;
+}
+.update-banner .btn {
+  min-width: 64px;
+  min-height: 64px;
+  font-size: 20px;
+}
+.update-banner .btn:not(.btn-primary) {
+  background: transparent;
+  color: #fff;
+  border-color: transparent;
+  box-shadow: none;
+}
