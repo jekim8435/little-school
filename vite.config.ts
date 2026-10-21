@@ -1,5 +1,6 @@
 import { VitePWA } from 'vite-plugin-pwa';
 import { defineConfig } from 'vitest/config';
+import pkg from './package.json';
 
 // 앱 코드는 Node 타입을 쓰지 않으므로 설정 파일에서 필요한 만큼만 선언한다
 declare const process: { env: Record<string, string | undefined> };
@@ -14,6 +15,7 @@ export default defineConfig({
   base: native ? './' : BASE,
   server: { host: true },
   define: {
+    __APP_VERSION__: JSON.stringify(pkg.version),
     // 한국 시각 'YYYY-MM-DD HH:mm'
     __BUILD_TIME__: JSON.stringify(new Date(Date.now() + 9 * 3600e3).toISOString().slice(0, 16).replace('T', ' ')),
   },

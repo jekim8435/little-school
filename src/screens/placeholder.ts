@@ -1,16 +1,23 @@
 /** 아직 만들지 않은 화면 자리 (1단계 진행 중에만 쓴다) */
-import type { Route, Router, Screen } from '../router';
+import type { Route, Screen } from '../router';
 import { formatRoute } from '../router';
+import type { Shell } from '../shell';
 import { button } from '../ui/components';
 import { h } from '../ui/dom';
 
-export function placeholderScreen(route: Route, router: Router): Screen {
+export function placeholderScreen(route: Route, shell: Shell): Screen {
   const el = h(
     'div',
-    { class: 'screen blank' },
+    { class: 'screen center' },
     h('h1', { class: 'text-title' }, '준비 중'),
-    h('p', { class: 'blank-sub' }, formatRoute(route)),
-    button('처음으로', () => router.go({ name: 'start' }), { kind: 'primary', big: true }),
+    h('p', { class: 'text-body text-muted' }, formatRoute(route)),
+    h(
+      'div',
+      { class: 'row' },
+      button('처음으로', () => shell.router.go({ name: 'start' }), { kind: 'primary', big: true }),
+      // 허브(5번)·부모 모드(8번)가 생기기 전까지 기기 정보로 가는 임시 길
+      route.name === 'hub' ? button('기기 정보', () => shell.router.go({ name: 'parent', page: 'device' }), { big: true }) : null,
+    ),
   );
   return { el };
 }
