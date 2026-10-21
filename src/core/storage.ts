@@ -23,7 +23,7 @@ export interface SubjectSetting {
 }
 
 export interface Settings {
-  /** 하루 학습 시간(분). null = 제한 없음 */
+  /** 하루 학습 시간(분). null = 제한 없음. 1은 실기기 점검용(기기 정보 > 점검 도구) */
   dailyMinutes: number | null;
   graceMinutes: number;
   boardSize: BoardSize;
@@ -151,7 +151,7 @@ export function normalize(raw: unknown, today: string): SaveData {
   const lock = obj(s.parentLock);
 
   const settings: Settings = {
-    dailyMinutes: s.dailyMinutes === null ? null : pick(s.dailyMinutes, [10, 15, 20, 30], ds.dailyMinutes),
+    dailyMinutes: s.dailyMinutes === null ? null : pick(s.dailyMinutes, [1, 10, 15, 20, 30], ds.dailyMinutes),
     graceMinutes: pick(s.graceMinutes, [0, 3, 5], ds.graceMinutes),
     boardSize: pick(s.boardSize, [5, 10, 20] as const, ds.boardSize),
     audio: {

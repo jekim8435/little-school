@@ -6,7 +6,7 @@ import { displayMode } from '../../core/device';
 import { STORAGE_KEY } from '../../core/storage';
 import type { Screen } from '../../router';
 import type { Shell } from '../../shell';
-import { button } from '../../ui/components';
+import { button, toast } from '../../ui/components';
 import { h } from '../../ui/dom';
 import { PRESS_START_EVENTS } from '../../ui/input';
 import { parentPage, section } from './common';
@@ -44,6 +44,7 @@ export function deviceScreen(shell: Shell): Screen {
       ['펜 압력', input.pressure === null ? '펜 입력 없음' : input.pressure.toFixed(2)],
       ['펜 사용 기기', store.data.device.penSeen ? '예' : '아니요'],
       ['사용 중인 음성', audio.voiceName],
+      ['하루 학습 시간', store.data.settings.dailyMinutes === null ? '제한 없음' : `${store.data.settings.dailyMinutes}분`],
       ['소리 설정', `효과음 ${a.sfxOn ? '켜짐' : '꺼짐'} · 음성 ${a.voiceOn ? '켜짐' : '꺼짐'} · 속도 ${a.voiceRate === 'slow' ? '천천히' : '보통'}`],
       ['저장 공간', `${(savedBytes / 1024).toFixed(1)} KB${store.saveFailed ? ' · 마지막 저장 실패' : ''}`],
       ['앱 버전', `${__APP_VERSION__} (빌드 ${__BUILD_TIME__})${pwa.needRefresh ? ' · 새 버전 있음' : ''}`],
@@ -60,6 +61,26 @@ export function deviceScreen(shell: Shell): Screen {
 
   const el = parentPage(shell, '기기 정보', [
     section(null, info),
+    section(
+      '점검 도구 (실기기 점검용, 명세 13장)',
+      h('p', { class: 'p-help' }, '하루 학습 시간을 1분으로 줄여 ‘오늘 공부 끝’ 흐름을 빨리 확인해요. 점검이 끝나면 공통 설정에서 원래 시간으로 돌려 주세요.'),
+      h(
+        'div',
+        { class: 'row wrap' },
+        button('하루 학습 시간 1분으로', () => {
+          store.data.settings.dailyMinutes = 1;
+          store.changed();
+          toast('하루 학습 시간을 1분으로 바꿨어요');
+          render();
+        }),
+        button('20분으로 되돌리기', () => {
+          store.data.settings.dailyMinutes = 20;
+          store.changed();
+          toast('20분으로 되돌렸어요');
+          render();
+        }),
+      ),
+    ),
     section(
       '소리 시험',
       h(

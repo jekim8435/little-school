@@ -61,7 +61,8 @@ export function settingsScreen(shell: Shell): Screen {
     settingRow(
       '하루 학습 시간',
       segmented<number>(
-        [10, 15, 20, 30, 0].map((v) => ({ value: v, label: v ? `${v}분` : '제한 없음' })),
+        // 1분은 점검용(기기 정보 > 점검 도구에서만 정함). 지금 1분이면 보이게
+        (s.dailyMinutes === 1 ? [1] : []).concat([10, 15, 20, 30, 0]).map((v) => ({ value: v, label: v === 1 ? '1분(점검)' : v ? `${v}분` : '제한 없음' })),
         s.dailyMinutes === null ? 0 : s.dailyMinutes,
         (v) => {
           s.dailyMinutes = v === 0 ? null : v;
