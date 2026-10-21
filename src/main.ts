@@ -1,4 +1,4 @@
-import { applyViewportVars, lockPageGestures, markFeatures, onViewportChange } from './ui/compat'; // 옛 Safari용 기능 채우기 (가장 먼저)
+import { applyViewportVars, lockPageGestures, onViewportChange } from './ui/compat'; // 옛 Safari용 기능 채우기 (가장 먼저)
 import './ui/styles.css';
 import { unlockAudio } from './core/audio';
 import { browserStorage, requestPersist, Store } from './core/storage';
@@ -32,7 +32,6 @@ for (const type of ['pointerdown', 'touchend', 'click']) {
   document.addEventListener(type, unlockAudio, { capture: true });
 }
 lockPageGestures();
-markFeatures();
 applyViewportVars();
 
 // 세로 방향 안내 (명세 2-4). 과목 pause()·학습 시간 멈춤은 5·7번에서 연결
