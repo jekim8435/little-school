@@ -13,12 +13,13 @@ import type { Screen } from '../router';
 import type { Shell } from '../shell';
 import { isLandscape, onViewportChange } from '../ui/compat';
 import { h } from '../ui/dom';
+import { PRESS_START_EVENTS } from '../ui/input';
 
 /** 확인 말풍선이 떠 있는 시간 */
 const CONFIRM_MS = 3000;
 
 export function appHostScreen(shell: Shell, appId: string): Screen {
-  const { store, audio, router } = shell;
+  const { store, audio, router, session } = shell;
   const entry = findApp(appId)!; // 없는 과목은 라우터 가드가 허브로 돌린다
   let mod: AppModule | null = null;
   let mounted = false;
@@ -72,7 +73,8 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
       leaveTimer = window.setTimeout(leave, wait);
       return;
     }
-    router.go({ name: 'hub' });
+    // 하루 학습 시간에 닿았으면 허브 대신 ‘오늘 공부 끝’ (명세 5-5)
+    router.go(session.isTimeUp() ? { name: 'done' } : { name: 'hub' });
   }
 
   function feedback(kind: 'correct' | 'oops'): void {
@@ -152,6 +154,7 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
   }
 
   function setPaused(p: boolean): void {
+    session.setPaused(p); // 세로·백그라운드 동안 학습 시간도 멈춘다 (명세 7장)
     if (!mounted || !mod || p === paused) return;
     paused = p;
     try {
@@ -165,6 +168,15 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
   const onVisibility = () => setPaused(document.visibilityState === 'hidden' || !isLandscape());
   document.addEventListener('visibilitychange', onVisibility);
 
+  // ── 학습 시간 (명세 7장) ──
+  const onPress = () => session.touch();
+  for (const type of PRESS_START_EVENTS) document.addEventListener(type, onPress, true);
+  // 1초마다 잰 시간을 기록하고, 시간에 닿은 뒤 유예가 지나면 과목이 확인하지 않아도 ‘오늘 공부 끝’으로
+  const tick = window.setInterval(() => {
+    session.flush();
+    if (mounted && session.shouldForceDone()) router.go({ name: 'done' });
+  }, 1000);
+
   entry.load().then(
     (m) => {
       if (destroyed) return; // 불러오는 사이에 나갔다
@@ -175,7 +187,7 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
         store,
         audio,
         exit: leave,
-        isTimeUp: () => false, // 7번(학습 시간)에서 연결
+        isTimeUp: () => session.isTimeUp(),
         feedback,
         onStar,
         baseUrl: import.meta.env.BASE_URL,
@@ -185,13 +197,14 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
       try {
         mod.mount(body, c.ctx);
         mounted = true;
+        session.start(appId);
       } catch (e) {
         showError(e);
         return;
       }
       // 오늘 스티커를 받은 과목: 들어올 때 한 번 안내 (명세 6-3)
       if (rewardStatus(store, appId).doneToday) audio.say('shell.app.sticker-done');
-      if (!isLandscape()) setPaused(true);
+      if (!isLandscape() || document.visibilityState === 'hidden') setPaused(true);
     },
     (e) => {
       if (!destroyed) showError(e);
@@ -218,6 +231,10 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
       window.clearTimeout(leaveTimer);
       offViewport();
       document.removeEventListener('visibilitychange', onVisibility);
+      window.clearInterval(tick);
+      for (const type of PRESS_START_EVENTS) document.removeEventListener(type, onPress, true);
+      session.stop();
+      session.setPaused(false);
       if (mounted && mod) {
         try {
           mod.unmount();

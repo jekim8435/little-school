@@ -20,7 +20,9 @@ const SWIPE = 60;
 const TAP = 12;
 
 export function hubScreen(shell: Shell): Screen {
-  const { store, audio, router } = shell;
+  const { store, audio, router, session } = shell;
+  // 오늘 시간이 다 됐으면 타일이 잠긴 모양, 누르면 ‘오늘 공부 끝’ (명세 5-2)
+  const locked = session.isTimeUp();
   const data = store.data;
   const ids = visibleSubjects(data.settings.subjects, apps.map((a) => a.id));
   const entries = ids.map((id) => findApp(id)).filter((a): a is AppEntry => !!a);
@@ -60,10 +62,11 @@ export function hubScreen(shell: Shell): Screen {
     const badge = st.doneToday ? '오늘 스티커 ✓' : `★ ${Math.min(st.stars, st.ratio)}/${st.ratio}`;
     return h(
       'div',
-      { class: `hub-tile${st.doneToday ? ' is-done' : ''}`, 'data-app': e.id, role: 'button', 'aria-label': e.name, style: `background:${e.color}` },
+      { class: `hub-tile${st.doneToday ? ' is-done' : ''}${locked ? ' is-locked' : ''}`, 'data-app': e.id, role: 'button', 'aria-label': e.name, style: `background:${e.color}` },
       h('span', { class: 'hub-badge' }, badge),
       h('img', { class: 'hub-icon', src: e.icon, alt: '' }),
       h('span', { class: 'hub-name' }, e.name),
+      locked ? h('span', { class: 'hub-lock' }, '🔒') : null,
     );
   }
 
@@ -82,6 +85,10 @@ export function hubScreen(shell: Shell): Screen {
     const el = track.querySelector(`[data-app="${id}"]`);
     if (el) el.classList.add('is-pressed');
     audio.sfx('tap');
+    if (locked) {
+      router.go({ name: 'done' });
+      return;
+    }
     if (audio.hasLine(`${id}.hub.name`)) audio.say(`${id}.hub.name`);
     // 누른 타일이 눌린 모양을 잠깐 보인 뒤 들어간다
     window.setTimeout(() => router.go({ name: 'app', id }), 180);

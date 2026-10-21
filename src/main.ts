@@ -3,10 +3,12 @@ import './ui/styles.css';
 import { apps, findApp } from './apps/registry';
 import { AudioService } from './core/audio';
 import { watchInput } from './core/device';
+import { StudySession } from './core/session';
 import { browserStorage, requestPersist, Store } from './core/storage';
 import { syncSubjects, visibleSubjects } from './core/subjects';
 import { Router, type Route, type Screen } from './router';
 import { appHostScreen } from './screens/app-host';
+import { doneScreen } from './screens/done';
 import { hubScreen } from './screens/hub';
 import { deviceScreen } from './screens/parent/device';
 import { placeholderScreen } from './screens/placeholder';
@@ -60,6 +62,7 @@ function createScreen(route: Route): Screen {
   if (route.name === 'start') return startScreen(shell);
   if (route.name === 'hub') return hubScreen(shell);
   if (route.name === 'app') return appHostScreen(shell, route.id);
+  if (route.name === 'done') return doneScreen(shell);
   if (route.name === 'stickers') return stickersScreen(shell);
   if (route.name === 'sticker-history') return stickerHistoryScreen(shell);
   // 부모 모드 틀(잠금)은 8번에서. 그전까지 기기 정보만 바로 연다
@@ -68,10 +71,12 @@ function createScreen(route: Route): Screen {
 }
 
 const router = new Router(document.getElementById('app')!, createScreen);
-const shell: Shell = { store, audio, input, router };
+const shell: Shell = { store, audio, input, router, session: new StudySession(store) };
 // 없거나 꺼진 과목 주소는 허브로
 router.setGuard((to) => {
   if (to.name === 'app' && (!findApp(to.id) || visibleSubjects(store.data.settings.subjects, [to.id]).length === 0)) return { name: 'hub' };
+  // 오늘 시간이 다 됐으면 과목 대신 ‘오늘 공부 끝’ (명세 5-2, 5-5)
+  if (to.name === 'app' && shell.session.isTimeUp()) return { name: 'done' };
   return to;
 });
 

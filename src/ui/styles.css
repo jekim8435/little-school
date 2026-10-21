@@ -1033,3 +1033,48 @@ textarea {
   font-size: 18px;
   line-height: 1.5;
 }
+
+/* ── 오늘 시간이 다 된 허브 타일 ── */
+.hub-tile.is-locked {
+  opacity: 0.55;
+  filter: grayscale(0.6);
+}
+.hub-lock {
+  position: absolute;
+  left: calc(var(--u) * 12);
+  top: calc(var(--u) * 10);
+  font-size: calc(var(--u) * 32);
+  pointer-events: none;
+}
+
+/* ── 오늘 공부 끝 (명세 5-5) ── */
+.done {
+  background: #1f3b64;
+  color: #fff;
+}
+.done-art {
+  width: calc(var(--u) * 220);
+  height: calc(var(--u) * 220);
+}
+.done-art svg {
+  width: 100%;
+  height: 100%;
+}
+.done-title {
+  margin: calc(var(--u) * 8) 0 0;
+  font-size: calc(var(--u) * 72);
+  font-weight: 800;
+}
+.done-sub {
+  margin: calc(var(--u) * 4) 0 calc(var(--u) * 16);
+  font-size: calc(var(--u) * 40);
+  font-weight: 700;
+}
+.done-count {
+  margin: 0 0 calc(var(--u) * 32);
+  font-size: calc(var(--u) * 30);
+  font-weight: 700;
+}
+.done .btn-soft {
+  color: var(--ink);
+}
