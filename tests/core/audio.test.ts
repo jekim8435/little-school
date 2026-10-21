@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
 import { clipUrl, GAIN, pickVoice, SFX, TTS_RATE, TTS_VOLUME, ttsText, type SfxName } from '../../src/core/audio';
 import voices from '../../src/voices.json';
+import { apps } from '../../src/apps/registry';
 
 describe('clipUrl: 제작 음원을 쓸지', () => {
   const dir = '/little-school/voice/';
@@ -76,15 +77,25 @@ describe('voices.json (껍데기 대사, 명세 15-2)', () => {
   });
 });
 
-describe('코드에서 부르는 껍데기 대사 ID가 모두 voices.json에 있다', () => {
-  it("say('shell.…')", () => {
+describe('과목 대사 (명세 15-2)', () => {
+  it('과목 voices.json의 ID는 <과목 id>.<화면>.<이름>', () => {
+    for (const a of apps) {
+      for (const id of Object.keys(a.voices || {})) expect(id, id).toMatch(new RegExp(`^${a.id}\\.[a-z0-9-]+\\.[a-z0-9.-]+$`));
+    }
+  });
+});
+
+describe('코드에서 부르는 대사 ID가 모두 voices.json에 있다', () => {
+  it("say('…')", () => {
     const walk = (d: string): string[] =>
       readdirSync(d).flatMap((n) => (statSync(join(d, n)).isDirectory() ? walk(join(d, n)) : [join(d, n)]));
+    const known = new Set(Object.keys(voices));
+    for (const a of apps) for (const id of Object.keys(a.voices || {})) known.add(id);
     const used = new Set<string>();
     for (const f of walk(fileURLToPath(new URL('../../src', import.meta.url))).filter((f) => f.endsWith('.ts'))) {
-      for (const m of readFileSync(f, 'utf8').match(/say\(\s*'shell\.[^']+'/g) ?? []) used.add(m.replace(/^say\(\s*'/, '').replace(/'$/, ''));
+      for (const m of readFileSync(f, 'utf8').match(/say\(\s*'[a-z0-9.-]+'/g) ?? []) used.add(m.replace(/^say\(\s*'/, '').replace(/'$/, ''));
     }
-    const missing = [...used].filter((id) => !(id in (voices as object)));
-    expect(missing).toEqual([]);
+    expect(used.size).toBeGreaterThan(0);
+    expect([...used].filter((id) => !known.has(id))).toEqual([]);
   });
 });

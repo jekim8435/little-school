@@ -1,0 +1,22 @@
+/* 샘플 과목. 과목 CSS는 .app-<id> 아래로만 (명세 4-3) */
+.app-sample .sample-board {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  height: 100%;
+  padding: calc(var(--u) * 24);
+}
+.app-sample .sample-dot {
+  width: calc(var(--u) * 150);
+  height: calc(var(--u) * 150);
+  margin: calc(var(--u) * 18);
+  border-radius: 50%;
+  box-shadow: 0 calc(var(--u) * 8) 0 rgba(0, 0, 0, 0.15);
+  transition: transform 0.15s, opacity 0.15s;
+}
+.app-sample .sample-dot.is-done {
+  transform: scale(0.7);
+  opacity: 0.25;
+}
