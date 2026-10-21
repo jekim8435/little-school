@@ -215,15 +215,17 @@ little-school/
 // src/apps/registry.ts
 import type { AppEntry } from './types';
 import sampleIcon from './sample/icon.svg';
+import sampleVoices from './sample/voices.json';
 
 export const apps: AppEntry[] = [
-  { id: 'sample', name: '샘플', icon: sampleIcon, color: '#FFD54F', load: () => import('./sample/index') },
+  { id: 'sample', name: '샘플', icon: sampleIcon, color: '#FFD54F', voices: sampleVoices, load: () => import('./sample/index') },
   // 2단계: { id: 'writing', name: '또박또박 글씨', ..., load: () => import('./writing/index') },
 ];
 ```
 
 - `id`: 영문 소문자·하이픈. 저장 데이터 키로도 쓰므로 **한 번 정하면 바꾸지 않는다**.
 - `load`: 동적 import → 과목을 열 때만 코드를 내려받아 메모리를 아낀다.
+- `voices`: 과목의 `voices.json`. 허브에서 과목을 열기 전에도 과목 이름(`<id>.hub.name`)을 읽어야 해서 등록 때 함께 넘긴다(대사 문장만이라 작다).
 - 허브 노출 여부·순서는 부모 모드 설정(`settings.subjects`)이 결정한다.
 
 ### 4-2. 모듈 인터페이스
@@ -274,6 +276,7 @@ export default app;
 | `ctx.audio.speak(text)` | 등록하지 않은 문장을 기기 내장 음성으로 바로 읽기. 개발 중 임시용. 마무리 전에 `say(id)`로 바꾼다 |
 | `ctx.audio.voiceOn` / `ctx.audio.sfxOn` | 공통 소리 설정 상태(읽기 전용). 음성이 꺼져 있을 때 글자로 대신 보여 주는 데 사용 |
 | `ctx.audio.play(url)` | 대사 목록 밖의 mp3 재생(동화책 부모 녹음 등) |
+| `ctx.audio.stop()` | 읽고 있던 대사를 멈춘다(과목을 나갈 때는 껍데기가 자동으로 멈춤) |
 | `ctx.input.attach(el, handlers)` | Touch/Pointer 차이를 감춘 입력 등록. 반환된 함수로 해제 |
 | `ctx.ui.feedback('correct' \| 'oops')` | 공통 정답·오답 연출(오답은 흔들림만, 벌점 없음) |
 | `ctx.exit()` | 과목 스스로 허브로 돌아가기(한 판 완료 후 등) |
@@ -288,7 +291,8 @@ export default app;
 - 과목은 효과음·음성 켜기/끄기, 소리 크기 설정을 따로 두지 않는다. `ctx.audio`가 공통 설정(8-6)을 적용한다.
 - 과목은 자기 설정 화면을 아이 화면에 두지 않는다. 설정은 모두 `settingsSchema`로 부모 모드에 노출한다.
 - 과목 CSS는 `.app-<id>` 클래스 아래로 범위를 한정한다(공통 스타일 오염 방지).
-- `unmount()`에서 `document`/`window`에 단 이벤트를 모두 해제한다(에어1 메모리 누수 방지).
+- `unmount()`에서 `document`/`window`에 단 이벤트를 모두 해제한다(에어1 메모리 누수 방지). `ctx.input.attach`로 단 입력은 과목이 풀지 않아도 껍데기가 과목을 닫을 때 한 번 더 푼다.
+- 허브 타일을 누를 때 읽는 과목 이름 대사 ID는 `<id>.hub.name`으로 둔다.
 
 ### 4-4. 샘플 과목 `sample` (규약 검증용)
 
