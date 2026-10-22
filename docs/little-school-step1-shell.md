@@ -112,7 +112,7 @@
 | 설치 | Safari 공유 > 홈 화면에 추가 | Chrome 메뉴 > 앱 설치(홈 화면에 추가) | 부모 모드 안내 화면에 기기별 방법 표시 |
 | 화면 고정 | 사용법 유도 | 앱 고정 | 잠금 안내 화면을 기기별로(8-7) |
 | 가로 고정 | 회전 잠금 + 안내 화면 | manifest로 고정 + 안내 화면 | 2-4 |
-| 상태 표시줄 | `default` 메타(흰 띠 + 검은 시계, 앱 화면은 그 아래 1024×748) | manifest `"display": "fullscreen"`(가려짐) | 11-1 |
+| 상태 표시줄 | `default` 메타(흰 띠 + 검은 시계, 앱 화면은 그 아래 1024×748) | manifest `"display": "standalone"`(시계 보임, 2026-10-22 변경) | 11-1 |
 | 글꼴 | Apple SD Gothic Neo | 삼성/Noto 한글 글꼴 | 글꼴 목록에 둘 다 지정. 글자 폭이 달라지므로 두 기기에서 넘침 확인 |
 | 음성 | mp3 우선 + 내장 음성 | mp3 우선 + 내장 음성(목소리 목록이 늦게 채워짐) | `voiceschanged`를 기다린 뒤 한국어 음성 선택. 대부분 mp3라 영향 적음 |
 | 저장소 | localStorage (지워질 수 있음) | localStorage (`navigator.storage.persist()` 요청 가능) | 갤럭시에서는 지속 저장 요청. 백업은 동일 |
@@ -677,7 +677,7 @@ export default app;
 
 - iOS 12는 manifest보다 위 `apple-*` 메타를 우선 사용하므로 둘 다 넣는다
 - 상태 표시줄은 `default`(흰 띠 + 검은 시계). `black-translucent`는 시계가 흰 글씨로 고정되어 밝은 배경에 묻혀 안 보였다(2026-10-21 아이패드 확인)
-- manifest(갤럭시 탭 Chrome이 사용): `"display": "fullscreen"`, `"orientation": "landscape"`, `"start_url"`, `"scope"`를 `/little-school/`로, 아이콘 192·512px(+ `maskable`). `make-icons.mjs`가 안드로이드용 아이콘도 만들게 한다
+- manifest(갤럭시 탭 Chrome이 사용): `"display": "standalone"`(아이패드처럼 상태 표시줄·시계가 보이게, 2026-10-22 부모 결정 — 처음에는 `fullscreen`), `"orientation": "landscape"`, `"start_url"`, `"scope"`를 `/little-school/`로, 아이콘 192·512px(+ `maskable`). `make-icons.mjs`가 안드로이드용 아이콘도 만들게 한다
 - iOS 12 홈 화면 앱은 앱 내 페이지 이동 시 Safari로 튈 수 있다 → **페이지 이동 없이 해시 라우팅만** 사용
 
 ### 11-2. Service Worker (vite-plugin-pwa / Workbox)
@@ -725,7 +725,7 @@ export default app;
 - [ ] `vitest run` 전체 통과, 호환성 검사 2종 통과, Actions로 자동 배포된다
 - [ ] **아래 항목은 아이패드 에어1과 갤럭시 탭 S6 Lite 두 기기에서 모두 확인한다**
 - [ ] 에어1 Safari ‘홈 화면에 추가’ / 갤럭시 Chrome ‘앱 설치’ → 주소창 없는 전체 화면으로 실행된다
-- [ ] 갤럭시 탭에서 가로로 고정되고, 상태 표시줄이 가려진다
+- [ ] 갤럭시 탭에서 가로로 고정되고, 위쪽에 상태 표시줄(시계)이 보인다
 - [ ] 두 기기 모두 화면 비율이 달라도 넘침·잘림 없이 한 화면에 들어간다
 - [ ] 갤럭시 탭: S펜을 띄운 상태(호버)에서는 선이 그어지지 않고, 펜으로 쓰는 중 손바닥이 닿아도 선이 생기지 않는다
 - [ ] 갤럭시 탭: 당겨서 새로고침, 길게 눌러 메뉴가 나오지 않는다
