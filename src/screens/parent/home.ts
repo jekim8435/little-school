@@ -7,7 +7,8 @@ import { rewardStatus, waitingBoards } from '../../core/rewards';
 import type { Screen } from '../../router';
 import type { Route } from '../../router';
 import type { Shell } from '../../shell';
-import { button, toast } from '../../ui/components';
+import { STRINGS } from '../../core/strings';
+import { button, confirmDialog, toast } from '../../ui/components';
 import { h } from '../../ui/dom';
 import { pwa } from '../../platform/pwa';
 import { formatMinutes, parentPage, section } from './common';
@@ -102,6 +103,11 @@ export function parentHomeScreen(shell: Shell): Screen {
     button('🔒 아이 전용 잠금 안내', go({ name: 'parent', page: 'lock-guide' })),
     button('📱 기기 정보', go({ name: 'parent', page: 'device' })),
     button('ℹ️ 앱 정보', go({ name: 'parent', page: 'about' })),
+    button(STRINGS.exit.menu, () => {
+      void confirmDialog({ title: STRINGS.exit.confirmTitle, message: STRINGS.exit.confirmMessage, ok: STRINGS.exit.confirmOk }).then((ok) => {
+        if (ok) shell.exitApp();
+      });
+    }),
   );
 
   const el = parentPage(shell, '부모 모드', [...alerts, section('오늘', timeLine, ...rows), section('메뉴', menu)], { isHome: true });

@@ -30,6 +30,7 @@ import { stickerHistoryScreen, stickersScreen } from './screens/stickers';
 import type { Shell } from './shell';
 import { closeDialogs, orientationOverlay } from './ui/components';
 import { installDevInfo } from './ui/devInfo';
+import { exitApp } from './ui/exitScreen';
 import { installPenOnlyFilter } from './ui/penOnly';
 import { PRESS_START_EVENTS } from './ui/input';
 import { setupPwa } from './platform/pwa';
@@ -124,7 +125,24 @@ function createScreen(route: Route): Screen {
 }
 
 const router = new Router(document.getElementById('app')!, createScreen);
-const shell: Shell = { store, audio, input, router, session: new StudySession(store), parent: new ParentLock() };
+const shell: Shell = {
+  store,
+  audio,
+  input,
+  router,
+  session: new StudySession(store),
+  parent: new ParentLock(),
+  exitApp: () =>
+    exitApp({
+      // 기록을 바로 저장하고, 과목·소리를 멈추고, 부모 모드를 잠근다
+      beforeExit: () => {
+        store.flush();
+        audio.stop();
+        router.go({ name: 'start' });
+      },
+      onReopen: () => router.go({ name: 'start' }),
+    }),
+};
 router.setGuard((to) => {
   // 부모 모드는 잠금을 푼 뒤에만. 부모 모드를 떠나면 다시 잠근다 (명세 8-1)
   if (to.name === 'parent') {
@@ -170,7 +188,8 @@ installPenOnlyFilter({
     if (cur && cur.name === 'parent') return true;
     let el = target instanceof Element ? target : null;
     while (el) {
-      if (el.classList.contains('hub-corner')) return true;
+      // 부모 잠금 자리, 앱 종료 화면(부모가 다시 여는 곳)
+      if (el.classList.contains('hub-corner') || el.classList.contains('exit-screen')) return true;
       el = el.parentElement;
     }
     return false;

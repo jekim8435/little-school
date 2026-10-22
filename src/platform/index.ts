@@ -65,6 +65,29 @@ function requestPersist(): Promise<boolean | null> {
   return s.persist().catch(() => false);
 }
 
+/**
+ * 앱을 닫아 본다. 닫혔으면(또는 닫히는 중이면) true.
+ * - Capacitor 앱(Android): App 플러그인의 exitApp()으로 종료
+ * - PWA: window.close()를 시도한다. iOS Safari·Chrome은 홈 화면 앱이 스스로 닫는 것을 대부분 막으므로
+ *   잠시 뒤에도 화면이 남아 있으면 false → 부르는 쪽이 ‘종료됨’ 화면과 닫는 방법을 보여 준다
+ */
+function tryExitApp(): Promise<boolean> {
+  const cap =
+    typeof window === 'undefined'
+      ? undefined
+      : (window as unknown as { Capacitor?: { Plugins?: { App?: { exitApp?: () => void } } } }).Capacitor;
+  if (isNativeApp() && cap && cap.Plugins && cap.Plugins.App && typeof cap.Plugins.App.exitApp === 'function') {
+    cap.Plugins.App.exitApp();
+    return Promise.resolve(true);
+  }
+  try {
+    window.close();
+  } catch {
+    /* 닫을 수 없는 창 */
+  }
+  return new Promise((resolve) => window.setTimeout(() => resolve(document.visibilityState === 'hidden'), 400));
+}
+
 /** 안내 문구를 고를 기기 종류 (잠금·설치 안내). 기능 구분에는 쓰지 않는다 */
 function guideDevice(): 'ipad' | 'galaxy' {
   const n = nav();
@@ -79,4 +102,5 @@ export const platform = {
   canDownloadFile,
   requestPersist,
   guideDevice,
+  tryExitApp,
 };

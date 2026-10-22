@@ -14,4 +14,6 @@ export interface Shell {
   session: StudySession;
   /** 부모 모드 잠금 상태 */
   parent: ParentLock;
+  /** 앱 종료하기 (부모 모드): 저장·정리 후 닫기, 못 닫으면 ‘종료됨’ 화면 */
+  exitApp(): void;
 }
