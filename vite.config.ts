@@ -5,14 +5,15 @@ import pkg from './package.json';
 // 앱 코드는 Node 타입을 쓰지 않으므로 설정 파일에서 필요한 만큼만 선언한다
 declare const process: { env: Record<string, string | undefined> };
 
-// 네이티브(Capacitor) 빌드: VITE_NATIVE=1 npm run build → 서비스 워커를 만들지 않고 상대 경로로 내보낸다
+// 네이티브(Capacitor) 빌드: VITE_NATIVE=1 npm run build → 서비스 워커를 만들지 않는다
 const native = process.env.VITE_NATIVE === '1';
 
-// GitHub Pages 주소: https://jekim8435.github.io/little-school/ (명세 11-3)
-const BASE = '/little-school/';
+// 모든 경로는 상대 경로 (09 문서 4장 1, R-03). 배포 주소(/little-school/)에 의존하지 않는다.
+// manifest의 start_url·scope도 './' → manifest 파일 위치 기준으로 풀린다(GitHub Pages에서는 /little-school/)
+const BASE = './';
 
 export default defineConfig({
-  base: native ? './' : BASE,
+  base: BASE,
   server: { host: true },
   define: {
     __APP_VERSION__: JSON.stringify(pkg.version),
