@@ -4,12 +4,17 @@
 //  2. tts: true가 아닌데 음원 파일이 없는 대사
 //  3. 문장이 바뀌었는데 다시 만들지 않은 대사 (text ≠ producedText)
 //  4. 어떤 대사에도 연결되지 않은 남는 mp3 파일
-//   npm run voice:check
+// 개발 중인 대사(draft: true)는 2·3을 경고로만 알린다(내장 음성으로 읽으며 개발, 05 문서 15-2).
+// 과목 마무리 때는 --final: draft가 남아 있으면 실패
+//   npm run voice:check            (배포 워크플로)
+//   npm run voice:check -- --final (과목 마무리)
 import { existsSync, readFileSync, readdirSync, statSync } from 'node:fs';
 import { join, relative } from 'node:path';
 import { fileOf, ROOT, voiceSets } from './voice-lib.mjs';
 
 const problems = [];
+const warnings = [];
+const final = process.argv.includes('--final');
 const sets = voiceSets();
 const known = new Set(sets.flatMap((s) => Object.keys(s.lines)));
 
@@ -28,6 +33,7 @@ for (const f of walk(join(ROOT, 'src')).filter((f) => f.endsWith('.ts'))) {
 
 let ok = 0;
 let tts = 0;
+let drafts = 0;
 for (const set of sets) {
   const expected = new Set();
   for (const [id, line] of Object.entries(set.lines)) {
@@ -37,6 +43,14 @@ for (const set of sets) {
     }
     const file = fileOf(id, line);
     expected.add(file);
+    if (line.draft) {
+      drafts++;
+      if (final) problems.push(`개발 중 표시(draft)가 남음: ${id} "${line.text}"`);
+      else if (!existsSync(join(ROOT, set.dir, file)) || line.producedText !== line.text) {
+        warnings.push(`${id} "${line.text}"`);
+        continue;
+      }
+    }
     // 2. 음원 없음
     if (!existsSync(join(ROOT, set.dir, file))) problems.push(`음원 없음: ${set.dir}/${file} — ${id} "${line.text}"`);
     // 3. 문장이 바뀜
@@ -52,7 +66,13 @@ for (const set of sets) {
   }
 }
 
-console.log(`대사 ${known.size}개 · 음원 정상 ${ok}개 · 내장 음성으로 두는 대사 ${tts}개`);
+console.log(`대사 ${known.size}개 · 음원 정상 ${ok}개 · 내장 음성으로 두는 대사 ${tts}개 · 개발 중(draft) ${drafts}개`);
+if (warnings.length) {
+  console.warn(`
+개발 중이라 아직 음원이 없는 대사 ${warnings.length}개 (내장 음성으로 읽음, 과목 마무리 때 제작):`);
+  for (const w of warnings.slice(0, 5)) console.warn(`  · ${w}`);
+  if (warnings.length > 5) console.warn(`  … 외 ${warnings.length - 5}개`);
+}
 if (problems.length) {
   console.error(`\n음원 문제 ${problems.length}건:`);
   for (const p of problems) console.error(`  ✘ ${p}`);

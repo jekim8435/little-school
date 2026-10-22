@@ -22,6 +22,8 @@ export interface VoiceLine {
   producedText?: string;
   /** true면 음원을 만들지 않고 내장 음성으로 둔다 */
   tts?: boolean;
+  /** 개발 중이라 아직 음원이 없음(내장 음성으로 읽음). voice:make가 음원을 만들면 지운다 (05 문서 15-2) */
+  draft?: boolean;
   /** 기본 'ko-KR'. 영어 대사는 'en-US' */
   lang?: string;
 }

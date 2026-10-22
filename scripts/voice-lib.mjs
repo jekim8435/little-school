@@ -54,8 +54,10 @@ export function markProduced(ids) {
     let changed = false;
     for (const id of ids) {
       const line = set.lines[id];
-      if (!line || line.producedText === line.text) continue;
+      if (!line || (line.producedText === line.text && !line.draft)) continue;
       line.producedText = line.text;
+      // 음원을 만들었으니 개발 중 표시를 지운다
+      delete line.draft;
       changed = true;
       n++;
     }
