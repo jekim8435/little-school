@@ -2,7 +2,7 @@
  * 한 판 진행 (고르기 활동·짝 맞추기). 화면 없이 순서만 다룬다.
  * - 한 판 = 주머니에서 꺼낸 한자 10개
  * - 고르기: 틀린 한자마다 판 끝에 한 번씩 다시 낸다(10개에 포함하지 않음). 다시 낸 문제에서 또 틀려도 더 내지 않는다
- * - 짝 맞추기: 10자를 5쌍씩 두 판으로 나눈다
+ * - 짝 맞추기: 10자를 5쌍씩 두 판으로 나눈다. 한자 카드와 음뜻 카드(‘바다 해’)의 짝
  */
 import { shuffle, type Rng } from './types';
 
@@ -53,7 +53,8 @@ export interface MatchCard {
   /** 판 안에서 카드 구분 */
   key: number;
   char: string;
-  kind: 'hanja' | 'picture';
+  /** 한자 카드 또는 음뜻 카드 */
+  kind: 'hanja' | 'reading';
 }
 
 /** 10자를 5자씩 두 판으로 */
@@ -63,17 +64,17 @@ export function splitBoards(chars: string[]): string[][] {
   return boards;
 }
 
-/** 한 판의 카드 (한자 카드 + 그림 카드, 섞어서) */
+/** 한 판의 카드 (한자 카드 + 음뜻 카드, 섞어서) */
 export function boardCards(chars: string[], rng: Rng = Math.random): MatchCard[] {
   const cards: MatchCard[] = [];
   chars.forEach((char) => {
     cards.push({ key: 0, char, kind: 'hanja' });
-    cards.push({ key: 0, char, kind: 'picture' });
+    cards.push({ key: 0, char, kind: 'reading' });
   });
   return shuffle(cards, rng).map((c, i) => ({ key: i, char: c.char, kind: c.kind }));
 }
 
-/** 두 카드가 짝인지: 한자 카드와 그림 카드이고 같은 한자 (같은 한자가 두 번 있으면 어느 쪽과 맞춰도 정답) */
+/** 두 카드가 짝인지: 한자 카드와 음뜻 카드이고 같은 한자 (같은 한자가 두 번 있으면 어느 쪽과 맞춰도 정답) */
 export function isPair(a: MatchCard, b: MatchCard): boolean {
   return a.kind !== b.kind && a.char === b.char;
 }

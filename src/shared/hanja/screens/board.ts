@@ -40,7 +40,11 @@ export function boardView(e: Engine): View {
   }
 
   function render(): void {
-    grid.replaceChildren(...items.slice(page * PAGE, (page + 1) * PAGE).map(cell));
+    // 화면 폭과 상관없이 한 줄에 8칸 (줄을 따로 만들어 넓은 화면에서 9칸이 되지 않게)
+    const cells = items.slice(page * PAGE, (page + 1) * PAGE).map(cell);
+    const rows: HTMLElement[] = [];
+    for (let i = 0; i < cells.length; i += COLS) rows.push(h('div', { class: 'hj-board-row' }, ...cells.slice(i, i + COLS)));
+    grid.replaceChildren(...rows);
     if (pages < 2) return;
     const dots: HTMLElement[] = [];
     for (let i = 0; i < pages; i++) {

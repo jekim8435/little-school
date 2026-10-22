@@ -239,11 +239,11 @@ describe('한 판 진행', () => {
     expect(new Set(cards.map((c) => c.key)).size).toBe(10);
   });
 
-  it('같은 한자가 두 번이면 어느 같은 그림과 맞춰도 짝', () => {
+  it('같은 한자가 두 번이면 어느 같은 음뜻 카드와 맞춰도 짝', () => {
     const cards = boardCards(['日', '月', '日', '火', '水'], seeded(4));
     const hanjaSun = cards.filter((c) => c.kind === 'hanja' && c.char === '日');
-    const picSun = cards.filter((c) => c.kind === 'picture' && c.char === '日');
-    for (const a of hanjaSun) for (const b of picSun) expect(isPair(a, b)).toBe(true);
+    const readSun = cards.filter((c) => c.kind === 'reading' && c.char === '日');
+    for (const a of hanjaSun) for (const b of readSun) expect(isPair(a, b)).toBe(true);
     expect(isPair(hanjaSun[0], hanjaSun[1])).toBe(false);
   });
 });

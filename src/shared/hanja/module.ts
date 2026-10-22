@@ -190,7 +190,7 @@ function tileIcon(e: Engine, a: ActivityId): string {
     case 'cards':
       return pick(0);
     case 'listen':
-      return '🔊';
+      return '🔍';
     case 'picture':
       return '🖼️';
     case 'read':

@@ -1,12 +1,12 @@
 /**
- * 짝 맞추기: 한자 카드와 그림 카드를 뒤집어 짝 찾기. 한자 10개를 5쌍씩 두 판(카드 10장 = 가로 5 × 2줄).
+ * 짝 맞추기: 한자 카드와 음뜻 카드(‘바다 해’)를 뒤집어 짝 찾기. 한자 10개를 5쌍씩 두 판(카드 10장 = 가로 5 × 2줄 고정).
  * 기록은 짝마다(correct = 그 짝을 찾기 전 실수 0회), 익힘 단계에는 넣지 않는다.
- * 같은 한자가 두 번 들어가면(배운 한자 5자 미만) 같은 한자 카드는 어느 같은 그림과 맞춰도 정답.
+ * 같은 한자가 두 번 들어가면(배운 한자 5자 미만) 같은 한자 카드는 어느 같은 음뜻 카드와 맞춰도 정답.
  */
 import { h } from '../../../ui/dom';
 import type { Engine, View } from '../module';
 import { boardCards, isPair, ROUND_SIZE, splitBoards, type MatchCard } from '../round';
-import { charEl, headerEl, pictureEl } from '../ui';
+import { charEl, headerEl, readingOf } from '../ui';
 
 /** 짝이 아닐 때 다시 덮기까지 (ms) */
 const UNFLIP_MS = 1100;
@@ -40,13 +40,14 @@ export function matchView(e: Engine): View {
     busy = false;
     note.textContent = boards.length > 1 ? cfg.strings.boardOf(boardIndex + 1, boards.length) : '';
     cardEls.length = 0;
-    grid.replaceChildren(
-      ...cards.map((c) => {
-        const el = h('button', { class: 'hj-mcard', type: 'button', onClick: () => tap(c.key) });
-        cardEls[c.key] = el;
-        return el;
-      }),
-    );
+    const els = cards.map((c) => {
+      const el = h('button', { class: 'hj-mcard', type: 'button', onClick: () => tap(c.key) });
+      cardEls[c.key] = el;
+      return el;
+    });
+    // 화면 폭과 상관없이 5장씩 2줄 (줄을 따로 만들어 넓은 화면에서 한 줄에 6장이 되지 않게)
+    const half = Math.ceil(els.length / 2);
+    grid.replaceChildren(h('div', { class: 'hj-match-row' }, ...els.slice(0, half)), h('div', { class: 'hj-match-row' }, ...els.slice(half)));
     for (const c of cards) paint(c);
   }
 
@@ -57,7 +58,7 @@ export function matchView(e: Engine): View {
     el.classList.toggle('is-matched', matched.indexOf(c.key) >= 0);
     if (!faceUp) el.replaceChildren(h('span', { class: 'hj-mcard-back' }, '?'));
     else if (c.kind === 'hanja') el.replaceChildren(charEl(c.char, 'hj-mcard-char'));
-    else el.replaceChildren(pictureEl(e.itemOf(c.char), 'hj-mcard-pic'));
+    else el.replaceChildren(h('span', { class: 'hj-mcard-reading' }, readingOf(e.itemOf(c.char))));
   }
 
   function tap(key: number): void {

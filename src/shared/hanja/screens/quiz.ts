@@ -1,6 +1,6 @@
 /**
  * 고르기 활동 3가지 — 한 판 = 출제 주머니에서 꺼낸 한자 10개.
- * - 듣고 고르기(listen): 훈음을 듣고 한자 고르기
+ * - 한자 찾기(listen): 훈음(‘바다 해’)을 보고·듣고 한자 고르기
  * - 그림 고르기(picture): 한자를 보고 뜻에 맞는 그림 고르기
  * - 음뜻 고르기(read): 한자를 보고 ‘바다 해’ 같은 한글 카드 고르기
  * 배치: 왼쪽 절반 문제, 오른쪽 절반 보기 3~4개를 세로로.
@@ -34,7 +34,7 @@ export function quizView(e: Engine, activity: ActivityId): View {
   const options = h('div', { class: `hj-options hj-options-${activity} is-${count}` });
   const view = h('div', { class: `hj-view hj-quiz hj-quiz-${activity}` }, head.el, h('div', { class: 'hj-quiz-body' }, prompt, options));
 
-  /** 문제 소리: 듣고 고르기는 훈음, 나머지는 활동 안내 (훈음을 들려주면 답이 되므로) */
+  /** 문제 소리: 한자 찾기는 훈음, 나머지는 활동 안내 (훈음을 들려주면 답이 되므로) */
   const sayPrompt = () => {
     const p = currentProblem(round);
     if (!p) return;
@@ -62,7 +62,7 @@ export function quizView(e: Engine, activity: ActivityId): View {
     );
     fill(
       prompt,
-      activity === 'listen' ? h('span', { class: 'hj-prompt-ear' }, '👂') : charEl(item.char, 'hj-prompt-char'),
+      activity === 'listen' ? h('span', { class: 'hj-prompt-reading' }, readingOf(item)) : charEl(item.char, 'hj-prompt-char'),
       p.retry ? h('span', { class: 'hj-retry' }, cfg.strings.retry) : null,
       replay,
     );
@@ -133,7 +133,7 @@ export function quizView(e: Engine, activity: ActivityId): View {
   return {
     el: view,
     start() {
-      // 판 시작: 활동 안내 한 번 → (듣고 고르기면) 첫 문제 훈음
+      // 판 시작: 활동 안내 한 번 → (한자 찾기면) 첫 문제 훈음
       ctx.audio.say(activity === 'listen' ? cfg.voices.ask.listen : activity === 'picture' ? cfg.voices.ask.picture : cfg.voices.ask.read);
       if (activity === 'listen') timers.set(sayPrompt, 2600);
     },

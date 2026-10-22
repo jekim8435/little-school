@@ -3,6 +3,7 @@
  */
 import type { HanjaSet } from './types';
 
+/** 활동 id. listen은 화면 이름이 ‘한자 찾기’로 바뀌었지만 기록·설정 키와 맞추려고 id는 그대로 둔다 */
 export type ActivityId = 'cards' | 'listen' | 'picture' | 'read' | 'match' | 'board';
 
 /** 활동 고르기 화면의 순서 (2줄 × 3) */
