@@ -2,14 +2,14 @@
  * 부모 모드 > 기기 정보 (명세 2-5). 아이패드는 PC 원격 디버깅이 어려워 문제를 확인하는 주된 수단.
  */
 import type { SfxName } from '../../core/audio';
-import { displayMode } from '../../core/device';
 import type { Screen } from '../../router';
 import type { Shell } from '../../shell';
 import { button, toast } from '../../ui/components';
 import { h } from '../../ui/dom';
 import { PRESS_START_EVENTS } from '../../ui/input';
 import { parentPage, section } from './common';
-import { pwa } from '../../pwa';
+import { platform } from '../../platform';
+import { pwa } from '../../platform/pwa';
 
 const SFX_TEST: [SfxName, string][] = [
   ['tap', '톡'],
@@ -30,7 +30,7 @@ export function deviceScreen(shell: Shell): Screen {
     const rows: [string, string][] = [
       ['화면 크기', `${window.innerWidth} × ${window.innerHeight}`],
       ['기기 배율', `${window.devicePixelRatio} (크기 단위 --u ${u})`],
-      ['실행 방식', displayMode()],
+      ['실행 방식', platform.displayMode()],
       ['입력 방식', 'PointerEvent' in window ? 'Pointer Events' : 'Touch Events'],
       ['마지막 입력', input.last],
       ['펜 압력', input.pressure === null ? '펜 입력 없음' : input.pressure.toFixed(2)],

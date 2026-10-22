@@ -30,12 +30,3 @@ export function watchInput(onPen: () => void): InputInfo {
   for (const type of PRESS_START_EVENTS) document.addEventListener(type, onPress, true);
   return info;
 }
-
-/** 실행 방식: iOS 홈 화면 앱 / 설치된 앱(fullscreen·standalone) / 브라우저 탭 */
-export function displayMode(): string {
-  if ((navigator as Navigator & { standalone?: boolean }).standalone) return '홈 화면 앱 (iOS)';
-  for (const mode of ['fullscreen', 'standalone']) {
-    if (window.matchMedia(`(display-mode: ${mode})`).matches) return `홈 화면 앱 (${mode})`;
-  }
-  return '브라우저 탭';
-}

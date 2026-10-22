@@ -5,7 +5,8 @@ import { AudioService } from './core/audio';
 import { watchInput } from './core/device';
 import { ParentLock } from './core/parentLock';
 import { StudySession } from './core/session';
-import { browserStorage, requestPersist, Store } from './core/storage';
+import { browserStorage, Store } from './core/storage';
+import { platform } from './platform';
 import { syncSubjects, visibleSubjects } from './core/subjects';
 import { migrateWritingFromLegacy } from './core/migrateWriting';
 import { Router, type Route, type Screen } from './router';
@@ -30,7 +31,7 @@ import { closeDialogs, orientationOverlay } from './ui/components';
 import { installDevInfo } from './ui/devInfo';
 import { installPenOnlyFilter } from './ui/penOnly';
 import { PRESS_START_EVENTS } from './ui/input';
-import { setupPwa } from './pwa';
+import { setupPwa } from './platform/pwa';
 import voices from './voices.json';
 
 // ── 저장소 ──
@@ -62,7 +63,7 @@ document.addEventListener('visibilitychange', () => {
 });
 window.addEventListener('pagehide', () => store.flush());
 // 갤럭시 탭(Chrome): 저장소가 지워지지 않게 요청 (명세 11-4). iOS 12는 기능이 없어 넘어간다
-void requestPersist();
+void platform.requestPersist();
 
 // ── 소리 ──
 const audio = new AudioService(() => store.data.settings.audio);

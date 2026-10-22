@@ -1,20 +1,15 @@
 /**
  * 부모 모드 > 아이 전용 잠금 안내 (명세 2-3, 2-4, 8-7).
  * 기기에 맞는 안내를 먼저 보여 주고 다른 기기 안내는 접어 둔다.
- * User-Agent는 기능을 나누는 데 쓰지 않고 이런 안내 문구를 고를 때만 쓴다(명세 2-5).
+ * User-Agent는 기능을 나누는 데 쓰지 않고 이런 안내 문구를 고를 때만 쓴다(명세 2-5). 판단은 src/platform이 한다.
  */
+import { platform } from '../../platform';
 import type { Screen } from '../../router';
 import type { Shell } from '../../shell';
 import { h } from '../../ui/dom';
 import { parentPage, section } from './common';
 
 type Device = 'ipad' | 'galaxy';
-
-function guessDevice(): Device {
-  const ua = navigator.userAgent;
-  if (/Android/i.test(ua)) return 'galaxy';
-  return 'ipad';
-}
 
 const GUIDES: Record<Device, { title: string; lock: string[]; install: string[] }> = {
   ipad: {
@@ -51,7 +46,7 @@ function guide(d: Device): Node[] {
 }
 
 export function lockGuideScreen(shell: Shell): Screen {
-  const mine = guessDevice();
+  const mine = platform.guideDevice();
   const other: Device = mine === 'ipad' ? 'galaxy' : 'ipad';
   const el = parentPage(shell, '아이 전용 잠금 안내', [
     section(`${GUIDES[mine].title} (이 기기)`, ...guide(mine)),

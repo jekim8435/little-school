@@ -7,6 +7,7 @@
 import { apps } from '../../apps/registry';
 import { formatDay } from '../../core/date';
 import { makeProblem } from '../../core/parentLock';
+import { platform } from '../../platform';
 import { syncSubjects } from '../../core/subjects';
 import type { Screen } from '../../router';
 import type { Shell } from '../../shell';
@@ -53,8 +54,7 @@ export function backupScreen(shell: Shell): Screen {
     }, { kind: 'primary' }),
   );
   // 파일 내려받기: 홈 화면 앱(iOS)에서는 앱 밖으로 나갈 수 있어 보이지 않는다
-  const iosStandalone = (navigator as Navigator & { standalone?: boolean }).standalone === true;
-  if (!iosStandalone && 'download' in document.createElement('a')) {
+  if (platform.canDownloadFile()) {
     backupButtons.append(
       button('파일로 내려받기', () => {
         const url = URL.createObjectURL(new Blob([json], { type: 'application/json' }));

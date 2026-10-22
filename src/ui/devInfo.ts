@@ -4,7 +4,7 @@
  * - 오른쪽 아래 옅은 앱 버전
  */
 import { DEV_PERIOD } from '../config';
-import { pwa } from '../pwa';
+import { pwa } from '../platform/pwa';
 import { h } from './dom';
 
 export function installDevInfo(): void {

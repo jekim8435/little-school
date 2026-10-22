@@ -9,7 +9,7 @@ import type { Route } from '../../router';
 import type { Shell } from '../../shell';
 import { button, toast } from '../../ui/components';
 import { h } from '../../ui/dom';
-import { pwa } from '../../pwa';
+import { pwa } from '../../platform/pwa';
 import { formatMinutes, parentPage, section } from './common';
 
 export function parentHomeScreen(shell: Shell): Screen {

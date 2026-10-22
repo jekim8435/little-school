@@ -49,3 +49,16 @@ describe('임시 음성 문장이 남아 있지 않다 (명세 13장)', () => {
     expect(hits(/\baudio\.speak\(/, files)).toEqual([]);
   });
 });
+
+describe('플랫폼·저장소 직접 참조 위치 (09 문서 4장 2·3, 11.3)', () => {
+  const ts = sources.filter((f) => f.endsWith('.ts'));
+  const outside = (dir: string) => ts.filter((f) => !rel(f).startsWith(dir));
+
+  it('navigator.standalone·serviceWorker·storage·userAgent, Capacitor는 src/platform/에만', () => {
+    expect(hits(/navigator\.(standalone|serviceWorker|storage|userAgent)|\)\.(standalone|storage)\b|Capacitor|'serviceWorker' in/, outside('src/platform/'))).toEqual([]);
+  });
+
+  it('localStorage는 src/core/storage.ts에만', () => {
+    expect(hits(/localStorage\./, ts.filter((f) => rel(f) !== 'src/core/storage.ts'))).toEqual([]);
+  });
+});

@@ -3,8 +3,10 @@
  * - 아이 화면에서는 ‘새 버전이 있어요’를 띄우지 않는다. 부모 모드 홈에 표시하고 부모가 ‘업데이트’를 누른다
  *   (단, 개발 기간(src/config.ts DEV_PERIOD)에는 ui/devInfo.ts가 아이 화면에도 배너를 띄운다)
  * - 새 버전은 앱이 다시 보일 때와 1시간마다 확인한다
- * 네이티브(Capacitor) 빌드에서는 VITE_NATIVE=1로 꺼지므로, 서비스 워커에 의존하는 코드는 이 파일에만 둔다.
+ * 네이티브(Capacitor) 앱에서는 업데이트를 스토어가 맡으므로 끈다 (09 문서 4장 6). 서비스 워커 코드는 이 파일에만 둔다 (4장 2, R-06).
  */
+
+import { platform } from './index';
 
 const CHECK_EVERY_MS = 60 * 60000;
 
@@ -48,7 +50,7 @@ export const pwa = {
 };
 
 export function setupPwa(): void {
-  if (import.meta.env.VITE_NATIVE === '1' || import.meta.env.DEV) return;
+  if (platform.isNativeApp() || import.meta.env.DEV) return;
   if (!('serviceWorker' in navigator)) return;
   pwa.enabled = true;
   // 이미 서비스 워커가 이 화면을 맡고 있으면 오프라인 준비가 끝난 것

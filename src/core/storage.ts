@@ -449,13 +449,3 @@ export function browserStorage(): KeyValue | null {
     return null;
   }
 }
-
-/**
- * 저장소가 지워지지 않게 요청한다 (갤럭시 탭 Chrome, 명세 11-4). iOS 12에는 없는 기능이라 그냥 넘어간다.
- * 결과: true(유지됨) / false(거절) / null(지원 안 함)
- */
-export function requestPersist(): Promise<boolean | null> {
-  const s = (navigator as Navigator & { storage?: { persist?: () => Promise<boolean> } }).storage;
-  if (!s || typeof s.persist !== 'function') return Promise.resolve(null);
-  return s.persist().catch(() => false);
-}
