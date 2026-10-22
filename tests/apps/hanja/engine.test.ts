@@ -247,3 +247,29 @@ describe('한 판 진행', () => {
     expect(isPair(hanjaSun[0], hanjaSun[1])).toBe(false);
   });
 });
+
+describe('한자똑똑 대사·설정', async () => {
+  const voices = (await import('../../../src/apps/hanja/voices.json')).default as Record<string, { text: string }>;
+  const { HANJA_VOICES } = await import('../../../src/apps/hanja/index');
+  const { hanjaSettings } = await import('../../../src/apps/hanja/settings');
+
+  it('엔진이 부르는 대사 ID가 모두 voices.json에 있다 (훈음·뜻만 32자씩)', () => {
+    const ids = [...Object.values(HANJA_VOICES.ask), ...Object.values(HANJA_VOICES.praise), 'hanja-1.hub.name'];
+    for (const c of chars) ids.push(HANJA_VOICES.char(c), HANJA_VOICES.meaning(c));
+    for (const id of ids) expect(voices[id], id).toBeDefined();
+    expect(voices[HANJA_VOICES.char('海')].text).toBe('바다 해');
+    expect(voices[HANJA_VOICES.meaning('海')].text).toBe('바다');
+  });
+
+  it('배운 한자 설정: 8열, 기본 日~海 16자, 다음 2자 추가·모두 해제', () => {
+    const f = hanjaSettings(set).filter((x) => x.key === 'learned')[0];
+    if (f.type !== 'multi') throw new Error('multi가 아님');
+    expect(f.columns).toBe(8);
+    expect(f.options.length).toBe(32);
+    expect(f.default.join('')).toBe('日月火水木金土川天地山林石田江海');
+    const [addNext, clearAll] = f.actions!;
+    expect(addNext.run(f.default.slice())).toEqual(f.default.concat(['口', '目']));
+    expect(addNext.run(['日', '火'])).toEqual(['日', '火', '月', '水']);
+    expect(clearAll.run(f.default.slice())).toEqual([]);
+  });
+});
