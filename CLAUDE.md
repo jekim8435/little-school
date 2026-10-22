@@ -14,7 +14,6 @@
 | `docs/ipad-checklist.md` | 1단계 10번 아이패드 실기기 점검표(명세 13장, PC 확인 항목 표시) |
 | `docs/galaxy-tab-checklist.md` | 갤럭시 탭 실기기 확인 보류 목록. 단계마다 확인할 항목을 덧붙이고, 기기가 준비되면 한 번에 확인·일괄 수정 |
 | `docs/voice/_template/` | 한글쓰기 앱의 Typecast 음원 도구 사본(`voice-make.mjs`, `typecast.json`, `대사목록.csv`) — 음원 도구의 바탕 |
-| `legacy/writing-practice/` | 2단계 이식용 한글쓰기 앱 소스 사본(읽기 전용, git 제외, 2단계 후 삭제). 원본: `D:\@기타\@개인\쓰기App` |
 
 - 기획 논의는 Claude 프로젝트 ‘유아학습App개발’ 대화에서 하고, 결과를 이 폴더의 `docs/`에 반영한다. **`docs/`가 기준 문서다.**
 - 구현 중 명세와 다르게 해야 할 이유가 생기면 코드만 바꾸지 말고 해당 문서와 `docs/planning-log.md`도 함께 고친다.

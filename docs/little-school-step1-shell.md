@@ -766,7 +766,7 @@ export default app;
 
 ## 14. 2단계 미리보기: 한글쓰기 앱 이식 가이드
 
-> **이식 원본**: `legacy/writing-practice/` — 한글쓰기 앱(`D:\@기타\@개인\쓰기App`, GitHub `jekim8435/writing-practice`)의 2026-10-21 사본(node_modules·dist·.git 제외). 2단계 작업은 이 사본을 읽어서 `src/`로 옮긴다. 사본은 직접 고치지 않고, 2단계가 끝나면 지운다. 원본 앱의 요구사항·설계는 `legacy/writing-practice/REQUIREMENTS.md`, `README.md` 참고
+> **이식 원본**: `legacy/writing-practice/`(**2026-10-22 2단계 완료 후 삭제함** — 필요하면 원본 `D:\@기타\@개인\쓰기App` 참고) — 한글쓰기 앱(`D:\@기타\@개인\쓰기App`, GitHub `jekim8435/writing-practice`)의 2026-10-21 사본(node_modules·dist·.git 제외). 2단계 작업은 이 사본을 읽어서 `src/`로 옮긴다. 사본은 직접 고치지 않고, 2단계가 끝나면 지운다. 원본 앱의 요구사항·설계는 `legacy/writing-practice/REQUIREMENTS.md`, `README.md` 참고
 > 기존 한글쓰기 앱 저장소는 그대로 보관(참고용·롤백용)하고, 소스를 `little-school`로 옮겨 과목 모듈로 만든다. 과목 이름은 **또박또박 글씨 (Neat Letters)**, id는 `writing`.
 > 기존 앱이 같은 스택(TypeScript + Vite + 바닐라 JS)이라 **iframe 없이 모듈로 바로 이식**한다.
 
