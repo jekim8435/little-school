@@ -6,6 +6,8 @@
 
 | 문서 | 내용 |
 | --- | --- |
+| `docs/09_배포_플랫폼_스토어출시.md` | **배포·이식성·정책 준수에서 다른 문서보다 우선.** 상대 경로, `src/platform/`, Store 경유 저장, strings.ts, 네트워크·외부 리소스 금지, 음원 재생성·재압축 금지 |
+| `docs/licenses.md` | 글꼴·음원(Typecast)·그림·오픈소스 출처와 라이선스. 새로 넣으면 앱 정보 화면과 함께 고친다 |
 | `docs/little-school-step1-shell.md` | 1단계 껍데기 앱 구현 명세 + 2단계(한글쓰기 앱 이식) 가이드 + 음원 관리(15장) |
 | `docs/little-school-apps.md` | 과목 목록, 과목별 활동·별 기준·설정 |
 | `docs/planning-log.md` | 기획 변경 기록 (날짜순) |
