@@ -46,6 +46,22 @@
     "writing.": {
       "emotion": "normal",
       "intensity": 1.0
+    },
+    "hanja-1.hub.": {
+      "emotion": "happy",
+      "intensity": 1.1
+    },
+    "hanja.praise.": {
+      "emotion": "happy",
+      "intensity": 1.3
+    },
+    "hanja.ask.": {
+      "emotion": "happy",
+      "intensity": 1.0
+    },
+    "hanja.": {
+      "emotion": "normal",
+      "intensity": 1.0
     }
   }
 }
