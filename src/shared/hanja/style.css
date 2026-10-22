@@ -34,15 +34,16 @@
   flex: 0 0 auto;
   height: calc(var(--u) * 64);
 }
+/* 뒤로: 아이가 자주 누르는 버튼이 아니라 작게 (높이 44, 02 문서 10장 터치 최소 60의 예외 — 부모 요청) */
 .hj .hj-back {
   position: relative;
-  min-width: calc(var(--u) * 140);
-  min-height: 60px;
-  padding: 0 calc(var(--u) * 16);
+  min-width: calc(var(--u) * 104);
+  height: calc(var(--u) * 44);
+  padding: 0 calc(var(--u) * 12);
   border: 2px solid var(--hj-line);
-  border-radius: calc(var(--u) * 16);
+  border-radius: calc(var(--u) * 12);
   background: #fff;
-  font-size: calc(var(--u) * 24);
+  font-size: calc(var(--u) * 20);
   font-weight: 700;
   color: #2b3442;
 }
@@ -100,7 +101,7 @@
   text-align: right;
 }
 .hj .hj-head-space {
-  width: calc(var(--u) * 140);
+  width: calc(var(--u) * 104);
 }
 
 /* ── 활동 고르기 (2줄 × 3) ── */
