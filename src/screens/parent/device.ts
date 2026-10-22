@@ -3,7 +3,6 @@
  */
 import type { SfxName } from '../../core/audio';
 import { displayMode } from '../../core/device';
-import { STORAGE_KEY } from '../../core/storage';
 import type { Screen } from '../../router';
 import type { Shell } from '../../shell';
 import { button, toast } from '../../ui/components';
@@ -26,14 +25,7 @@ export function deviceScreen(shell: Shell): Screen {
 
   const render = () => {
     const u = getComputedStyle(document.documentElement).getPropertyValue('--u').trim();
-    const savedBytes = (() => {
-      try {
-        const s = localStorage.getItem(STORAGE_KEY);
-        return s ? s.length * 2 : 0; // UTF-16 기준 대략
-      } catch {
-        return 0;
-      }
-    })();
+    const savedBytes = store.savedBytes();
     const a = store.data.settings.audio;
     const rows: [string, string][] = [
       ['화면 크기', `${window.innerWidth} × ${window.innerHeight}`],

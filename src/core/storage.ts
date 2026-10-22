@@ -382,6 +382,19 @@ export class Store {
     return this.data.apps[id] || (this.data.apps[id] = { version: 1, settings: {}, data: {} });
   }
 
+  /**
+   * 저장된 데이터의 크기(바이트, UTF-16 기준 대략). 기기 정보 화면용 진단 함수.
+   * localStorage는 이 파일에서만 다룬다 (09 문서 4장 3, R-05)
+   */
+  savedBytes(): number {
+    try {
+      const s = this.kv ? this.kv.getItem(STORAGE_KEY) : null;
+      return s ? s.length * 2 : 0;
+    } catch {
+      return 0;
+    }
+  }
+
   /** 백업용 JSON 문자열 */
   exportJson(): string {
     return JSON.stringify(this.data);

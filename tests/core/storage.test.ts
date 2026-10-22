@@ -209,6 +209,16 @@ describe('Store', () => {
     expect(s.flush()).toBe(true);
   });
 
+  it('저장된 크기를 알려 준다 (기기 정보용, localStorage는 Store만 다룸)', () => {
+    const kv = memory();
+    const s = new Store(kv, { now });
+    s.load();
+    expect(s.savedBytes()).toBe(0);
+    s.flush();
+    expect(s.savedBytes()).toBe(kv.map[STORAGE_KEY].length * 2);
+    expect(new Store(null, { now }).savedBytes()).toBe(0);
+  });
+
   it('저장이 실패하면 saveFailed로 알린다', () => {
     const kv = memory();
     kv.setItem = () => {
