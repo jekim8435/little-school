@@ -273,3 +273,14 @@ describe('한자똑똑 대사·설정', async () => {
     expect(clearAll.run(f.default.slice())).toEqual([]);
   });
 });
+
+describe('그림', () => {
+  it('세트의 모든 한자에 그림 파일이 있다 (src/shared/hanja/pictures/<id>.svg)', async () => {
+    const { existsSync } = await import('node:fs');
+    const { fileURLToPath } = await import('node:url');
+    for (const it of set.items) {
+      const p = fileURLToPath(new URL(`../../../src/shared/hanja/pictures/${it.picture}.svg`, import.meta.url));
+      expect(existsSync(p), it.picture).toBe(true);
+    }
+  });
+});
