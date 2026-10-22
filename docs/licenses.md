@@ -34,6 +34,7 @@
 | 과목 아이콘 (`src/apps/*/icon.svg`) | 직접 제작 (SVG) |
 | 스티커 20종 (`src/core/stickers.ts`) | 직접 제작 (SVG) |
 | 시작 화면 집 그림, 오늘 공부 끝 달 그림, 세로 안내 그림 | 직접 제작 (SVG) |
+| 한자 그림 32장 (`src/shared/hanja/pictures/`) | 직접 제작 (SVG, `tools/hanja-pictures.mjs`가 코드로 그림). 학습지 그림을 따라 그리지 않음. 한자똑똑·한자씨앗 공용 |
 | 글자 획 데이터 102자 (`src/apps/writing/data/glyphs/`) | 직접 제작 (한글쓰기 앱 글자 편집기) |
 | 이모지(🏠 ⭐ 📒 등) | 기기에 들어 있는 이모지 글꼴로 표시 (앱에 이미지로 넣지 않음) |
 
