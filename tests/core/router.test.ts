@@ -21,6 +21,7 @@ describe('parseHash / formatRoute', () => {
     ['#/parent/backup', { name: 'parent', page: 'backup' }],
     ['#/parent/lock-guide', { name: 'parent', page: 'lock-guide' }],
     ['#/parent/device', { name: 'parent', page: 'device' }],
+    ['#/parent/about', { name: 'parent', page: 'about' }],
   ];
 
   for (const [hash, route] of cases) {

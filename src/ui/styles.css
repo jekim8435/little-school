@@ -1551,3 +1551,20 @@ textarea {
 .stage.is-review .stage-ink {
   cursor: default;
 }
+
+/* ── 부모 모드 > 앱 정보 ── */
+.p-about-name {
+  font-size: 28px;
+  font-weight: 800;
+}
+.p-about-text {
+  margin: 0;
+  font-size: 19px;
+  line-height: 1.6;
+}
+.p-about-list {
+  margin: 8px 0 0;
+  padding-left: 24px;
+  font-size: 17px;
+  line-height: 1.7;
+}

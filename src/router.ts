@@ -15,7 +15,8 @@ export type ParentPage =
   | 'reward-history'
   | 'backup'
   | 'lock-guide'
-  | 'device';
+  | 'device'
+  | 'about';
 
 export type Route =
   | { name: 'start' }
@@ -27,7 +28,7 @@ export type Route =
   | { name: 'parent'; page: ParentPage; id?: string };
 
 /** 주소에 쓰는 부모 모드 페이지 이름 (#/parent/<이름>). subject-settings는 #/parent/subjects/<id> */
-const PARENT_PAGES: ParentPage[] = ['gate', 'records', 'subjects', 'settings', 'rewards', 'reward-history', 'backup', 'lock-guide', 'device'];
+const PARENT_PAGES: ParentPage[] = ['gate', 'records', 'subjects', 'settings', 'rewards', 'reward-history', 'backup', 'lock-guide', 'device', 'about'];
 
 /** 과목 id 규칙: 영문 소문자·숫자·하이픈 (명세 4-1) */
 const ID = /^[a-z0-9-]+$/;

@@ -12,6 +12,7 @@ import { Router, type Route, type Screen } from './router';
 import { appHostScreen } from './screens/app-host';
 import { doneScreen } from './screens/done';
 import { hubScreen } from './screens/hub';
+import { aboutScreen } from './screens/parent/about';
 import { backupScreen } from './screens/parent/backup';
 import { deviceScreen } from './screens/parent/device';
 import { gateScreen } from './screens/parent/gate';
@@ -115,6 +116,8 @@ function createScreen(route: Route): Screen {
       return lockGuideScreen(shell);
     case 'device':
       return deviceScreen(shell);
+    case 'about':
+      return aboutScreen(shell);
   }
 }
 

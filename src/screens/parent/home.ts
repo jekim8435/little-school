@@ -101,6 +101,7 @@ export function parentHomeScreen(shell: Shell): Screen {
     button('💾 백업·복원', go({ name: 'parent', page: 'backup' })),
     button('🔒 아이 전용 잠금 안내', go({ name: 'parent', page: 'lock-guide' })),
     button('📱 기기 정보', go({ name: 'parent', page: 'device' })),
+    button('ℹ️ 앱 정보', go({ name: 'parent', page: 'about' })),
   );
 
   const el = parentPage(shell, '부모 모드', [...alerts, section('오늘', timeLine, ...rows), section('메뉴', menu)], { isHome: true });
