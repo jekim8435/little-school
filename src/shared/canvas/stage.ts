@@ -2,7 +2,7 @@ import type { Point } from '../types';
 import { observeResize } from '../../ui/compat';
 import { attachInput, type InputHandlers, type InputPoint } from '../../ui/input';
 
-/** 입력 등록 함수 (과목에서는 ctx.input.attach를 넘긴다 — 손바닥 무시·펜으로만 쓰기 적용) */
+/** 입력 등록 함수 (과목에서는 ctx.input.attach를 넘긴다 — 손바닥 무시·펜으로만 사용하기 적용) */
 export type AttachFn = (el: HTMLElement, h: InputHandlers, opts?: { canvas?: boolean }) => () => void;
 
 /** 펜 굵기: 캔버스 한 변의 4% */

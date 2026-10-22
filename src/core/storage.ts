@@ -29,7 +29,7 @@ export interface Settings {
   boardSize: BoardSize;
   audio: { sfxOn: boolean; sfxVolume: Volume; voiceOn: boolean; voiceVolume: Volume; voiceRate: 'slow' | 'normal' };
   parentLock: { type: 'math' | 'pin'; pin: string | null };
-  /** 펜으로만 쓰기 (명세 2-5, 8-6) */
+  /** 펜으로만 사용하기 (명세 2-5, 8-6 — 2026-10-22부터 아이 화면 전체) */
   penOnly: boolean;
   /** 부모가 공통 설정의 소리를 바꾼 적이 있는지 (한글쓰기 앱 설정 이전 때 덮어쓰지 않게, 명세 14-4) */
   audioEdited: boolean;
@@ -82,7 +82,7 @@ export interface SaveData {
   createdAt: string;
   /** 마지막으로 백업한 날 (부모 모드 홈의 ‘마지막 백업: N일 전’, 명세 11-4) */
   lastBackupAt: string | null;
-  /** 이 기기에 대한 기록. 한 번이라도 펜 입력이 들어왔는지 (‘펜으로만 쓰기’ 표시 조건) */
+  /** 이 기기에 대한 기록. 한 번이라도 펜 입력이 들어왔는지 (‘펜으로만 사용하기’ 표시 조건) */
   device: { penSeen: boolean };
   settings: Settings;
   rewards: { stars: Record<string, number>; boards: Board[] };

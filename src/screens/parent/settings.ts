@@ -130,12 +130,12 @@ export function settingsScreen(shell: Shell): Screen {
   );
   renderPin();
 
-  // 펜으로만 쓰기: 펜 입력이 감지된 기기에서만 (명세 2-5)
+  // 펜으로만 사용하기: 펜 입력이 감지된 기기에서만 (명세 2-5)
   const input = store.data.device.penSeen
-    ? section('입력', settingRow('펜으로만 쓰기', toggleSwitch(s.penOnly, (v) => {
+    ? section('입력', settingRow('펜으로만 사용하기', toggleSwitch(s.penOnly, (v) => {
         s.penOnly = v;
         saved();
-      }), '켜면 쓰기 칸에서 펜 입력만 받아요(손바닥·손가락 무시)'))
+      }), '켜면 아이 화면의 모든 누르기(쓰기·버튼·타일)를 펜으로만 받아요. 부모 모드와 부모 잠금 자리는 손가락도 돼요'))
     : null;
 
   const nodes: Node[] = [sound, time, reward, lock];

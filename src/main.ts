@@ -27,6 +27,7 @@ import { stickerHistoryScreen, stickersScreen } from './screens/stickers';
 import type { Shell } from './shell';
 import { closeDialogs, orientationOverlay } from './ui/components';
 import { installDevInfo } from './ui/devInfo';
+import { installPenOnlyFilter } from './ui/penOnly';
 import { PRESS_START_EVENTS } from './ui/input';
 import { setupPwa } from './pwa';
 import voices from './voices.json';
@@ -153,6 +154,21 @@ router.start({ name: 'start' });
 setupPwa();
 // 개발 기간: 아이 화면 새 버전 배너 + 하단 버전 표시 (src/config.ts)
 installDevInfo();
+
+// ‘펜으로만 사용하기’: 아이 화면의 모든 손가락 입력을 버린다. 부모 모드·부모 잠금 자리는 손가락 허용
+installPenOnlyFilter({
+  enabled: () => store.data.settings.penOnly,
+  isParentArea: (target) => {
+    const cur = router.current;
+    if (cur && cur.name === 'parent') return true;
+    let el = target instanceof Element ? target : null;
+    while (el) {
+      if (el.classList.contains('hub-corner')) return true;
+      el = el.parentElement;
+    }
+    return false;
+  },
+});
 
 // 부모 모드에서 5분 동안 조작이 없으면 잠그고 아이 화면으로 (명세 8-1)
 const markParentActive = () => {

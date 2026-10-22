@@ -94,7 +94,7 @@ export function createContext(d: CtxDeps): { ctx: AppContext; dispose(): void } 
     },
     input: {
       attach(el: HTMLElement, handlers: InputHandlers, opts: AttachOptions = {}) {
-        // 쓰기 캔버스에는 공통 설정 ‘펜으로만 쓰기’를 껍데기가 적용한다 (과목은 신경 쓰지 않음)
+        // 쓰기 캔버스에는 공통 설정 ‘펜으로만 사용하기’를 껍데기가 적용한다 (과목은 신경 쓰지 않음)
         const penOnly = !!opts.canvas && d.store.data.settings.penOnly;
         const off = attachInput(el, handlers, { canvas: opts.canvas, penOnly });
         let done = false;

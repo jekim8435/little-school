@@ -30,7 +30,7 @@ export interface AttachOptions {
    * 손가락(touch) 입력을 무시한다(손바닥이 닿아도 선이 생기지 않게)
    */
   canvas?: boolean;
-  /** ‘펜으로만 쓰기’: 캔버스에서 펜 입력만 받는다 */
+  /** ‘펜으로만 사용하기’: 캔버스에서 펜 입력만 받는다 */
   penOnly?: boolean;
 }
 

@@ -37,7 +37,8 @@ const RULES: Rule[] = [
     name: 'Pointer Events 직접 사용',
     pattern: /addEventListener\(\s*['"]pointer|setPointerCapture/,
     why: 'Safari 13부터. ui/input.ts의 attachInput()을 쓰면 터치 이벤트로 대신 받는다',
-    allowIn: ['src/ui/input.ts'],
+    // penOnly.ts는 PointerEvent가 있을 때만 다는 거름망(없으면 아무것도 안 함)
+    allowIn: ['src/ui/input.ts', 'src/ui/penOnly.ts'],
   },
   {
     name: 'ResizeObserver 직접 사용',
