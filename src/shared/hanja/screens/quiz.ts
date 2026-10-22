@@ -34,12 +34,16 @@ export function quizView(e: Engine, activity: ActivityId): View {
   const options = h('div', { class: `hj-options hj-options-${activity} is-${count}` });
   const view = h('div', { class: `hj-view hj-quiz hj-quiz-${activity}` }, head.el, h('div', { class: 'hj-quiz-body' }, prompt, options));
 
-  /** 문제 소리: 한자 찾기는 훈음, 나머지는 활동 안내 (훈음을 들려주면 답이 되므로) */
-  const sayPrompt = () => {
+  /**
+   * 문제 소리: 한자 찾기는 훈음, 나머지는 활동 안내 (훈음을 들려주면 답이 되므로).
+   * next면 지금 말하는 대사(활동 안내·정답 훈음)가 끝난 뒤에 이어서, 아니면 바로(‘다시 듣기’)
+   */
+  const sayPrompt = (next = false) => {
     const p = currentProblem(round);
     if (!p) return;
-    if (activity === 'listen') ctx.audio.say(cfg.voices.char(p.char));
-    else ctx.audio.say(activity === 'picture' ? cfg.voices.ask.picture : cfg.voices.ask.read);
+    const id = activity === 'listen' ? cfg.voices.char(p.char) : activity === 'picture' ? cfg.voices.ask.picture : cfg.voices.ask.read;
+    if (next) ctx.audio.sayNext(id);
+    else ctx.audio.say(id);
   };
 
   function render(): void {
@@ -55,7 +59,7 @@ export function quizView(e: Engine, activity: ActivityId): View {
         type: 'button',
         onClick: () => {
           ctx.audio.sfx('tap');
-          sayPrompt();
+          sayPrompt(false);
         },
       },
       `🔊 ${cfg.strings.replay}`,
@@ -122,10 +126,11 @@ export function quizView(e: Engine, activity: ActivityId): View {
     if (p && p.retry && !retryAnnounced) {
       retryAnnounced = true;
       ctx.audio.say(cfg.voices.ask.retry);
-      // 다시 내는 문제 안내 뒤에 문제 소리
-      timers.set(sayPrompt, 2600);
+      // 다시 내는 문제 안내가 끝난 뒤 문제 소리
+      sayPrompt(true);
     } else if (activity === 'listen') {
-      sayPrompt();
+      // 정답 훈음이 아직 나오고 있으면 끝난 뒤에
+      sayPrompt(true);
     }
   }
 
@@ -135,7 +140,8 @@ export function quizView(e: Engine, activity: ActivityId): View {
     start() {
       // 판 시작: 활동 안내 한 번 → (한자 찾기면) 첫 문제 훈음
       ctx.audio.say(activity === 'listen' ? cfg.voices.ask.listen : activity === 'picture' ? cfg.voices.ask.picture : cfg.voices.ask.read);
-      if (activity === 'listen') timers.set(sayPrompt, 2600);
+      // 안내가 끝난 뒤에 이어서 (안내 길이와 상관없이 겹치지 않게)
+      if (activity === 'listen') sayPrompt(true);
     },
     destroy() {},
   };

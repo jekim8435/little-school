@@ -105,6 +105,8 @@ export interface AppContext {
   audio: {
     sfx(name: SfxName): void;
     say(id: string): void;
+    /** 지금 말하는 대사가 끝난 뒤 이어서 말한다(말하는 중이 아니면 바로). 그 사이 다른 대사를 시작하면 취소 */
+    sayNext(id: string): void;
     /** 개발 중 임시용. 마무리 전에 say(id)로 바꾼다 */
     speak(text: string): void;
     play(url: string): void;

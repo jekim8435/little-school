@@ -82,6 +82,7 @@ export function createContext(d: CtxDeps): { ctx: AppContext; dispose(): void } 
     audio: {
       sfx: (name) => d.audio.sfx(name),
       say: (lineId) => d.audio.say(lineId),
+      sayNext: (lineId) => d.audio.sayNext(lineId),
       speak: (text) => d.audio.speak(text),
       play: (url) => d.audio.play(url),
       stop: () => d.audio.stop(),

@@ -17,7 +17,7 @@ function setup() {
   const store = new Store(null, { now });
   store.load();
   syncSubjects(store.data.settings.subjects, ['sample']);
-  const audio = { sfx: vi.fn(), say: vi.fn(), speak: vi.fn(), play: vi.fn(), stop: vi.fn(), voiceOn: true, sfxOn: true };
+  const audio = { sfx: vi.fn(), say: vi.fn(), sayNext: vi.fn(), speak: vi.fn(), play: vi.fn(), stop: vi.fn(), voiceOn: true, sfxOn: true };
   const entry: AppEntry = { id: 'sample', name: '샘플', icon: '', color: '#fff', load: () => Promise.reject(new Error('x')) };
   const exit = vi.fn();
   const feedback = vi.fn();
