@@ -1,8 +1,8 @@
 {
   "hanja-1.hub.name": {
-    "text": "한자똑똑 일",
+    "text": "한자똑똑",
     "tone": "또박또박, 밝게",
-    "where": "허브 — 한자똑똑(1) 타일을 눌렀을 때",
+    "where": "허브 — 한자똑똑 타일을 눌렀을 때 (세트와 상관없이 ‘한자똑똑’. hanja-2 등은 file로 이 음원을 함께 씀)",
     "draft": true
   },
   "hanja.ask.pick-activity": {
