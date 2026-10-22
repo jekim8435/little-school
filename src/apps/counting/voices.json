@@ -1,0 +1,320 @@
+{
+  "counting.hub.name": {
+    "text": "구슬 세기",
+    "tone": "또박또박, 밝게",
+    "where": "허브 — 구슬 세기 타일을 눌렀을 때",
+    "draft": true
+  },
+  "counting.ask.pick-activity": {
+    "text": "무엇을 할까요? 골라 보세요",
+    "tone": "다정하게 묻듯 (happy)",
+    "where": "구슬 세기 첫 화면 — 활동 고르기",
+    "draft": true
+  },
+  "counting.ask.count": {
+    "text": "하나씩 눌러서 세어 봐요",
+    "tone": "밝게 (happy)",
+    "where": "세어 보기 — 판 시작",
+    "draft": true
+  },
+  "counting.ask.how-many": {
+    "text": "모두 몇 개일까?",
+    "tone": "궁금한 듯 묻듯 (happy)",
+    "where": "세어 보기 — 사물을 다 센 뒤 숫자 카드가 나올 때",
+    "draft": true
+  },
+  "counting.ask.make": {
+    "text": "숫자만큼 구슬을 놓아 봐요",
+    "tone": "밝게 (happy)",
+    "where": "10칸 판 — 수만큼 놓기 문제 (이어서 수를 읽음)",
+    "draft": true
+  },
+  "counting.ask.more-to-ten": {
+    "text": "열이 되려면 몇 개 더 있어야 할까?",
+    "tone": "궁금한 듯 묻듯 (happy)",
+    "where": "10칸 판 — 10이 되려면 몇 개 더? 문제",
+    "draft": true
+  },
+  "counting.ask.match": {
+    "text": "같은 수끼리 짝을 지어 봐요",
+    "tone": "밝게 (happy)",
+    "where": "숫자 짝짓기 — 판 시작",
+    "draft": true
+  },
+  "counting.ask.board": {
+    "text": "숫자를 눌러 봐요",
+    "tone": "다정하게 (happy)",
+    "where": "숫자판 — 들어왔을 때",
+    "draft": true
+  },
+  "counting.ask.retry": {
+    "text": "아까 문제를 한 번 더 해 볼까?",
+    "tone": "응원하듯 (happy)",
+    "where": "판 끝 — 틀린 문제를 다시 낼 때",
+    "draft": true
+  },
+  "counting.ask.leave": {
+    "text": "한 번 더 누르면 나가요",
+    "tone": "부드럽게 (happy)",
+    "where": "판 진행 중 ‘뒤로’를 한 번 눌렀을 때",
+    "draft": true
+  },
+  "counting.ten": {
+    "text": "열! 한 묶음이에요",
+    "tone": "신나게 (happy)",
+    "where": "10칸 판 3단계 — 첫 판 10칸이 다 찼을 때",
+    "draft": true
+  },
+  "counting.praise.round": {
+    "text": "모두 끝! 정말 잘했어요",
+    "tone": "크게 칭찬하듯, 신나게 (happy)",
+    "where": "한 판 끝 — 칭찬 화면",
+    "draft": true
+  },
+  "counting.praise.sheet": {
+    "text": "한 장 끝! 다음 장도 해 봐요",
+    "tone": "밝게 (happy)",
+    "where": "숫자 짝짓기 — 마지막이 아닌 장을 끝냈을 때",
+    "draft": true
+  },
+  "counting.num.1": {
+    "text": "하나",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.2": {
+    "text": "둘",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.3": {
+    "text": "셋",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.4": {
+    "text": "넷",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.5": {
+    "text": "다섯",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.6": {
+    "text": "여섯",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.7": {
+    "text": "일곱",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.8": {
+    "text": "여덟",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.9": {
+    "text": "아홉",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.10": {
+    "text": "열",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.11": {
+    "text": "열하나",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.12": {
+    "text": "열둘",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.13": {
+    "text": "열셋",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.14": {
+    "text": "열넷",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.15": {
+    "text": "열다섯",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.16": {
+    "text": "열여섯",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.17": {
+    "text": "열일곱",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.18": {
+    "text": "열여덟",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.19": {
+    "text": "열아홉",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.num.20": {
+    "text": "스물",
+    "tone": "또박또박 보통 (normal)",
+    "where": "수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",
+    "draft": true
+  },
+  "counting.total.1": {
+    "text": "모두 한 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.2": {
+    "text": "모두 두 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.3": {
+    "text": "모두 세 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.4": {
+    "text": "모두 네 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.5": {
+    "text": "모두 다섯 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.6": {
+    "text": "모두 여섯 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.7": {
+    "text": "모두 일곱 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.8": {
+    "text": "모두 여덟 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.9": {
+    "text": "모두 아홉 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.10": {
+    "text": "모두 열 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.11": {
+    "text": "모두 열한 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.12": {
+    "text": "모두 열두 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.13": {
+    "text": "모두 열세 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.14": {
+    "text": "모두 열네 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.15": {
+    "text": "모두 열다섯 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.16": {
+    "text": "모두 열여섯 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.17": {
+    "text": "모두 열일곱 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.18": {
+    "text": "모두 열여덟 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.19": {
+    "text": "모두 열아홉 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  },
+  "counting.total.20": {
+    "text": "모두 스무 개!",
+    "tone": "밝게 (happy)",
+    "where": "정답을 알려 줄 때 — 세어 보기·10칸 판",
+    "draft": true
+  }
+}
