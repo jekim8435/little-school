@@ -57,3 +57,12 @@ describe('부모 잠금', () => {
     expect(lock.idle()).toBe(false);
   });
 });
+
+describe('암호를 잊었을 때 (09 문서 5장, R-09)', () => {
+  it('곱셈 문제를 통과하면 암호를 지우고 곱셈 방식으로 되돌린다', async () => {
+    const { clearPin } = await import('../../src/core/parentLock');
+    const s = { parentLock: { type: 'pin' as const as 'math' | 'pin', pin: '1234' as string | null } };
+    clearPin(s);
+    expect(s.parentLock).toEqual({ type: 'math', pin: null });
+  });
+});

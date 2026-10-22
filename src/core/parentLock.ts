@@ -70,3 +70,9 @@ export class ParentLock {
     this.unlocked = false;
   }
 }
+
+/** 암호를 잊었을 때(곱셈 문제 통과 후): 암호를 지우고 곱셈 방식으로 되돌린다 (09 문서 5장, R-09) */
+export function clearPin(settings: { parentLock: { type: 'math' | 'pin'; pin: string | null } }): void {
+  settings.parentLock.type = 'math';
+  settings.parentLock.pin = null;
+}
