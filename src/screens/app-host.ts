@@ -202,8 +202,8 @@ export function appHostScreen(shell: Shell, appId: string): Screen {
         showError(e);
         return;
       }
-      // 오늘 스티커를 받은 과목: 들어올 때 한 번 안내 (명세 6-3)
-      if (rewardStatus(store, appId).doneToday) audio.say('shell.app.sticker-done');
+      // 오늘 스티커를 받은 과목: 들어올 때 한 번 안내 (03 문서 6-3). 과목 첫 안내가 끝난 뒤 이어서 말한다
+      if (rewardStatus(store, appId).doneToday) audio.sayNext('shell.app.sticker-done');
       if (!isLandscape() || document.visibilityState === 'hidden') setPaused(true);
     },
     (e) => {

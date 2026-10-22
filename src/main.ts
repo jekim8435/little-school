@@ -70,7 +70,7 @@ void platform.requestPersist();
 // ── 소리 ──
 const audio = new AudioService(() => store.data.settings.audio);
 audio.register(voices, `${import.meta.env.BASE_URL}voice/`);
-for (const a of apps) if (a.voices) audio.register(a.voices, `${import.meta.env.BASE_URL}apps/${a.id}/voice/`);
+for (const a of apps) if (a.voices) audio.register(a.voices, `${import.meta.env.BASE_URL}apps/${a.folder || a.id}/voice/`);
 // iOS는 사용자 터치 안에서 AudioContext를 깨워야 소리가 난다 (iOS 12는 touchend·click에서만 인정)
 for (const type of ['pointerdown', 'touchend', 'click']) {
   document.addEventListener(type, audio.unlock, { capture: true });

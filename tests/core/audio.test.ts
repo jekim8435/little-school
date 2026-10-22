@@ -2,7 +2,7 @@ import { readdirSync, readFileSync, statSync } from 'node:fs';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { describe, expect, it } from 'vitest';
-import { clipUrl, GAIN, pickVoice, SFX, TTS_RATE, TTS_VOLUME, ttsText, type SfxName } from '../../src/core/audio';
+import { AudioService, clipUrl, GAIN, pickVoice, SFX, TTS_RATE, TTS_VOLUME, ttsText, type SfxName } from '../../src/core/audio';
 import voices from '../../src/voices.json';
 import { apps } from '../../src/apps/registry';
 
@@ -78,9 +78,10 @@ describe('voices.json (껍데기 대사, 명세 15-2)', () => {
 });
 
 describe('과목 대사 (명세 15-2)', () => {
-  it('과목 voices.json의 ID는 <과목 id>.<화면>.<이름>', () => {
+  it('과목 voices.json의 ID는 <과목 id 또는 시리즈 폴더>.<화면>.<이름>', () => {
     for (const a of apps) {
-      for (const id of Object.keys(a.voices || {})) expect(id, id).toMatch(new RegExp(`^${a.id}\\.[a-z0-9-]+\\.[a-z0-9.-]+$`));
+      const head = a.folder ? `(${a.id}|${a.folder})` : a.id;
+      for (const id of Object.keys(a.voices || {})) expect(id, id).toMatch(new RegExp(`^${head}\\.[a-z0-9-]+\\.[a-z0-9.-]+$`));
     }
   });
 });
@@ -97,5 +98,61 @@ describe('코드에서 부르는 대사 ID가 모두 voices.json에 있다', () 
     }
     expect(used.size).toBeGreaterThan(0);
     expect([...used].filter((id) => !known.has(id))).toEqual([]);
+  });
+});
+
+describe('sayNext: 지금 대사가 끝난 뒤 이어 말하기 (03 문서 6-3)', () => {
+  interface FakeUtterance {
+    text: string;
+    onend?: () => void;
+  }
+  function setup() {
+    const spoken: FakeUtterance[] = [];
+    const g = globalThis as unknown as Record<string, unknown>;
+    const saved = { window: g.window, Utter: g.SpeechSynthesisUtterance };
+    g.SpeechSynthesisUtterance = class {
+      constructor(public text: string) {}
+    };
+    g.window = {
+      setTimeout: () => 0,
+      speechSynthesis: { speak: (u: FakeUtterance) => spoken.push(u), cancel: () => {}, getVoices: () => [] },
+    };
+    const audio = new AudioService(() => ({ sfxOn: true, voiceOn: true, sfxVolume: 'normal', voiceVolume: 'normal', voiceRate: 'slow' }) as never);
+    audio.register({ 'x.a.intro': { text: '무엇을 할까요' }, 'x.a.sticker': { text: '오늘 스티커' }, 'x.a.other': { text: '다른 말' } }, '/');
+    const restore = () => {
+      g.window = saved.window;
+      g.SpeechSynthesisUtterance = saved.Utter;
+    };
+    return { audio, spoken, restore };
+  }
+
+  it('말하는 중이면 끝난 뒤에, 아니면 바로', () => {
+    const { audio, spoken, restore } = setup();
+    try {
+      audio.say('x.a.intro');
+      audio.sayNext('x.a.sticker');
+      expect(spoken.map((u) => u.text)).toEqual(['무엇을 할까요']);
+      spoken[0].onend!();
+      expect(spoken.map((u) => u.text)).toEqual(['무엇을 할까요', '오늘 스티커']);
+      spoken[1].onend!();
+      audio.sayNext('x.a.other');
+      expect(spoken.length).toBe(3);
+    } finally {
+      restore();
+    }
+  });
+
+  it('그 사이 다른 대사를 시작하면 이어 말하기는 취소', () => {
+    const { audio, spoken, restore } = setup();
+    try {
+      audio.say('x.a.intro');
+      audio.sayNext('x.a.sticker');
+      audio.say('x.a.other');
+      spoken[0].onend!(); // 끊긴 앞 대사의 끝 알림은 무시
+      spoken[1].onend!();
+      expect(spoken.map((u) => u.text)).toEqual(['무엇을 할까요', '다른 말']);
+    } finally {
+      restore();
+    }
   });
 });

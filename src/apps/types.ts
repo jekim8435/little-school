@@ -15,6 +15,11 @@ export interface AppEntry {
   color: string;
   /** 과목 대사 목록. 허브에서 과목을 열기 전에도 과목 이름을 읽어야 해서 여기서 함께 등록한다 */
   voices?: VoiceTable;
+  /**
+   * 과목 폴더 이름이 id와 다를 때 (03 문서 4-1). 여러 과목이 한 폴더의 대사·음원을 함께 쓰는 시리즈용
+   * (예: hanja-1, hanja-2 → 'hanja'). 음원은 apps/<folder>/voice/에서 찾는다
+   */
+  folder?: string;
   /** 과목을 열 때만 코드를 내려받는다(동적 import) */
   load: () => Promise<{ default: AppModule }>;
 }

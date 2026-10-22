@@ -112,6 +112,10 @@ export class AudioService {
   private playing: AudioBufferSourceNode | null = null;
   /** 파일을 받는 사이에 다른 말을 시작하면 늦게 도착한 앞의 말은 버린다 */
   private seq = 0;
+  /** 대사를 말하는 중인지 (음원을 받는 중 포함) */
+  private speaking = false;
+  /** 지금 대사가 끝나면 이어서 말할 대사 (sayNext) */
+  private next: string | null = null;
   private voice: SpeechSynthesisVoice | null | undefined;
 
   constructor(private readonly settings: () => AudioSettings) {
@@ -220,6 +224,20 @@ export class AudioService {
    * 음성 읽기가 꺼져 있으면 읽지 않는다. 등록하지 않은 ID는 개발 중 실수이므로 콘솔에 알린다
    */
   say(id: string): void {
+    this.next = null;
+    this.sayLine(id);
+  }
+
+  /**
+   * 지금 말하는 대사가 끝난 뒤 이어서 말한다(말하는 중이 아니면 바로). 껍데기 안내가 과목 첫 안내를 끊지 않게 (명세 6-3).
+   * 그 사이 다른 대사를 시작하거나 멈추면 이어 말하기는 취소된다
+   */
+  sayNext(id: string): void {
+    if (this.speaking) this.next = id;
+    else this.sayLine(id);
+  }
+
+  private sayLine(id: string): void {
     const entry = this.lines[id];
     if (!entry) {
       console.warn(`[audio] voices.json에 없는 대사 ID: ${id}`);
@@ -233,19 +251,28 @@ export class AudioService {
 
   /** 등록하지 않은 문장을 내장 음성으로 바로 읽기. 개발 중 임시용 — 마무리 전에 say(id)로 바꾼다 */
   speak(text: string, lang = 'ko-KR'): void {
+    this.next = null;
     if (!this.voiceOn) return;
     this.speakNow(text, lang);
   }
 
   /** 대사 목록 밖의 mp3 재생 (동화책 부모 녹음 등). 음성 설정을 따른다 */
   play(url: string): void {
+    this.next = null;
     if (!this.voiceOn) return;
     this.playUrl(url, null);
   }
 
   /** 읽고 있던 말을 멈춘다 */
   stop(): void {
+    this.next = null;
+    this.halt();
+  }
+
+  /** 지금 말을 멈춘다 (이어 말할 대사는 그대로) */
+  private halt(): void {
     this.seq++;
+    this.speaking = false;
     if (this.playing) {
       try {
         this.playing.stop();
@@ -262,13 +289,28 @@ export class AudioService {
     }
   }
 
+  /** 말이 끝났을 때: 이어 말할 대사가 있으면 시작 */
+  private finished(seq: number): void {
+    if (seq !== this.seq || !this.speaking) return;
+    this.speaking = false;
+    const n = this.next;
+    this.next = null;
+    if (n) this.sayLine(n);
+  }
+
   private speakNow(text: string, lang = 'ko-KR'): void {
-    this.stop();
+    this.halt();
     const synth = speech();
     if (!synth) return;
     const s = this.settings();
+    const seq = this.seq;
+    this.speaking = true;
+    // 내장 음성의 끝 알림이 오지 않는 기기를 위한 안전장치 (넉넉하게: 글자당 0.35초 + 2초)
+    window.setTimeout(() => this.finished(seq), text.length * 350 + 2000);
     try {
       const u = new SpeechSynthesisUtterance(ttsText(text));
+      u.onend = () => this.finished(seq);
+      u.onerror = () => this.finished(seq);
       u.lang = lang;
       u.rate = TTS_RATE[s.voiceRate];
       u.pitch = TTS_PITCH;
@@ -283,11 +325,14 @@ export class AudioService {
 
   /** 음원을 Web Audio로 튼다. 못 틀면 fallbackText를 내장 음성으로 */
   private playUrl(url: string, fallbackText: string | null, lang?: string): void {
-    this.stop();
+    this.halt();
     const seq = this.seq;
+    this.speaking = true;
     const c = this.context();
     const fallback = () => {
-      if (fallbackText !== null && seq === this.seq) this.speakNow(fallbackText, lang);
+      if (seq !== this.seq) return;
+      if (fallbackText !== null) this.speakNow(fallbackText, lang);
+      else this.finished(seq);
     };
     if (!c) return fallback();
     this.load(c, url).then((buffer) => {
@@ -298,7 +343,10 @@ export class AudioService {
       src.buffer = buffer;
       src.connect(g);
       g.connect(c.destination);
+      src.onended = () => this.finished(seq);
       src.start(0);
+      // 오디오가 멈춰 있어 끝 알림이 오지 않을 때를 위한 안전장치
+      window.setTimeout(() => this.finished(seq), buffer.duration * 1000 + 1000);
       this.playing = src;
     }, fallback);
   }
