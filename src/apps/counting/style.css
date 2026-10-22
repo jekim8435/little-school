@@ -1,0 +1,600 @@
+/*
+ * 구슬 세기 화면. 과목 영역 .app-counting 아래로만 범위를 둔다.
+ * 가로 전용, 높이 기준 단위 --u. Safari 12 규칙대로 gap 대신 margin, 애니메이션은 transform·opacity만.
+ */
+
+.app-counting .cn {
+  --cn-accent: #ff8a65;
+  --cn-accent-dark: #e8643c;
+  --cn-accent-soft: #ffe7dd;
+  --cn-good: #3db46d;
+  --cn-good-soft: #dff3e5;
+  --cn-bad: #e8574f;
+  --cn-line: #f0dcd2;
+  position: relative;
+  height: 100%;
+  background: #fff7f2;
+  color: #3e3330;
+}
+.app-counting .cn-view {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: calc(var(--u) * 6) calc(var(--u) * 16);
+}
+.app-counting .cn-pic {
+  display: block;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+}
+
+/* ── 머리줄: 뒤로 · 진행 막대 ── */
+.app-counting .cn-head {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  height: calc(var(--u) * 64);
+}
+/* 뒤로: 한자똑똑과 같은 작은 버튼 (높이 44, 02 문서 10장 터치 최소 60의 예외 — 부모 요청) */
+.app-counting .cn-back {
+  position: relative;
+  min-width: calc(var(--u) * 104);
+  height: calc(var(--u) * 44);
+  padding: 0 calc(var(--u) * 12);
+  border: 2px solid var(--cn-line);
+  border-radius: calc(var(--u) * 12);
+  background: #fff;
+  font-size: calc(var(--u) * 20);
+  font-weight: 700;
+  color: #3e3330;
+}
+.app-counting .cn-back-tip {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  margin-top: 6px;
+  padding: 6px 12px;
+  border-radius: 10px;
+  background: #3e3330;
+  color: #fff;
+  font-size: calc(var(--u) * 20);
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+  z-index: 5;
+}
+.app-counting .cn-back.is-armed {
+  border-color: var(--cn-bad);
+}
+.app-counting .cn-back.is-armed .cn-back-tip {
+  opacity: 1;
+}
+.app-counting .cn-bar {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  margin: 0 calc(var(--u) * 24);
+}
+.app-counting .cn-bar-track {
+  position: relative;
+  flex: 1 1 auto;
+  height: calc(var(--u) * 20);
+  border-radius: calc(var(--u) * 10);
+  background: #f1e4dc;
+  overflow: hidden;
+}
+.app-counting .cn-bar-fill {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 0;
+  border-radius: calc(var(--u) * 10);
+  background: var(--cn-accent);
+  transition: width 0.3s;
+}
+.app-counting .cn-bar-label {
+  min-width: calc(var(--u) * 100);
+  margin-left: calc(var(--u) * 14);
+  font-size: calc(var(--u) * 28);
+  font-weight: 800;
+  text-align: right;
+  white-space: nowrap;
+}
+.app-counting .cn-head-space {
+  width: calc(var(--u) * 104);
+}
+.app-counting .cn-retry {
+  position: absolute;
+  left: calc(var(--u) * 8);
+  top: calc(var(--u) * 4);
+  padding: calc(var(--u) * 4) calc(var(--u) * 14);
+  border-radius: calc(var(--u) * 14);
+  background: var(--cn-accent);
+  color: #fff;
+  font-size: calc(var(--u) * 24);
+  font-weight: 800;
+  z-index: 2;
+}
+
+/* ── 활동 고르기 (2 × 2) ── */
+.app-counting .cn-menu {
+  justify-content: center;
+}
+.app-counting .cn-title {
+  margin: 0 0 calc(var(--u) * 22);
+  text-align: center;
+  font-size: calc(var(--u) * 40);
+  font-weight: 800;
+}
+.app-counting .cn-tile-row {
+  display: flex;
+  justify-content: center;
+}
+.app-counting .cn-tile-row + .cn-tile-row {
+  margin-top: calc(var(--u) * 24);
+}
+.app-counting .cn-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: calc(var(--u) * 330);
+  height: calc(var(--u) * 230);
+  margin: 0 calc(var(--u) * 16);
+  padding: 0;
+  border: 3px solid var(--cn-line);
+  border-radius: calc(var(--u) * 28);
+  background: #fff;
+  box-shadow: 0 calc(var(--u) * 6) 0 var(--cn-line);
+  color: #3e3330;
+}
+.app-counting .cn-tile:active {
+  transform: translateY(3px);
+}
+.app-counting .cn-tile-icon {
+  display: flex;
+  align-items: center;
+  height: calc(var(--u) * 100);
+  font-size: calc(var(--u) * 64);
+  font-weight: 800;
+}
+.app-counting .cn-tile-pics .cn-pic,
+.app-counting .cn-tile-match .cn-pic {
+  display: inline-block;
+  width: calc(var(--u) * 72);
+  height: calc(var(--u) * 72);
+  margin: 0 calc(var(--u) * 3);
+}
+.app-counting .cn-tile-match {
+  display: flex;
+  align-items: center;
+}
+.app-counting .cn-tile-match b {
+  margin-right: calc(var(--u) * 12);
+}
+.app-counting .cn-tile-nums {
+  letter-spacing: calc(var(--u) * 4);
+}
+.app-counting .cn-tile-name {
+  margin-top: calc(var(--u) * 12);
+  font-size: calc(var(--u) * 32);
+  font-weight: 800;
+}
+
+/* ── 숫자 카드 보기 (3개 세로 한 줄, 4개 2 × 2) ── */
+.app-counting .cn-choices {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: stretch;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  margin: calc(var(--u) * -8);
+}
+.app-counting .cn-choice {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: calc(100% - var(--u) * 16);
+  height: calc(33.33% - var(--u) * 16);
+  margin: calc(var(--u) * 8);
+  padding: 0;
+  border: 4px solid var(--cn-line);
+  border-radius: calc(var(--u) * 28);
+  background: #fff;
+  box-shadow: 0 calc(var(--u) * 5) 0 var(--cn-line);
+  font-size: calc(var(--u) * 96);
+  font-weight: 800;
+  color: #3e3330;
+  animation: cn-in 0.3s ease-out;
+  transition: opacity 0.2s;
+}
+.app-counting .cn-choices.is-4 .cn-choice {
+  width: calc(50% - var(--u) * 16);
+  height: calc(50% - var(--u) * 16);
+}
+.app-counting .cn-choices.is-2 .cn-choice {
+  height: calc(50% - var(--u) * 16);
+}
+.app-counting .cn-choice:active {
+  transform: translateY(3px);
+}
+.app-counting .cn-choice.is-answer {
+  border-color: var(--cn-good);
+  background: var(--cn-good-soft);
+}
+.app-counting .cn-choice.is-wrong {
+  border-color: var(--cn-bad);
+  opacity: 0.6;
+}
+.app-counting .cn-choice.is-dim {
+  opacity: 0.35;
+}
+
+/* ── 세어 보기: 왼쪽 62% 사물, 오른쪽 숫자 카드 ── */
+.app-counting .cn-count-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  padding-bottom: calc(var(--u) * 10);
+}
+.app-counting .cn-count-area {
+  position: relative;
+  flex: 0 0 62%;
+  border-radius: calc(var(--u) * 28);
+  background: #fff;
+  border: 3px solid var(--cn-line);
+}
+.app-counting .cn-count-side {
+  position: relative;
+  display: flex;
+  flex: 1 1 auto;
+  align-items: stretch;
+  justify-content: center;
+  margin-left: calc(var(--u) * 24);
+  padding: calc(var(--u) * 8);
+}
+.app-counting .cn-obj {
+  position: absolute;
+  padding: 0;
+  border: none;
+  background: none;
+}
+.app-counting .cn-mark {
+  position: absolute;
+  right: -6%;
+  top: -6%;
+  display: none;
+  min-width: calc(var(--u) * 40);
+  height: calc(var(--u) * 40);
+  padding: 0 calc(var(--u) * 6);
+  border: 3px solid #fff;
+  border-radius: calc(var(--u) * 20);
+  background: var(--cn-accent-dark);
+  color: #fff;
+  font-size: calc(var(--u) * 26);
+  font-weight: 800;
+  line-height: calc(var(--u) * 34);
+  text-align: center;
+}
+.app-counting .cn-obj.is-counted .cn-mark {
+  display: block;
+}
+.app-counting .cn-obj.is-counted .cn-pic {
+  opacity: 0.75;
+}
+.app-counting .cn-obj.is-pop {
+  animation: cn-pop 0.3s ease-out;
+}
+.app-counting .cn-obj.is-flash .cn-mark {
+  animation: cn-flash 0.5s ease-out;
+}
+
+/* ── 10칸 판 ── */
+.app-counting .cn-frames {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.app-counting .cn-frame {
+  padding: calc(var(--u) * 8);
+  border: calc(var(--u) * 5) solid #8a6a5c;
+  border-radius: calc(var(--u) * 16);
+  background: #fff;
+}
+.app-counting .cn-frame + .cn-frame {
+  margin-top: calc(var(--u) * 18);
+}
+.app-counting .cn-frame.is-flash {
+  animation: cn-bundle 1.2s ease-out;
+}
+.app-counting .cn-frame-row {
+  display: flex;
+}
+.app-counting .cn-cell {
+  --cell: calc(var(--u) * 112);
+  position: relative;
+  display: block;
+  width: var(--cell);
+  height: var(--cell);
+  margin: 0;
+  padding: calc(var(--cell) * 0.05);
+  border: 2px solid #e6d3c9;
+  border-radius: 0;
+  background: #fff;
+}
+.app-counting .cn-frames.is-2 .cn-cell {
+  --cell: calc(var(--u) * 100);
+}
+.app-counting .cn-cell.is-off {
+  background: #f1ebe7;
+  opacity: 0.45;
+}
+.app-counting .cn-bead {
+  animation: cn-pop 0.25s ease-out;
+}
+
+/* 10칸 판 (가): 왼쪽 큰 숫자, 오른쪽 판 + 다 했어요 */
+.app-counting .cn-frame-body {
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  align-items: center;
+  padding-bottom: calc(var(--u) * 10);
+}
+.app-counting .cn-frame-left {
+  position: relative;
+  display: flex;
+  flex: 0 0 28%;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+}
+.app-counting .cn-bignum {
+  font-size: calc(var(--u) * 220);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--cn-accent-dark);
+}
+.app-counting .cn-frame-right {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.app-counting .cn-done {
+  min-width: calc(var(--u) * 240);
+  height: calc(var(--u) * 88);
+  margin-top: calc(var(--u) * 22);
+  padding: 0 calc(var(--u) * 30);
+  border: none;
+  border-radius: calc(var(--u) * 44);
+  background: var(--cn-accent);
+  box-shadow: 0 calc(var(--u) * 5) 0 var(--cn-accent-dark);
+  color: #fff;
+  font-size: calc(var(--u) * 36);
+  font-weight: 800;
+}
+.app-counting .cn-frameview.is-level-3 .cn-done {
+  height: calc(var(--u) * 76);
+  margin-top: calc(var(--u) * 14);
+}
+.app-counting .cn-done:active {
+  transform: translateY(3px);
+}
+.app-counting .cn-done.is-off {
+  opacity: 0.35;
+}
+
+/* 10칸 판 (나): 왼쪽 판, 오른쪽 숫자 카드 */
+.app-counting .cn-more-left {
+  position: relative;
+  display: flex;
+  flex: 0 0 62%;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+}
+.app-counting .cn-more-right {
+  display: flex;
+  flex: 1 1 auto;
+  align-self: stretch;
+  margin-left: calc(var(--u) * 24);
+  padding: calc(var(--u) * 8);
+}
+
+/* ── 숫자 짝짓기: 위 줄 숫자 카드(낮게), 아래 줄 그림 카드(크게) ── */
+.app-counting .cn-match-top,
+.app-counting .cn-match-bottom {
+  display: flex;
+  justify-content: center;
+}
+.app-counting .cn-match-top {
+  flex: 0 0 calc(var(--u) * 132);
+  padding-top: calc(var(--u) * 4);
+}
+.app-counting .cn-match-bottom {
+  flex: 1 1 auto;
+  min-height: 0;
+  padding: calc(var(--u) * 18) 0 calc(var(--u) * 14);
+}
+.app-counting .cn-mcard {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* 넓은 화면(갤럭시)에서는 카드가 넓어진다 (아이패드 약 228pt) */
+  flex: 1 1 0;
+  max-width: calc(var(--u) * 300);
+  margin: 0 calc(var(--u) * 10);
+  padding: 0;
+  border: 4px solid var(--cn-line);
+  border-radius: calc(var(--u) * 24);
+  background: #fff;
+  box-shadow: 0 calc(var(--u) * 5) 0 var(--cn-line);
+  color: #3e3330;
+  transition: opacity 0.2s;
+}
+.app-counting .cn-mnum {
+  height: calc(var(--u) * 116);
+  font-size: calc(var(--u) * 80);
+  font-weight: 800;
+}
+.app-counting .cn-mpic {
+  height: 100%;
+}
+.app-counting .cn-mcard.is-selected {
+  border-color: var(--cn-accent-dark);
+  background: var(--cn-accent-soft);
+  transform: translateY(calc(var(--u) * -4));
+}
+.app-counting .cn-mcard.is-wrong {
+  border-color: var(--cn-bad);
+  animation: cn-shake 0.4s;
+}
+.app-counting .cn-mcard.is-paired {
+  border-width: calc(var(--u) * 8);
+}
+.app-counting .cn-mcard.is-pair-1 { border-color: #3db46d; }
+.app-counting .cn-mcard.is-pair-2 { border-color: #3f7fd9; }
+.app-counting .cn-mcard.is-pair-3 { border-color: #9b59d0; }
+.app-counting .cn-mcard.is-pair-4 { border-color: #e8a317; }
+.app-counting .cn-pgroup {
+  display: flex;
+  align-items: flex-start;
+}
+.app-counting .cn-pcol {
+  display: flex;
+  flex-direction: column;
+}
+.app-counting .cn-pobj {
+  width: var(--obj, 36px);
+  height: var(--obj, 36px);
+  margin: calc(var(--obj, 36px) * 0.04);
+}
+.app-counting .cn-pbundle {
+  display: flex;
+  margin-right: calc(var(--obj, 36px) * 0.2);
+  padding: calc(var(--obj, 36px) * 0.06);
+  border: calc(var(--u) * 3) solid #8a6a5c;
+  border-radius: calc(var(--u) * 10);
+}
+
+/* ── 숫자판 (10열 × 2줄) ── */
+.app-counting .cn-board {
+  display: flex;
+  flex: 1 1 auto;
+  flex-direction: column;
+  justify-content: center;
+}
+.app-counting .cn-board-row {
+  display: flex;
+  justify-content: center;
+}
+.app-counting .cn-board-row + .cn-board-row {
+  margin-top: calc(var(--u) * 24);
+}
+.app-counting .cn-board-num {
+  width: calc(var(--u) * 86);
+  height: calc(var(--u) * 120);
+  margin: 0 calc(var(--u) * 5);
+  padding: 0;
+  border: 3px solid var(--cn-line);
+  border-radius: calc(var(--u) * 18);
+  background: #fff;
+  box-shadow: 0 calc(var(--u) * 5) 0 var(--cn-line);
+  font-size: calc(var(--u) * 52);
+  font-weight: 800;
+  color: #3e3330;
+}
+.app-counting .cn-board-num:active {
+  transform: translateY(3px);
+}
+.app-counting .cn-overlay {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  background: rgba(60, 40, 30, 0.45);
+  z-index: 10;
+}
+.app-counting .cn-overlay.is-on {
+  display: flex;
+}
+.app-counting .cn-big {
+  display: flex;
+  align-items: center;
+  padding: calc(var(--u) * 28) calc(var(--u) * 48);
+  border-radius: calc(var(--u) * 36);
+  background: #fff;
+}
+.app-counting .cn-big-num {
+  margin-right: calc(var(--u) * 40);
+  font-size: calc(var(--u) * 180);
+  font-weight: 800;
+  line-height: 1;
+  color: var(--cn-accent-dark);
+}
+.app-counting .cn-big .cn-cell {
+  --cell: calc(var(--u) * 88);
+}
+.app-counting .cn-big.is-2 .cn-cell {
+  --cell: calc(var(--u) * 80);
+}
+
+/* ── 한 판 끝 칭찬 ── */
+.app-counting .cn-praise {
+  align-items: center;
+  justify-content: center;
+}
+.app-counting .cn-praise-star {
+  font-size: calc(var(--u) * 200);
+  line-height: 1;
+  color: #f2b01e;
+  animation: cn-pop 0.6s ease-out;
+}
+.app-counting .cn-praise-text {
+  margin: calc(var(--u) * 20) 0 0;
+  font-size: calc(var(--u) * 52);
+  font-weight: 800;
+}
+.app-counting .cn-praise-sub {
+  margin: calc(var(--u) * 10) 0 0;
+  font-size: calc(var(--u) * 30);
+  color: #8a7a72;
+}
+
+@keyframes cn-pop {
+  0% { transform: scale(0.6); }
+  70% { transform: scale(1.12); }
+  100% { transform: scale(1); }
+}
+@keyframes cn-in {
+  0% { transform: scale(0.85); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes cn-flash {
+  0% { transform: scale(1); }
+  40% { transform: scale(1.6); }
+  100% { transform: scale(1); }
+}
+@keyframes cn-bundle {
+  0% { transform: scale(1); }
+  20% { transform: scale(1.05); opacity: 0.6; }
+  40% { transform: scale(1); opacity: 1; }
+  60% { transform: scale(1.05); opacity: 0.6; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes cn-shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(calc(var(--u) * -10)); }
+  75% { transform: translateX(calc(var(--u) * 10)); }
+}

@@ -84,10 +84,10 @@ const P = {
     }).join('') + `<circle cx="100" cy="100" r="30" fill="#FFD23F" ${W}/>`,
   ),
   // 기본 구슬: 산호빛 주황 (과목 색), 보통 테두리
-  bead: svg(`<circle cx="100" cy="100" r="80" fill="#FF7A50" ${W}/>` + shine('M54 72 C60 58 72 48 86 44')),
+  bead: svg(`<circle cx="100" cy="100" r="88" fill="#FF7A50" ${W}/>` + shine('M50 70 C56 54 70 42 86 38')),
   // 더 채우기 구슬: 하늘색, 굵은 테두리 + 가운데 흰 점 (색을 못 구분해도 모양으로 구분)
   'bead-more': svg(
-    `<circle cx="100" cy="100" r="76" fill="#4FA8E8" stroke="#1F4E79" stroke-width="16"/>` + `<circle cx="100" cy="100" r="22" fill="#fff"/>`,
+    `<circle cx="100" cy="100" r="84" fill="#4FA8E8" stroke="#1F4E79" stroke-width="16"/>` + `<circle cx="100" cy="100" r="22" fill="#fff"/>`,
   ),
 };
 

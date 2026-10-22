@@ -59,7 +59,7 @@
     "where": "판 진행 중 ‘뒤로’를 한 번 눌렀을 때",
     "draft": true
   },
-  "counting.ten": {
+  "counting.frame.ten": {
     "text": "열! 한 묶음이에요",
     "tone": "신나게 (happy)",
     "where": "10칸 판 3단계 — 첫 판 10칸이 다 찼을 때",

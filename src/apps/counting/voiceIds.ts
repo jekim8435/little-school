@@ -1,8 +1,6 @@
 /**
  * 구슬 세기 대사 ID (voices.json, 8장). 화면 코드는 여기서만 대사 ID를 가져온다(테스트가 모두 등록됐는지 확인).
  */
-import type { ActivityId } from './logic/config';
-
 export const V = {
   num: (n: number) => `counting.num.${n}`,
   total: (n: number) => `counting.total.${n}`,
@@ -17,16 +15,8 @@ export const V = {
     retry: 'counting.ask.retry',
     leave: 'counting.ask.leave',
   },
-  ten: 'counting.ten',
+  ten: 'counting.frame.ten',
   praise: { round: 'counting.praise.round', sheet: 'counting.praise.sheet' },
-};
-
-/** 활동을 시작할 때 안내 */
-export const ACTIVITY_ASK: Record<ActivityId, string> = {
-  count: V.ask.count,
-  frame: V.ask.make,
-  match: V.ask.match,
-  board: V.ask.board,
 };
 
 /** 코드가 부를 수 있는 대사 ID 전부 */
