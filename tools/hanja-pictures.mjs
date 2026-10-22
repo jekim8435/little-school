@@ -1,5 +1,5 @@
 // 한자 그림 32장 (src/shared/hanja/pictures/<그림 id>.svg)을 코드로 그린다. 직접 만든 단순한 그림(학습지 그림을 따라 그리지 않음).
-// 한 가지 사물, 고유 색 하나. 사람 한자는 같은 사람 모양에 구분점 하나씩 (subjects/hanja-ttokttok.md).
+// 한 가지 사물, 고유 색 하나. 사람 한자는 같은 사람 모양에 구분점 하나씩.
 // 그림을 고치면: node tools/hanja-pictures.mjs  (세트를 더하면 아래 P에 그림 id를 추가)
 import { mkdirSync, writeFileSync } from 'node:fs';
 import { dirname, join } from 'node:path';
