@@ -4,3 +4,5 @@ dist/
 # 2단계 이식용 한글쓰기 앱 사본 (원본: GitHub jekim8435/writing-practice). 2단계 후 삭제
 legacy/
 dev-dist/
+# voice:regen-all이 실행할 때마다 다시 만드는 목록
+docs/voice/_regen-all/

@@ -47,5 +47,22 @@ export function writeVoices(set) {
 /** 영어 대사인지 (lang이 en으로 시작) */
 export const isEnglish = (line) => /^en/i.test(line.lang || '');
 
+/** 대사 ID 목록의 producedText = text (voice:make가 만든 뒤 부른다). 바꾼 수를 돌려준다 */
+export function markProduced(ids) {
+  let n = 0;
+  for (const set of voiceSets()) {
+    let changed = false;
+    for (const id of ids) {
+      const line = set.lines[id];
+      if (!line || line.producedText === line.text) continue;
+      line.producedText = line.text;
+      changed = true;
+      n++;
+    }
+    if (changed) writeVoices(set);
+  }
+  return n;
+}
+
 /** CSV 한 칸 */
 export const csvCell = (v) => (/[",\n]/.test(v) ? `"${String(v).replace(/"/g, '""')}"` : String(v));

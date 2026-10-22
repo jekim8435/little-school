@@ -14,8 +14,8 @@
     "check:precache": "node scripts/check-precache.mjs",
     "voice:list": "node scripts/voice-list.mjs",
     "voice:make": "node scripts/voice-make.mjs",
-    "voice:mark": "node scripts/voice-mark.mjs",
-    "voice:check": "node scripts/voice-check.mjs"
+    "voice:check": "node scripts/voice-check.mjs",
+    "voice:regen-all": "node scripts/voice-regen-all.mjs"
   },
   "devDependencies": {
     "@types/node": "^22.20.5",

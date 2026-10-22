@@ -16,4 +16,6 @@ npm install
 npm run dev      # 개발 서버
 npm test         # 단위 테스트
 npm run build    # 타입 검사 → 빌드 → Safari 12 호환성 검사 → 프리캐시 검사
+npm run voice:check                  # 음원 확인
+npm run voice:regen-all -- --dry-run # 전체 음원 재생성 미리 보기 (크레딧 0)
 ```

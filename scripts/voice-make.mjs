@@ -3,7 +3,7 @@
 // 한글쓰기 앱의 도구(docs/voice/_template/voice-make.mjs)를 꼬마학교에 맞게 고친 것:
 // - CSV의 ‘저장 위치’ 칸(public/voice, public/apps/<id>/voice)에 저장
 // - 말투(감정)는 typecast.json의 styles를 ‘대사 ID’ 앞부분으로 고름 (예: "shell.sticker." → happy)
-// - 만든 대사는 voices.json의 producedText를 text와 같게 바꿔 둔다 (= npm run voice:mark)
+// - 만든 대사는 voices.json의 producedText를 text와 같게 바꿔 둔다 (손으로 만든 음원·voice:mark는 쓰지 않음, 09 문서 6장)
 //
 //   목소리 고르기:  npm run voice:make -- --list-voices [--age child] [--lang kor]
 //   미리 보기:      npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --dry-run
@@ -214,7 +214,7 @@ async function main() {
   console.log(`\n${DRY ? '만들 예정' : '만든'} ${DRY ? lines.length - skipped : made}개 · 이미 있음 ${skipped}개${failed ? ` · 실패 ${failed}개` : ''} · 글자 수 ${chars}`);
   if (!DRY && made_ids.length) {
     // 만든 대사는 producedText를 지금 문장으로 (다음 voice:list에 다시 나오지 않게)
-    const { markProduced } = await import('./voice-mark.mjs');
+    const { markProduced } = await import('./voice-lib.mjs');
     markProduced(made_ids);
   }
   if (!DRY) console.log('확인: npm run voice:check');

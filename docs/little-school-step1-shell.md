@@ -953,6 +953,7 @@ say(id)로 재생                 · 대사 목록(voice-list.md)               
 - 대상은 `producedText`가 없거나 `text`와 다른 대사, 그리고 `tts: true`가 아닌 대사뿐이다. 이미 만든 음원은 다시 나오지 않는다
 - 제작: `npm run voice:make -- --csv docs/voice/<대상>/대사목록.csv` (먼저 `--dry-run`으로 확인). 저장 위치는 CSV의 ‘저장 위치’ 칸을 따르고, 만든 대사의 `producedText`는 자동으로 갱신된다. Typecast 설정은 `docs/voice/typecast.json`
 - Typecast API 키는 환경변수 `TYPECAST_API_KEY`로만 넣고 저장소에 넣지 않는다
+- **전체 재생성**: `npm run voice:regen-all` — 모든 voices.json의 음원(한글쓰기 앱에서 가져온 93개 포함)을 덮어써서 다시 만든다. 대상 개수·글자 수를 보여 주고 `yes`를 입력해야 시작, `--dry-run`은 API를 부르지 않는다 (09 문서 6장 음원 재생성, R-10)
 
 ### 15-4. 음원 넣기와 확인
 
