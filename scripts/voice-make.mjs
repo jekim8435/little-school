@@ -8,19 +8,15 @@
 //   목소리 고르기:  npm run voice:make -- --list-voices [--age child] [--lang kor]
 //   미리 보기:      npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --dry-run
 //   만들기:         npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv [--only shell.done] [--force]
-//   줄이기:         npm run voice:make -- --csv docs/voice/step1-shell/대사목록.csv --compress
-//                   (ffmpeg 없이 만든 320kbps 파일을 다시 받지 않고 규격대로 줄임 — 크레딧 안 씀)
 //
-// 필요: Node 18+, 환경변수 TYPECAST_API_KEY(저장소에 넣지 않음), (권장) ffmpeg
+// 필요: Node 18+, 환경변수 TYPECAST_API_KEY(저장소에 넣지 않음)
+// 음원은 Typecast가 준 mp3를 원본 바이트 그대로 저장한다. 다시 압축·인코딩하지 않는다
+// (AI 생성 메타데이터·워터마크 보존, 09 문서 6장 ③·음원 재생성, R-11)
 // 설정: docs/voice/typecast.json (목소리 ID, 모델, 말투) — 한글쓰기 앱과 같은 목소리
 
-import { readFile, writeFile, mkdir, access, rm } from 'node:fs/promises';
-import { execFile } from 'node:child_process';
-import { promisify } from 'node:util';
+import { readFile, writeFile, mkdir, access } from 'node:fs/promises';
 import path from 'node:path';
-import os from 'node:os';
 
-const run = promisify(execFile);
 const API = 'https://api.typecast.ai';
 
 // ---------- 인자 ----------
@@ -40,7 +36,6 @@ const ONLY = opt('only', '')
   .filter(Boolean);
 const FORCE = flag('force');
 const DRY = flag('dry-run');
-const COMPRESS = flag('compress');
 
 const KEY = process.env.TYPECAST_API_KEY;
 
@@ -137,7 +132,7 @@ async function synth({ text, voiceId, lang, style, cfg }) {
         ? { emotion_preset: style.emotion, emotion_intensity: style.intensity }
         : { emotion_type: 'preset', emotion_preset: style.emotion, emotion_intensity: style.intensity },
     output: {
-      audio_format: cfg._mp3 ? 'mp3' : 'wav',
+      audio_format: 'mp3',
       audio_tempo: cfg.tempo ?? 1.0,
       audio_pitch: cfg.pitch ?? 0,
       target_lufs: cfg.lufs ?? -16,
@@ -151,36 +146,11 @@ async function synth({ text, voiceId, lang, style, cfg }) {
   return Buffer.from(await res.arrayBuffer());
 }
 
-// ---------- ffmpeg: 앞뒤 무음 자르기 + mp3 모노 64kbps ----------
-let hasFfmpeg;
-async function checkFfmpeg() {
-  try { await run('ffmpeg', ['-version']); return true; } catch { return false; }
-}
-
-const TRIM =
-  'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.05,' +
-  'areverse,' +
-  'silenceremove=start_periods=1:start_threshold=-45dB:start_silence=0.08,' +
-  'areverse';
-
-async function toMp3(audio, outFile) {
-  // 입력은 Typecast wav 또는 이미 있는 mp3(--compress). ffmpeg가 내용을 보고 읽는다
-  const tmp = path.join(os.tmpdir(), `tc-${process.pid}-${Date.now()}.audio`);
-  await writeFile(tmp, audio);
-  try {
-    // 명세 15-4 규격: mp3 모노, 22kHz, 64kbps 안팎, 앞뒤 무음 0.1초 이하
-    await run('ffmpeg', ['-y', '-loglevel', 'error', '-i', tmp, '-af', TRIM,
-      '-ac', '1', '-ar', '22050', '-codec:a', 'libmp3lame', '-b:a', '64k', outFile]);
-  } finally {
-    await rm(tmp, { force: true });
-  }
-}
-
 const exists = (p) => access(p).then(() => true, () => false);
 
 // ---------- 실행 ----------
 async function main() {
-  if (!KEY && !DRY && !COMPRESS) {
+  if (!KEY && !DRY) {
     console.error('TYPECAST_API_KEY 환경변수를 먼저 설정하세요. (README의 "API 키" 참고)');
     process.exit(1);
   }
@@ -207,25 +177,7 @@ async function main() {
   if (lines.some((l) => !l.dir)) throw new Error('CSV에 저장 위치가 없으면 --out 폴더를 지정하세요');
   if (ONLY.length) lines = lines.filter((l) => ONLY.some((p) => l.id.startsWith(p) || l.file.startsWith(p)));
 
-  if (COMPRESS) {
-    // 이미 있는 음원을 ffmpeg로 규격(22kHz 모노 64kbps, 앞뒤 무음 자르기)에 맞춘다
-    if (!(await checkFfmpeg())) throw new Error('ffmpeg가 필요합니다 (winget install Gyan.FFmpeg)');
-    let n = 0;
-    for (const l of lines) {
-      const file = path.join(l.dir, l.file);
-      if (!(await exists(file))) continue;
-      await toMp3(await readFile(file), file);
-      n++;
-      console.log(`줄임: ${file}`);
-    }
-    console.log(`
-${n}개를 줄였습니다`);
-    return;
-  }
-
   if (!DRY) {
-    hasFfmpeg = await checkFfmpeg();
-    if (!hasFfmpeg) console.warn('⚠ ffmpeg가 없어 무음 자르기·압축을 건너뛰고 Typecast mp3를 그대로 저장합니다.\n');
     for (const d of new Set(lines.map((l) => l.dir))) await mkdir(d, { recursive: true });
   }
   const made_ids = [];
@@ -248,11 +200,8 @@ ${n}개를 줄였습니다`);
     if (!voiceId) throw new Error(`typecast.json 에 ${isEn ? 'enVoice' : 'koVoice'} 를 넣어 주세요`);
 
     try {
-      if (hasFfmpeg) {
-        await toMp3(await synth({ text, voiceId, lang, style, cfg }), out);
-      } else {
-        await writeFile(out, await synth({ text, voiceId, lang, style, cfg: { ...cfg, _mp3: true } }));
-      }
+      // Typecast mp3를 받은 그대로 저장 (재인코딩 금지)
+      await writeFile(out, await synth({ text, voiceId, lang, style, cfg }));
       made++;
       made_ids.push(l.id);
     } catch (e) {
