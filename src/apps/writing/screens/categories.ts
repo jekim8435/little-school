@@ -1,6 +1,6 @@
 /**
  * 카테고리 고르기 (과목 첫 화면, 명세 14-1 ‘홈’ → 14-3).
- * 카드: 대표 글자, 이름, 진행 중 회차(예: 9 / 14) 또는 글자 수, 클리어 횟수.
+ * 카드: 대표 글자, 이름, 혼자 쓰기 진행 중 회차(예: 9 / 14) 또는 글자 수, 혼자 쓰기 클리어 횟수(별 받은 횟수).
  */
 import type { AppContext } from '../../types';
 import { CATEGORIES, glyphsOf, type Category } from '../categories';

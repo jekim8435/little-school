@@ -1,6 +1,7 @@
 /**
  * 쓰기 연습 화면 (한글쓰기 앱 screens/practice.ts를 과목 모듈로 옮김, 명세 14-2).
  * 가로 전용 배치: 위 글자 띠 / 왼쪽 글자 정보 · 가운데 정사각형 쓰기 칸 · 오른쪽 버튼.
+ * - 고른 쓰기 방법으로만 계속한다 (화면 안에서 방법을 바꾸는 버튼 없음, 2026-10-22 부모 결정)
  * - 따라 쓰기(§5.2): 획마다 바로 판정. 한 획이라도 틀렸으면 그 글자는 ‘나중에’(회차 끝에 다시)
  * - 혼자 쓰기(§6.2): 다 쓰고 [확인]으로 전체 판정. 틀리면 ‘나중에’, [순서 보기]로 바른 순서
  * - 글자마다 ctx.log.record (부모 모드 ‘자주 틀린 글자’와 틀린 이유)
@@ -38,7 +39,6 @@ export interface PracticeParams {
   /** 칭찬이 끝난 뒤 다음으로 */
   onNext(): void;
   goTo(index: number): void;
-  switchMode(): void;
   back(): void;
 }
 
@@ -257,7 +257,6 @@ export function practiceView(p: PracticeParams): PracticeView {
     { class: 'w-side w-right' },
     h('div', { class: 'w-mode-label' }, mode === 'guided' ? '✏️ 따라 쓰기' : '🌟 혼자 쓰기'),
     ...buttons,
-    h('button', { class: 'btn btn-plain w-switch', type: 'button', onClick: p.switchMode }, mode === 'guided' ? '혼자 써 볼래' : '따라 쓸래'),
   );
 
   el.append(strip, h('div', { class: 'w-main' }, left, area, right));

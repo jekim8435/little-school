@@ -86,9 +86,17 @@ describe('회차: 결과 반영', () => {
 
 describe('저장 데이터 읽기', () => {
   it('깨진 값은 빈 값으로', () => {
-    expect(readData(null)).toEqual({ rounds: {}, clears: {} });
-    expect(readData({ rounds: { digit: { cleared: ['1', 2], later: 'x' } }, clears: { digit: 2, x: -1 }, lastCategory: 'digit' })).toEqual({
+    expect(readData(null)).toEqual({ rounds: {}, guidedRounds: {}, clears: {} });
+    expect(
+      readData({
+        rounds: { digit: { cleared: ['1', 2], later: 'x' } },
+        guidedRounds: { vowel: { cleared: ['ㅏ'], later: ['ㅑ', 3] } },
+        clears: { digit: 2, x: -1 },
+        lastCategory: 'digit',
+      }),
+    ).toEqual({
       rounds: { digit: { cleared: ['1'], later: [] } },
+      guidedRounds: { vowel: { cleared: ['ㅏ'], later: ['ㅑ'] } },
       clears: { digit: 2 },
       lastCategory: 'digit',
     });

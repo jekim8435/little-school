@@ -1,9 +1,9 @@
 /**
- * 카테고리 회차 (명세 14-3, 2026-10-21 부모 결정).
- * - 카테고리마다 회차는 하나. 따라 쓰기·혼자 쓰기 어느 쪽으로 써도 같은 회차에 반영된다
+ * 카테고리 회차 (명세 14-3, 2026-10-21·10-22 부모 결정).
+ * - 회차는 카테고리마다, 쓰기 방법마다 따로다. 따라 쓰기 회차는 guidedRounds, 혼자 쓰기 회차는 rounds
  * - 한 글자를 끝까지 쓴 시도에 틀린 획이 하나도 없으면 그 글자는 이번 회차에서 ‘클리어’
  * - 틀린 획이 있었으면 ‘나중에’ 목록으로 → 회차 끝에 다시 나온다(맞힐 때까지)
- * - 모든 글자를 클리어하면 회차 완료 → 별 1개, 클리어 횟수 +1, 새 회차
+ * - 모든 글자를 클리어하면 회차 완료 → 새 회차. 혼자 쓰기만 별 1개와 클리어 횟수 +1 (따라 쓰기는 칭찬만)
  * - 중간에 나가도 ctx.store에 저장되어 이어서 한다
  */
 
@@ -15,8 +15,11 @@ export interface Round {
 }
 
 export interface WritingData {
+  /** 혼자 쓰기 회차 (별·클리어 횟수는 이 회차로만) */
   rounds: Record<string, Round>;
-  /** 카테고리별 클리어 횟수 */
+  /** 따라 쓰기 회차 */
+  guidedRounds: Record<string, Round>;
+  /** 카테고리별 혼자 쓰기 클리어 횟수 */
   clears: Record<string, number>;
   /** 마지막으로 고른 카테고리 (카드 강조용) */
   lastCategory?: string;
@@ -30,13 +33,16 @@ export const emptyRound = (): Round => ({ cleared: [], later: [] });
 export function readData(raw: unknown): WritingData {
   const o = raw && typeof raw === 'object' ? (raw as Record<string, unknown>) : {};
   const strs = (v: unknown) => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : []);
-  const rounds: Record<string, Round> = {};
-  const rr = o.rounds && typeof o.rounds === 'object' ? (o.rounds as Record<string, Record<string, unknown>>) : {};
-  for (const k of Object.keys(rr)) rounds[k] = { cleared: strs(rr[k] && rr[k].cleared), later: strs(rr[k] && rr[k].later) };
+  const readRounds = (v: unknown) => {
+    const out: Record<string, Round> = {};
+    const rr = v && typeof v === 'object' ? (v as Record<string, Record<string, unknown>>) : {};
+    for (const k of Object.keys(rr)) out[k] = { cleared: strs(rr[k] && rr[k].cleared), later: strs(rr[k] && rr[k].later) };
+    return out;
+  };
   const clears: Record<string, number> = {};
   const cc = o.clears && typeof o.clears === 'object' ? (o.clears as Record<string, unknown>) : {};
   for (const k of Object.keys(cc)) if (typeof cc[k] === 'number' && (cc[k] as number) > 0) clears[k] = Math.floor(cc[k] as number);
-  const out: WritingData = { rounds, clears };
+  const out: WritingData = { rounds: readRounds(o.rounds), guidedRounds: readRounds(o.guidedRounds), clears };
   if (typeof o.lastCategory === 'string') out.lastCategory = o.lastCategory;
   if (typeof o.migratedFrom === 'string') out.migratedFrom = o.migratedFrom;
   return out;

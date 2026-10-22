@@ -290,10 +290,6 @@
   padding: 0 10px;
   font-size: calc(var(--u) * 28);
 }
-.app-writing .btn.w-switch {
-  min-height: 60px;
-  font-size: calc(var(--u) * 20);
-}
 
 /* ── 토스트 (쓰기 칸 위) ── */
 .app-writing .toast {

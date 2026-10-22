@@ -1,4 +1,4 @@
-/** 쓰기 방법 고르기: 따라 쓰기 / 혼자 쓰기 (한글쓰기 앱 그대로, 회차는 둘이 함께 씀) */
+/** 쓰기 방법 고르기: 따라 쓰기 / 혼자 쓰기. 고른 방법으로만 계속하고 회차도 따로다 (별은 혼자 쓰기만) */
 import type { AppContext } from '../../types';
 import type { Category } from '../categories';
 import type { ModeId } from '../data/types';
