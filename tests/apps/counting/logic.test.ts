@@ -15,7 +15,7 @@ import {
   type Level,
   type LevelState,
 } from '../../../src/apps/counting/logic/level';
-import { makeSheets, pickDistinct, pictureRows } from '../../../src/apps/counting/logic/match';
+import { makeSheets, pickDistinct, pictureColumns } from '../../../src/apps/counting/logic/match';
 import {
   answerOf,
   answerProblem,
@@ -285,16 +285,19 @@ describe('짝짓기', () => {
     expect(pickDistinct(1, 5, seeded(9)).sort()).toEqual([1, 2, 3, 4, 5]);
   });
 
-  it('그림 카드: 10 이하는 5개씩 줄, 11 이상은 10 묶음 + 낱개', () => {
-    expect(pictureRows(7)).toEqual([
+  it('그림 카드: 세로 5개씩 줄, 11 이상은 10 묶음(두 줄) + 낱개', () => {
+    expect(pictureColumns(7)).toEqual([
       { count: 5, bundle: false },
       { count: 2, bundle: false },
     ]);
-    expect(pictureRows(10).map((r) => r.count)).toEqual([5, 5]);
-    expect(pictureRows(17)).toEqual([
-      { count: 10, bundle: true },
-      { count: 7, bundle: false },
+    expect(pictureColumns(10).map((c) => c.count)).toEqual([5, 5]);
+    expect(pictureColumns(17)).toEqual([
+      { count: 5, bundle: true },
+      { count: 5, bundle: true },
+      { count: 5, bundle: false },
+      { count: 2, bundle: false },
     ]);
+    expect(pictureColumns(20).length).toBe(4);
   });
 });
 
