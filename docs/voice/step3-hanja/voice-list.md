@@ -6,7 +6,7 @@
 
 | 번호 | 대사 ID | 문장 | 말투 | 쓰이는 화면 | 파일 | 상태 |
 | --- | --- | --- | --- | --- | --- | --- |
-| 1 | `hanja-1.hub.name` | 한자똑똑 일 | 또박또박, 밝게 | 허브 — 한자똑똑(1) 타일을 눌렀을 때 | `public/apps/hanja/voice/hanja-1.hub.name.mp3` | 신규 |
+| 1 | `hanja-1.hub.name` | 한자똑똑 | 또박또박, 밝게 | 허브 — 한자똑똑 타일을 눌렀을 때 (세트와 상관없이 ‘한자똑똑’. hanja-2 등은 file로 이 음원을 함께 씀) | `public/apps/hanja/voice/hanja-1.hub.name.mp3` | 신규 |
 | 2 | `hanja.ask.pick-activity` | 무엇을 할까요? 골라 보세요 | 다정하게 묻듯 | 한자 과목 첫 화면 — 활동 고르기 | `public/apps/hanja/voice/hanja.ask.pick-activity.mp3` | 신규 |
 | 3 | `hanja.ask.cards` | 한자를 보고 읽어 봐요. 카드를 누르면 뒤집혀요 | 다정하게 안내하듯 | 한자 카드 — 시작할 때 | `public/apps/hanja/voice/hanja.ask.cards.mp3` | 신규 |
 | 4 | `hanja.ask.listen` | 음과 뜻을 보고 맞는 한자를 찾아봐요 | 다정하게 안내하듯 | 한자 찾기 — 판 시작할 때 | `public/apps/hanja/voice/hanja.ask.listen.mp3` | 신규 |

@@ -1,5 +1,5 @@
 ﻿파일 이름,읽을 문장,언어,쓰이는 곳,저장 위치,대사 ID
-hanja-1.hub.name.mp3,한자똑똑 일,한국어,허브 — 한자똑똑(1) 타일을 눌렀을 때,public/apps/hanja/voice,hanja-1.hub.name
+hanja-1.hub.name.mp3,한자똑똑,한국어,허브 — 한자똑똑 타일을 눌렀을 때 (세트와 상관없이 ‘한자똑똑’. hanja-2 등은 file로 이 음원을 함께 씀),public/apps/hanja/voice,hanja-1.hub.name
 hanja.ask.pick-activity.mp3,무엇을 할까요? 골라 보세요,한국어,한자 과목 첫 화면 — 활동 고르기,public/apps/hanja/voice,hanja.ask.pick-activity
 hanja.ask.cards.mp3,한자를 보고 읽어 봐요. 카드를 누르면 뒤집혀요,한국어,한자 카드 — 시작할 때,public/apps/hanja/voice,hanja.ask.cards
 hanja.ask.listen.mp3,음과 뜻을 보고 맞는 한자를 찾아봐요,한국어,한자 찾기 — 판 시작할 때,public/apps/hanja/voice,hanja.ask.listen
