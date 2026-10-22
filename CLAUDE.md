@@ -22,7 +22,7 @@
 
 ## 꼭 지킬 규칙 (요약 — 자세한 내용은 문서)
 
-1. **대상 기기 2종**: iPad Air 1(iOS 12.5, Safari 12, 손가락·정전식 펜) + Galaxy Tab S6 Lite(Chrome, S펜). Safari 12 기준으로 만들고 두 기기에서 확인한다. **지금은 갤럭시 탭 확인을 보류 중** — 코드는 문서대로 넣고, 갤럭시 탭에서 확인할 항목은 `docs/checklists/galaxy-tab-checklist.md`에 추가해 둔다. 기능은 기능 감지로 나누고 User-Agent는 안내 문구에만 쓴다. (02 문서 2-2, 2-5)
+1. **대상 기기 2종**: iPad Air 1(iOS 12.5, Safari 12, 손가락·정전식 펜) + Galaxy Tab S6 Lite(Chrome, S펜). Safari 12 기준으로 만들고(호환성 검사 그대로) 두 기기에서 확인한다. **2026-10-22부터 실기기 확인은 갤럭시 탭으로만** 하고(`docs/checklists/galaxy-tab-checklist.md`), 아이패드에서 확인할 항목은 `docs/checklists/ipad-checklist.md`에 쌓아 두었다가 **개발을 다 마친 뒤 마지막에 한 번에** 확인한다. 기능은 기능 감지로 나누고 User-Agent는 안내 문구에만 쓴다. (02 문서 2-2, 2-5)
 2. **가로 모드 전용**: 세로 레이아웃은 만들지 않는다. 아이 화면에는 세로 스크롤이 없다. 높이 기준 배치, 가로 폭 1024~1280 대응. (02 문서 2-4, 10장)
 3. **스택**: TypeScript + Vite + 바닐라 JS + vite-plugin-pwa + Vitest. (02 문서 2-1)
 4. **호환성 검사**: `tests/compat.test.ts`와 `scripts/check-compat.mjs`를 통과해야 배포된다. Pointer Events 단독 사용, flex `gap`, `ResizeObserver`, `Array.prototype.at` 등 금지 목록은 02 문서 2-2.
