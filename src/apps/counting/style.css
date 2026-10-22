@@ -152,6 +152,11 @@
   box-shadow: 0 calc(var(--u) * 6) 0 var(--cn-line);
   color: #3e3330;
 }
+.app-counting .cn-menu.is-wide .cn-tile {
+  width: calc(var(--u) * 290);
+  height: calc(var(--u) * 210);
+  margin: 0 calc(var(--u) * 12);
+}
 .app-counting .cn-tile:active {
   transform: translateY(3px);
 }
@@ -163,17 +168,17 @@
   font-weight: 800;
 }
 .app-counting .cn-tile-pics .cn-pic,
-.app-counting .cn-tile-match .cn-pic {
+.app-counting .cn-tile-badge .cn-pic {
   display: inline-block;
   width: calc(var(--u) * 72);
   height: calc(var(--u) * 72);
   margin: 0 calc(var(--u) * 3);
 }
-.app-counting .cn-tile-match {
+.app-counting .cn-tile-badge {
   display: flex;
   align-items: center;
 }
-.app-counting .cn-tile-match b {
+.app-counting .cn-tile-badge b {
   margin-right: calc(var(--u) * 12);
 }
 .app-counting .cn-tile-nums {
@@ -327,8 +332,14 @@
   border-radius: 0;
   background: #fff;
 }
-.app-counting .cn-frames.is-2 .cn-cell {
-  --cell: calc(var(--u) * 100);
+.app-counting .cn-frames.is-3 .cn-cell {
+  --cell: calc(var(--u) * 76);
+}
+.app-counting .cn-frames.is-3 .cn-frame {
+  padding: calc(var(--u) * 5);
+}
+.app-counting .cn-frames.is-3 .cn-frame + .cn-frame {
+  margin-top: calc(var(--u) * 10);
 }
 .app-counting .cn-cell.is-off {
   background: #f1ebe7;
@@ -349,7 +360,8 @@
 .app-counting .cn-frame-left {
   position: relative;
   display: flex;
-  flex: 0 0 28%;
+  flex: 0 0 30%;
+  flex-direction: column;
   align-self: stretch;
   align-items: center;
   justify-content: center;
@@ -370,7 +382,7 @@
 .app-counting .cn-done {
   min-width: calc(var(--u) * 240);
   height: calc(var(--u) * 88);
-  margin-top: calc(var(--u) * 22);
+  margin-top: calc(var(--u) * 30);
   padding: 0 calc(var(--u) * 30);
   border: none;
   border-radius: calc(var(--u) * 44);
@@ -379,10 +391,6 @@
   color: #fff;
   font-size: calc(var(--u) * 36);
   font-weight: 800;
-}
-.app-counting .cn-frameview.is-level-3 .cn-done {
-  height: calc(var(--u) * 76);
-  margin-top: calc(var(--u) * 14);
 }
 .app-counting .cn-done:active {
   transform: translateY(3px);
@@ -439,6 +447,10 @@
   color: #3e3330;
   transition: opacity 0.2s;
 }
+.app-counting .cn-match-top.is-3 .cn-mcard,
+.app-counting .cn-match-bottom.is-3 .cn-mcard {
+  max-width: calc(var(--u) * 320);
+}
 .app-counting .cn-mnum {
   height: calc(var(--u) * 116);
   font-size: calc(var(--u) * 80);
@@ -463,13 +475,21 @@
 .app-counting .cn-mcard.is-pair-2 { border-color: #3f7fd9; }
 .app-counting .cn-mcard.is-pair-3 { border-color: #9b59d0; }
 .app-counting .cn-mcard.is-pair-4 { border-color: #e8a317; }
-.app-counting .cn-pgroup {
+.app-counting .cn-pgroup,
+.app-counting .cn-pbundle {
   display: flex;
   align-items: flex-start;
 }
-.app-counting .cn-pcol {
+.app-counting .cn-pline {
   display: flex;
   flex-direction: column;
+}
+.app-counting .cn-match-bottom.is-row .cn-pgroup,
+.app-counting .cn-match-bottom.is-row .cn-pbundle {
+  flex-direction: column;
+}
+.app-counting .cn-match-bottom.is-row .cn-pline {
+  flex-direction: row;
 }
 .app-counting .cn-pobj {
   width: var(--obj, 36px);
@@ -477,11 +497,13 @@
   margin: calc(var(--obj, 36px) * 0.04);
 }
 .app-counting .cn-pbundle {
-  display: flex;
-  margin-right: calc(var(--obj, 36px) * 0.2);
+  margin: 0 calc(var(--obj, 36px) * 0.2) 0 0;
   padding: calc(var(--obj, 36px) * 0.06);
   border: calc(var(--u) * 3) solid #8a6a5c;
   border-radius: calc(var(--u) * 10);
+}
+.app-counting .cn-match-bottom.is-row .cn-pbundle {
+  margin: 0 0 calc(var(--obj, 36px) * 0.2) 0;
 }
 
 /* ── 숫자판 (10열 × 2줄) ── */
@@ -496,11 +518,11 @@
   justify-content: center;
 }
 .app-counting .cn-board-row + .cn-board-row {
-  margin-top: calc(var(--u) * 24);
+  margin-top: calc(var(--u) * 20);
 }
 .app-counting .cn-board-num {
   width: calc(var(--u) * 86);
-  height: calc(var(--u) * 120);
+  height: calc(var(--u) * 110);
   margin: 0 calc(var(--u) * 5);
   padding: 0;
   border: 3px solid var(--cn-line);
@@ -548,6 +570,13 @@
 }
 .app-counting .cn-big.is-2 .cn-cell {
   --cell: calc(var(--u) * 80);
+}
+.app-counting .cn-big.is-3 .cn-cell {
+  --cell: calc(var(--u) * 64);
+}
+.app-counting .cn-big.is-3 {
+  padding-top: calc(var(--u) * 16);
+  padding-bottom: calc(var(--u) * 16);
 }
 
 /* ── 한 판 끝 칭찬 ── */

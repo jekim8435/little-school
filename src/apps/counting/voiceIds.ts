@@ -9,6 +9,7 @@ export const V = {
     count: 'counting.ask.count',
     howMany: 'counting.ask.how-many',
     make: 'counting.ask.make',
+    ten: 'counting.ask.ten',
     moreToTen: 'counting.ask.more-to-ten',
     match: 'counting.ask.match',
     board: 'counting.ask.board',
@@ -22,7 +23,7 @@ export const V = {
 /** 코드가 부를 수 있는 대사 ID 전부 */
 export function allVoiceIds(): string[] {
   const ids: string[] = [];
-  for (let n = 1; n <= 20; n++) ids.push(V.num(n), V.total(n));
+  for (let n = 1; n <= 30; n++) ids.push(V.num(n), V.total(n));
   const ask = V.ask as Record<string, string>;
   for (const k of Object.keys(ask)) ids.push(ask[k]);
   ids.push(V.ten, V.praise.round, V.praise.sheet);
