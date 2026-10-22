@@ -1,18 +1,17 @@
 /**
- * 한 판 진행 (세어 보기·10칸 판). 화면 없이 순서만 다룬다.
+ * 한 판 진행 (세어 보기·10칸 판·10 만들기). 화면 없이 순서만 다룬다.
  * - 틀린 문제는 판 끝에 한 번씩 다시 낸다(한 판 문제 수에 포함하지 않음). 다시 낸 문제에서 또 틀려도 더 내지 않는다
  * - 진행 막대는 본 문제 수에서 멈춘다
  */
 import { shuffle, type Rng } from '../../../shared/random';
-import { MORE_PER_ROUND, OBJECTS } from './config';
-import type { Level } from './level';
+import { OBJECTS } from './config';
 
 export type Problem =
   /** 세어 보기: 사물 object가 n개 */
   | { kind: 'count'; n: number; object: string; retry: boolean }
-  /** 10칸 판 (가) 수만큼 놓기 */
+  /** 10칸 판: 수만큼 놓기 */
   | { kind: 'make'; n: number; retry: boolean }
-  /** 10칸 판 (나) 10이 되려면 몇 개 더? placed개가 미리 놓임, 정답은 10 − placed */
+  /** 10 만들기: placed개가 미리 놓임, 정답은 10 − placed */
   | { kind: 'more'; placed: number; retry: boolean };
 
 export interface Round {
@@ -72,23 +71,13 @@ export function countRound(nums: number[], lastObject: string | null, rng: Rng =
   return createRound(nums.map((n, i): Problem => ({ kind: 'count', n, object: objects[i], retry: false })));
 }
 
-/** 10칸 판 한 판에 주머니에서 꺼낼 수의 개수 (2단계부터 (나) 문제는 주머니를 쓰지 않음) */
-export function frameDraws(level: Level, size: number): number {
-  return level >= 2 ? size - MORE_PER_ROUND : size;
+/** 10칸 판 한 판. nums: 주머니에서 꺼낸 수 */
+export function frameRound(nums: number[]): Round {
+  return createRound(nums.map((n): Problem => ({ kind: 'make', n, retry: false })));
 }
 
-/**
- * 10칸 판 한 판. nums: 주머니에서 꺼낸 수(frameDraws개).
- * 2단계 이상이면 (나) 문제 MORE_PER_ROUND개를 무작위 자리에 끼운다 — 미리 놓는 수는 1~9에서 서로 다르게
- */
-export function frameRound(nums: number[], level: Level, rng: Rng = Math.random): Round {
-  const problems: Problem[] = nums.map((n): Problem => ({ kind: 'make', n, retry: false }));
-  if (level >= 2) {
-    const placed = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9], rng).slice(0, MORE_PER_ROUND);
-    for (const p of placed) {
-      const at = Math.floor(rng() * (problems.length + 1));
-      problems.splice(at, 0, { kind: 'more', placed: p, retry: false });
-    }
-  }
-  return createRound(problems);
+/** 10 만들기 한 판: 미리 놓는 구슬 1~9에서 서로 다르게 size개 (단계와 상관없음, 출제 주머니 안 씀) */
+export function tenRound(size: number, rng: Rng = Math.random): Round {
+  const placed = shuffle([1, 2, 3, 4, 5, 6, 7, 8, 9], rng).slice(0, size);
+  return createRound(placed.map((p): Problem => ({ kind: 'more', placed: p, retry: false })));
 }

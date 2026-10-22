@@ -1,8 +1,8 @@
 /**
- * 10칸 판 상태 (5-2). 칸 번호는 채우는 순서: 첫 판 윗줄 왼쪽→오른쪽(0~4), 첫 판 아랫줄(5~9), 둘째 판(10~19).
+ * 10칸 판 상태 (5-2). 칸 번호는 채우는 순서: 첫 판 윗줄 왼쪽→오른쪽(0~4), 첫 판 아랫줄(5~9), 둘째 판(10~19), 셋째 판(20~29).
  * - 어느 빈 칸을 눌러도 다음 순서 칸에 구슬이 들어간다 → 5와 10의 모양이 늘 같다
  * - 구슬을 누르면 마지막 구슬 하나가 빠진다
- * - 1단계는 윗줄 5칸만(아랫줄은 흐리게, 누를 수 없음), 3단계는 판 2개(위아래)를 첫 판부터 채운다
+ * - 판 수 = 단계(1단계 1개 · 2단계 2개 · 3단계 3개, 위아래), 첫 판부터 채운다
  */
 import type { Level } from './level';
 
@@ -10,17 +10,17 @@ export const FRAME_CELLS = 10;
 
 /** 판 개수 */
 export function framesFor(level: Level): number {
-  return level === 3 ? 2 : 1;
+  return level;
 }
 
 /** 구슬을 놓을 수 있는 칸 수 */
 export function capacityFor(level: Level): number {
-  return level === 1 ? 5 : level === 2 ? 10 : 20;
+  return framesFor(level) * FRAME_CELLS;
 }
 
-/** 칸을 누를 수 있는지 (1단계 아랫줄은 못 누름) */
-export function cellEnabled(index: number, level: Level): boolean {
-  return index < capacityFor(level);
+/** 구슬을 놓아 판 하나가 막 다 찼으면 그 판 번호(0부터), 아니면 -1 */
+export function frameFilled(before: number, count: number): number {
+  return count > before && count % FRAME_CELLS === 0 ? count / FRAME_CELLS - 1 : -1;
 }
 
 /** 빈 칸을 눌렀을 때 → 새 구슬 수 (어느 빈 칸이든 다음 순서 칸에) */

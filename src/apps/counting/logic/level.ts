@@ -1,10 +1,10 @@
 /**
- * 단계 조절 (3장). 단계는 과목에 하나(활동 공통)이고 ctx.store에 저장한다.
+ * 단계 조절 (3장). 단계는 과목에 하나(활동 공통)이고 ctx.store에 저장한다. 1단계 1~10 · 2단계 1~20 · 3단계 1~30
  * - 올림: 그 단계에서 첫 시도 기준 최근 8문제 중 7개 이상 정답
  * - 내림: 최근 6문제 중 3개 이상 틀림 (1단계 아래로는 안 감)
  * - 판이 끝날 때 판정하고 다음 판부터 적용. 단계가 바뀌면 최근 기록을 비운다
  * - 최대 수 설정을 넘는 단계로는 오르지 않는다. 자동 단계 조절을 끄면 최대 수의 단계로 낸다
- * - 다시 낸 문제·짝짓기·숫자판은 기록에 넣지 않는다(부르는 쪽이 넣지 않음)
+ * - 다시 낸 문제·10 만들기·짝짓기·숫자판은 기록에 넣지 않는다(부르는 쪽이 넣지 않음)
  */
 
 export type Level = 1 | 2 | 3;
@@ -24,12 +24,12 @@ export const initialLevel = (): LevelState => ({ level: 1, recent: [] });
 
 /** 단계의 가장 큰 수 */
 export function levelMax(level: Level): number {
-  return level === 1 ? 5 : level === 2 ? 10 : 20;
+  return level * 10;
 }
 
-/** 최대 수 설정(5/10/20)이 허락하는 가장 높은 단계 */
+/** 최대 수 설정(10/20/30)이 허락하는 가장 높은 단계 */
 export function maxLevelFor(maxNumber: number): Level {
-  return maxNumber <= 5 ? 1 : maxNumber <= 10 ? 2 : 3;
+  return maxNumber <= 10 ? 1 : maxNumber <= 20 ? 2 : 3;
 }
 
 function asLevel(v: unknown): Level {
@@ -71,21 +71,21 @@ export function judgeLevel(s: LevelState, maxNumber: number): LevelState {
 }
 
 /**
- * 출제 주머니에 넣을 수 (비중은 개수로, 6장).
- * 1단계 1~5 한 개씩 / 2단계 6~10 두 개씩 + 1~5 한 개씩 / 3단계 11~20 두 개씩 + 1~10 한 개씩
+ * 출제 주머니에 넣을 수 (비중은 개수로, 6장). 새 범위가 2/3
+ * 1단계 1~10 한 개씩 / 2단계 11~20 두 개씩 + 1~10 한 개씩 / 3단계 21~30 네 개씩 + 1~20 한 개씩
  */
 export function levelPool(level: Level): string[] {
   const out: string[] = [];
   const add = (from: number, to: number, times: number) => {
     for (let n = from; n <= to; n++) for (let k = 0; k < times; k++) out.push(String(n));
   };
-  if (level === 1) add(1, 5, 1);
+  if (level === 1) add(1, 10, 1);
   else if (level === 2) {
-    add(1, 5, 1);
-    add(6, 10, 2);
-  } else {
     add(1, 10, 1);
     add(11, 20, 2);
+  } else {
+    add(1, 20, 1);
+    add(21, 30, 4);
   }
   return out;
 }
