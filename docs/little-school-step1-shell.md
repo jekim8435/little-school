@@ -56,9 +56,9 @@
 | 저장 | `localStorage` (JSON, 버전 필드 포함) | 1단계 데이터는 작다. 그림 저장 등 큰 데이터는 이후 IndexedDB 추가 |
 | 효과음 | Web Audio API로 즉석 합성 (음원 파일 없음) | 한글쓰기 앱 방식(“띵”, “뿅”, 팡파레) 그대로. 용량 0 |
 | 음성 | **제작 음원(mp3, Typecast) 우선 + 없으면 기기 내장 음성** | 기기 내장 음성은 국어책 읽듯 딱딱해서 한글쓰기 앱도 Typecast로 다시 만들었다. 대사는 ID로 관리하고, 개발 중에는 내장 음성으로 대신 읽다가 단계·과목 마무리 때 음원을 만들어 넣는다(15장) |
-| 오프라인 | vite-plugin-pwa (Workbox) | 한글쓰기 앱과 동일. 전체 파일 프리캐시 + “새 버전이 있어요” 배너. SW 코드는 `src/pwa.ts`에 분리(나중에 Capacitor 전환 대비) |
+| 오프라인 | vite-plugin-pwa (Workbox) | 한글쓰기 앱과 동일. 전체 파일 프리캐시 + “새 버전이 있어요” 배너. SW 코드는 `src/pwa.ts`에 분리(나중에 Capacitor 전환 대비) → `src/platform/`으로 (09 문서 4장 2로 대체) |
 | 테스트 | Vitest + 호환성 검사 2중(`tests/compat.test.ts`, `scripts/check-compat.mjs`) | 에어1에서 안 되는 코드가 들어가면 배포가 멈춘다 |
-| 배포 | GitHub Actions + GitHub Pages | push → 테스트 → 빌드 → 호환성 검사 → 배포. `base: '/little-school/'` |
+| 배포 | GitHub Actions + GitHub Pages | push → 테스트 → 빌드 → 호환성 검사 → 배포. ~~`base: '/little-school/'`~~ → `base: './'` (09 문서 4장 1로 대체) |
 
 ### 2-2. iOS 12 / Safari 12에서 쓰면 안 되는 것 (반드시 지킬 것)
 
@@ -226,6 +226,7 @@ export const apps: AppEntry[] = [
 
 - `id`: 영문 소문자·하이픈. 저장 데이터 키로도 쓰므로 **한 번 정하면 바꾸지 않는다**.
 - `load`: 동적 import → 과목을 열 때만 코드를 내려받아 메모리를 아낀다.
+> **[09 문서로 대체]** 동적 import는 허용, 단 파일은 설치 때 모두 프리캐시 (09 문서 4장 8)
 - `voices`: 과목의 `voices.json`. 허브에서 과목을 열기 전에도 과목 이름(`<id>.hub.name`)을 읽어야 해서 등록 때 함께 넘긴다(대사 문장만이라 작다).
 - 허브 노출 여부·순서는 부모 모드 설정(`settings.subjects`)이 결정한다.
 
@@ -574,6 +575,8 @@ export default app;
 
 ## 9. 데이터 모델 (`localStorage` 키: `little-school:v1`)
 
+> **[09 문서로 대체]** 저장 규칙(Store 경유, `little-school:v1` 단일 키 유지, schemaVersion)은 09 문서 4장 3을 따른다
+
 ```json
 {
   "schemaVersion": 1,
@@ -687,13 +690,15 @@ export default app;
   - 단, **개발 기간**(`src/config.ts`의 `DEV_PERIOD = true`)에는 아이 화면에도 배너를 띄우고, 모든 화면 오른쪽 아래에 앱 버전을 옅게 표시한다. 과목을 어느 정도 만든 뒤 `false`로 바꿔 위 원칙으로 돌아간다(planning-log 2026-10-21 ‘개발 기간 표시’)
 - 과목을 동적 import로 나누므로, 모든 과목 청크와 mp3가 프리캐시 목록(`globPatterns`)에 들어가는지 확인 → 비행기 모드에서 모든 과목이 열려야 한다. `scripts/check-precache.mjs`가 빌드 때 자동으로 검사한다
 - 새 버전은 앱이 다시 보일 때, 1시간마다, 부모 홈을 열 때 확인한다
-- 등록 코드는 `src/pwa.ts`에만 둔다
+> **[09 문서로 대체]** 자기 호스트 업데이트 확인은 네트워크 금지의 예외로 허용, Capacitor 앱에서는 끔 (09 문서 4장 6)
+- 등록 코드는 `src/pwa.ts`에만 둔다 → `src/platform/` (09 문서 4장 2로 대체)
 
 ### 11-3. GitHub Actions (`.github/workflows/deploy.yml`)
 
 - 한글쓰기 앱 워크플로를 가져와 `main` push 시: `npm ci` → `vitest run`(호환성 테스트 포함) → `vite build` → `check-compat.mjs` → `check-precache.mjs`(빌드 파일이 모두 프리캐시에 있는지) → GitHub Pages 배포
 - 하나라도 실패하면 배포 중단
-- `vite.config.ts`: `base: '/little-school/'`
+- ~~`vite.config.ts`: `base: '/little-school/'`~~
+> **[09 문서로 대체]** `base: './'`, manifest `start_url`·`scope`도 상대 경로 (09 문서 4장 1)
 
 ### 11-4. 데이터 보존 주의
 
@@ -780,7 +785,7 @@ export default app;
 | `voice/clips/*.mp3` (96개, Typecast 제작) | `public/apps/writing/voice/` | 파일은 그대로 옮긴다. 파일 이름(`praise-1.mp3`, `digit-0.mp3` 등)이 대사 ID 규칙과 다르므로 `voices.json`의 `file`로 연결(이름을 바꾸지 않음) |
 | `voice/대사목록.csv`, `voice/typecast.json`, `scripts/voice-make.mjs`, `scripts/voice-lines.ts` | `docs/voice/_template/`에 사본 보관 완료 → 15장 음원 도구의 바탕 | 15-3 참고 |
 | `public/sw-bridge.js`, `src/pwa.ts`, 아이콘, 워크플로 | 꼬마학교 것 사용 | 과목 쪽에서는 삭제 |
-| `vite.config.ts`의 `base: './'`(상대 경로) | 꼬마학교 `vite.config.ts` | 1단계에서 `/little-school/`로 정함(Capacitor 빌드만 `./`). 과목은 리소스 경로를 `ctx.baseUrl`로 계산 |
+| `vite.config.ts`의 `base: './'`(상대 경로) | 꼬마학교 `vite.config.ts` | 1단계에서 `/little-school/`로 정함(Capacitor 빌드만 `./`) → `./`로 통일 (09 문서 4장 1로 대체). 과목은 리소스 경로를 `ctx.baseUrl`로 계산 |
 | Vitest 테스트 298개(이식 시점 305개) | `tests/shared/judge/`, `tests/apps/writing/` | 판정·글자 데이터·편집기 266개는 경로만 고쳐 그대로 통과. 삭제한 코드(설정 저장소·녹음 재생기·메모리 진행 기록·옛 호환성 검사)의 테스트는 새 구조의 테스트로 대신함 |
 
 ### 14-2. 작업 순서
@@ -953,6 +958,7 @@ say(id)로 재생                 · 대사 목록(voice-list.md)               
 
 1. 받은 mp3를 정해진 폴더에 `<ID>.mp3`로 넣는다(규격: mp3 모노, 22kHz, 64kbps 안팎, 앞뒤 무음 0.1초 이하, 파일 간 음량 맞춤)
 2. 제작한 대사의 `producedText`를 `text`와 같게 갱신(스크립트 `npm run voice:mark -- <대상>`)
+   > **[09 문서로 대체]** `voice:mark`(손으로 만든 음원)는 쓰지 않는다. `voice:make`가 자동 갱신하고, 전체 재생성 명령을 둔다 (09 문서 6장 음원 재생성)
 3. `npm run voice:check` — 아래 중 하나라도 있으면 실패(배포 워크플로에도 포함)
    - 코드에서 `say()`로 부르는데 `voices.json`에 없는 ID
    - `tts: true`가 아닌데 음원 파일이 없는 대사
