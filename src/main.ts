@@ -8,6 +8,7 @@ import { StudySession } from './core/session';
 import { browserStorage, Store } from './core/storage';
 import { platform } from './platform';
 import { syncSubjects, visibleSubjects } from './core/subjects';
+import { canUseSubject } from './core/entitlements';
 import { migrateWritingFromLegacy } from './core/migrateWriting';
 import { Router, type Route, type Screen } from './router';
 import { appHostScreen } from './screens/app-host';
@@ -135,6 +136,8 @@ router.setGuard((to) => {
   shell.parent.lock();
   // 없거나 꺼진 과목 주소는 허브로
   if (to.name === 'app' && (!findApp(to.id) || visibleSubjects(store.data.settings.subjects, [to.id]).length === 0)) return { name: 'hub' };
+  // 과목 이용 권한 (09 문서 1장, src/core/entitlements.ts — 지금은 모두 허용)
+  if (to.name === 'app' && !canUseSubject(to.id)) return { name: 'hub' };
   // 오늘 시간이 다 됐으면 과목 대신 ‘오늘 공부 끝’ (명세 5-2, 5-5)
   if (to.name === 'app' && shell.session.isTimeUp()) return { name: 'done' };
   return to;

@@ -6,6 +6,7 @@
 import { apps, findApp } from '../apps/registry';
 import type { AppEntry } from '../apps/types';
 import { rewardStatus } from '../core/rewards';
+import { usableSubjects } from '../core/entitlements';
 import { visibleSubjects } from '../core/subjects';
 import type { Screen } from '../router';
 import type { Shell } from '../shell';
@@ -24,7 +25,8 @@ export function hubScreen(shell: Shell): Screen {
   // 오늘 시간이 다 됐으면 타일이 잠긴 모양, 누르면 ‘오늘 공부 끝’ (명세 5-2)
   const locked = session.isTimeUp();
   const data = store.data;
-  const ids = visibleSubjects(data.settings.subjects, apps.map((a) => a.id));
+  // 켜져 있고(부모 모드 과목 관리) 이용 권한이 있는(entitlements) 과목만
+  const ids = usableSubjects(visibleSubjects(data.settings.subjects, apps.map((a) => a.id)));
   const entries = ids.map((id) => findApp(id)).filter((a): a is AppEntry => !!a);
 
   // ── 위쪽 줄 ──
