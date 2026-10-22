@@ -342,13 +342,16 @@ describe('세어 보기', () => {
 });
 
 describe('대사', () => {
-  const voices = voicesJson as Record<string, { text: string; draft?: boolean }>;
+  const voices = voicesJson as Record<string, { text: string; draft?: boolean; producedText?: string }>;
 
-  it('코드가 부르는 대사 ID가 모두 voices.json에 있고, 개발 중이라 모두 draft', () => {
+  it('코드가 부르는 대사 ID가 모두 voices.json에 있고, 모두 음원으로 만들었음(draft 없음)', () => {
     for (const id of allVoiceIds()) expect(voices[id], id).toBeDefined();
     expect(voices['counting.hub.name']).toBeDefined();
     expect(Object.keys(voices).length).toBe(74);
-    for (const id of Object.keys(voices)) expect(voices[id].draft, id).toBe(true);
+    for (const id of Object.keys(voices)) {
+      expect(voices[id].draft, id).toBeUndefined();
+      expect(voices[id].producedText, id).toBe(voices[id].text);
+    }
   });
 
   it('고유어 수 읽기와 개수 말(한/두/세/네/스무/스물한…)', () => {

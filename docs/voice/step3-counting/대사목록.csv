@@ -1,0 +1,75 @@
+﻿파일 이름,읽을 문장,언어,쓰이는 곳,저장 위치,대사 ID
+counting.hub.name.mp3,구슬 세기,한국어,허브 — 구슬 세기 타일을 눌렀을 때,public/apps/counting/voice,counting.hub.name
+counting.ask.pick-activity.mp3,무엇을 할까요? 골라 보세요,한국어,구슬 세기 첫 화면 — 활동 고르기,public/apps/counting/voice,counting.ask.pick-activity
+counting.ask.count.mp3,하나씩 눌러서 세어 봐요,한국어,세어 보기 — 판 시작,public/apps/counting/voice,counting.ask.count
+counting.ask.how-many.mp3,모두 몇 개일까?,한국어,세어 보기 — 사물을 다 센 뒤 숫자 카드가 나올 때,public/apps/counting/voice,counting.ask.how-many
+counting.ask.make.mp3,숫자만큼 구슬을 놓아 봐요,한국어,10칸 판 — 수만큼 놓기 문제 (이어서 수를 읽음),public/apps/counting/voice,counting.ask.make
+counting.ask.ten.mp3,열을 만들어 봐요,한국어,10 만들기 — 판 시작 (이어서 질문),public/apps/counting/voice,counting.ask.ten
+counting.ask.more-to-ten.mp3,열이 되려면 몇 개 더 있어야 할까?,한국어,10 만들기 — 문제마다,public/apps/counting/voice,counting.ask.more-to-ten
+counting.ask.match.mp3,같은 수끼리 짝을 지어 봐요,한국어,숫자 짝짓기 — 판 시작,public/apps/counting/voice,counting.ask.match
+counting.ask.board.mp3,숫자를 눌러 봐요,한국어,숫자판 — 들어왔을 때,public/apps/counting/voice,counting.ask.board
+counting.ask.retry.mp3,아까 문제를 한 번 더 해 볼까?,한국어,판 끝 — 틀린 문제를 다시 낼 때,public/apps/counting/voice,counting.ask.retry
+counting.ask.leave.mp3,한 번 더 누르면 나가요,한국어,판 진행 중 ‘뒤로’를 한 번 눌렀을 때,public/apps/counting/voice,counting.ask.leave
+counting.frame.ten.mp3,열! 한 묶음이에요,한국어,10칸 판 3단계 — 첫 판 10칸이 다 찼을 때,public/apps/counting/voice,counting.frame.ten
+counting.praise.round.mp3,모두 끝! 정말 잘했어요,한국어,한 판 끝 — 칭찬 화면,public/apps/counting/voice,counting.praise.round
+counting.praise.sheet.mp3,한 장 끝! 다음 장도 해 봐요,한국어,숫자 짝짓기 — 마지막이 아닌 장을 끝냈을 때,public/apps/counting/voice,counting.praise.sheet
+counting.num.1.mp3,하나,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.1
+counting.num.2.mp3,둘,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.2
+counting.num.3.mp3,셋,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.3
+counting.num.4.mp3,넷,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.4
+counting.num.5.mp3,다섯,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.5
+counting.num.6.mp3,여섯,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.6
+counting.num.7.mp3,일곱,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.7
+counting.num.8.mp3,여덟,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.8
+counting.num.9.mp3,아홉,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.9
+counting.num.10.mp3,열,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.10
+counting.num.11.mp3,열하나,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.11
+counting.num.12.mp3,열둘,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.12
+counting.num.13.mp3,열셋,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.13
+counting.num.14.mp3,열넷,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.14
+counting.num.15.mp3,열다섯,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.15
+counting.num.16.mp3,열여섯,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.16
+counting.num.17.mp3,열일곱,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.17
+counting.num.18.mp3,열여덟,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.18
+counting.num.19.mp3,열아홉,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.19
+counting.num.20.mp3,스물,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.20
+counting.num.21.mp3,스물하나,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.21
+counting.num.22.mp3,스물둘,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.22
+counting.num.23.mp3,스물셋,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.23
+counting.num.24.mp3,스물넷,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.24
+counting.num.25.mp3,스물다섯,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.25
+counting.num.26.mp3,스물여섯,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.26
+counting.num.27.mp3,스물일곱,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.27
+counting.num.28.mp3,스물여덟,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.28
+counting.num.29.mp3,스물아홉,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.29
+counting.num.30.mp3,서른,한국어,"수 읽기 — 셀 때, 구슬 놓을 때, 숫자판·숫자 카드",public/apps/counting/voice,counting.num.30
+counting.total.1.mp3,모두 한 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.1
+counting.total.2.mp3,모두 두 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.2
+counting.total.3.mp3,모두 세 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.3
+counting.total.4.mp3,모두 네 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.4
+counting.total.5.mp3,모두 다섯 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.5
+counting.total.6.mp3,모두 여섯 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.6
+counting.total.7.mp3,모두 일곱 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.7
+counting.total.8.mp3,모두 여덟 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.8
+counting.total.9.mp3,모두 아홉 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.9
+counting.total.10.mp3,모두 열 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.10
+counting.total.11.mp3,모두 열한 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.11
+counting.total.12.mp3,모두 열두 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.12
+counting.total.13.mp3,모두 열세 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.13
+counting.total.14.mp3,모두 열네 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.14
+counting.total.15.mp3,모두 열다섯 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.15
+counting.total.16.mp3,모두 열여섯 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.16
+counting.total.17.mp3,모두 열일곱 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.17
+counting.total.18.mp3,모두 열여덟 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.18
+counting.total.19.mp3,모두 열아홉 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.19
+counting.total.20.mp3,모두 스무 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.20
+counting.total.21.mp3,모두 스물한 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.21
+counting.total.22.mp3,모두 스물두 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.22
+counting.total.23.mp3,모두 스물세 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.23
+counting.total.24.mp3,모두 스물네 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.24
+counting.total.25.mp3,모두 스물다섯 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.25
+counting.total.26.mp3,모두 스물여섯 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.26
+counting.total.27.mp3,모두 스물일곱 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.27
+counting.total.28.mp3,모두 스물여덟 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.28
+counting.total.29.mp3,모두 스물아홉 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.29
+counting.total.30.mp3,모두 서른 개!,한국어,정답을 알려 줄 때 — 세어 보기·10칸 판,public/apps/counting/voice,counting.total.30
