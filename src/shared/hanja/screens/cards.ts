@@ -1,6 +1,6 @@
 /**
  * 한자 카드: 배운 한자만 무작위 순서로. 한자를 보고 소리 내어 읽은 뒤 ‘다음’을 누르면
- * 카드가 뒤집혀 그림 + 훈음과 음성으로 확인하고, 한 번 더 ‘다음’을 누르면 다음 한자로 넘어간다.
+ * 카드가 뒤집혀 그림 + 훈음과 음성으로 확인하고(그동안 ‘다음’ 버튼은 숨김), 잠시 뒤 저절로 다음 한자로 넘어간다.
  * 정해진 판 없이 넘기며 본다(별 없음). ‘다음 한자 미리 보기’가 켜져 있으면 다음 두 자도 ‘곧 배워요’ 표시와 함께 섞는다.
  */
 import { h } from '../../../ui/dom';
@@ -10,6 +10,8 @@ import { charEl, fill, headerEl, pictureEl, readingOf } from '../ui';
 
 /** 뒤집는 연출 절반 시간 (ms) */
 const FLIP_MS = 140;
+/** 뒤집어 읽어 준 뒤 다음 카드로 넘어가기까지 (ms) — 훈음 음성(약 1초)을 듣고 한 번 따라 읽을 시간 */
+const SHOW_BACK_MS = 2800;
 
 export function cardsView(e: Engine): View {
   const { ctx, cfg, timers } = e;
@@ -54,19 +56,20 @@ export function cardsView(e: Engine): View {
     }, FLIP_MS);
   }
 
-  /** 앞면이면 뒤집어 읽어 주고, 뒷면이면 다음 한자 앞면으로 */
+  /** 뒤집어 읽어 주고, 잠시 뒤 저절로 다음 한자 앞면으로 (그동안 ‘다음’ 버튼은 숨김) */
   function next(): void {
-    if (busy) return;
+    if (busy || flipped) return;
     ctx.audio.sfx('tap');
-    if (!flipped) {
-      turn(
-        () => (flipped = true),
-        () => ctx.audio.say(cfg.voices.char(deck[index])),
-      );
-    } else {
-      ctx.audio.stop();
-      turn(advance);
-    }
+    nextBtn.classList.add('is-hidden');
+    turn(
+      () => (flipped = true),
+      () => {
+        ctx.audio.say(cfg.voices.char(deck[index]));
+        timers.set(() => {
+          turn(advance, () => nextBtn.classList.remove('is-hidden'));
+        }, SHOW_BACK_MS);
+      },
+    );
   }
 
   function advance(): void {

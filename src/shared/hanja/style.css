@@ -232,6 +232,10 @@
   font-size: calc(var(--u) * 40);
   font-weight: 800;
 }
+/* 뒤집어 읽어 주는 동안 숨김 (자리는 그대로 두어 카드가 움직이지 않게) */
+.hj .hj-next.is-hidden {
+  visibility: hidden;
+}
 
 /* ── 그림 (그림이 아직 없으면 뜻 글자를 동그라미에) ── */
 .hj .hj-pic {
