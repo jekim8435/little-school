@@ -40,7 +40,7 @@ export function hanjaSettings(set: HanjaSet): SettingField[] {
       group: S.quizGroup,
       type: 'select',
       options: [3, 4].map((n) => ({ value: n, label: S.choiceOption(n) })),
-      default: 3,
+      default: 4,
       help: S.choiceCountHelp,
     },
     toggle('cards'),

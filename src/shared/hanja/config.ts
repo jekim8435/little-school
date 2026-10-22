@@ -25,7 +25,6 @@ export interface HanjaStrings {
   leaveConfirm: string;
   replay: string;
   next: string;
-  flip: string;
   soon: string;
   retry: string;
   boardOf: (n: number, total: number) => string;

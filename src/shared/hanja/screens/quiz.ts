@@ -3,7 +3,7 @@
  * - 한자 찾기(listen): 훈음(‘바다 해’)을 보고·듣고 한자 고르기
  * - 그림 고르기(picture): 한자를 보고 뜻에 맞는 그림 고르기
  * - 음뜻 고르기(read): 한자를 보고 ‘바다 해’ 같은 한글 카드 고르기
- * 배치: 왼쪽 절반 문제, 오른쪽 절반 보기 3~4개를 세로로.
+ * 배치: 왼쪽 절반 문제, 오른쪽 절반 보기를 2 × 2로(사지선다, 보기 3개면 아래 줄에 하나).
  * 틀리면 정답을 그림과 함께 잠깐 보여 주고 다음 문제로. 틀린 한자는 판 끝에 한 번씩 다시(익힘에는 첫 시도만).
  * 중간에 나가면 그 판은 처음부터 (이어하기 없음).
  */
@@ -21,7 +21,7 @@ const NEXT_AFTER_WRONG = 2600;
 
 export function quizView(e: Engine, activity: ActivityId): View {
   const { ctx, cfg, timers } = e;
-  const count = Math.min(Number(e.settings.choiceCount) || 3, 4);
+  const count = Math.min(Number(e.settings.choiceCount) || 4, 4);
   let round: QuizRound = createQuizRound(e.draw(ROUND_SIZE));
   const used: string[] = [];
   let choices: string[] = [];
@@ -52,7 +52,8 @@ export function quizView(e: Engine, activity: ActivityId): View {
     head.setProgress(progressOf(round), round.main);
     const item = e.itemOf(p.char);
     choices = pickChoices(p.char, e.learned, count, cfg.set.confusables, used);
-    const replay = h(
+    // 다시 듣기는 한자 찾기만 (그림·음뜻 고르기는 활동 안내만 되풀이하게 되어 뺌)
+    const replay = activity !== 'listen' ? null : h(
       'button',
       {
         class: 'hj-replay',

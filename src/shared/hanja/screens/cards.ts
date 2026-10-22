@@ -1,5 +1,6 @@
 /**
- * 한자 카드: 배운 한자만 무작위 순서로. 한자를 보고 소리 내어 읽은 뒤 카드를 눌러 뒤집으면 그림 + 훈음 음성.
+ * 한자 카드: 배운 한자만 무작위 순서로. 한자를 보고 소리 내어 읽은 뒤 ‘다음’을 누르면
+ * 카드가 뒤집혀 그림 + 훈음과 음성으로 확인하고, 한 번 더 ‘다음’을 누르면 다음 한자로 넘어간다.
  * 정해진 판 없이 넘기며 본다(별 없음). ‘다음 한자 미리 보기’가 켜져 있으면 다음 두 자도 ‘곧 배워요’ 표시와 함께 섞는다.
  */
 import { h } from '../../../ui/dom';
@@ -19,7 +20,7 @@ export function cardsView(e: Engine): View {
   let flipped = false;
   let busy = false;
 
-  const card = h('button', { class: 'hj-card', type: 'button', onClick: () => flip() });
+  const card = h('div', { class: 'hj-card' });
   const head = headerEl(ctx, cfg, timers, () => e.menu(), { confirm: false, progress: false });
   const nextBtn = h('button', { class: 'hj-next', type: 'button', onClick: () => next() }, `${cfg.strings.next} ▶`);
 
@@ -28,7 +29,7 @@ export function cardsView(e: Engine): View {
     const item = e.itemOf(char);
     const soon = preview.indexOf(char) >= 0 ? h('span', { class: 'hj-soon' }, cfg.strings.soon) : null;
     if (!flipped) {
-      fill(card, charEl(char, 'hj-card-char'), soon, h('span', { class: 'hj-card-hint' }, cfg.strings.flip));
+      fill(card, charEl(char, 'hj-card-char'), soon);
     } else {
       fill(
         card,
@@ -40,24 +41,35 @@ export function cardsView(e: Engine): View {
     card.classList.toggle('is-back', flipped);
   }
 
-  function flip(): void {
-    if (busy) return;
+  /** 가로로 접혔다 펴지는 연출 사이에 change를 한다 */
+  function turn(change: () => void, after?: () => void): void {
     busy = true;
-    ctx.audio.sfx('tap');
     card.classList.add('is-turning');
     timers.set(() => {
-      flipped = !flipped;
+      change();
       render();
       card.classList.remove('is-turning');
-      if (flipped) ctx.audio.say(cfg.voices.char(deck[index]));
+      if (after) after();
       timers.set(() => (busy = false), FLIP_MS);
     }, FLIP_MS);
   }
 
+  /** 앞면이면 뒤집어 읽어 주고, 뒷면이면 다음 한자 앞면으로 */
   function next(): void {
     if (busy) return;
     ctx.audio.sfx('tap');
-    ctx.audio.stop();
+    if (!flipped) {
+      turn(
+        () => (flipped = true),
+        () => ctx.audio.say(cfg.voices.char(deck[index])),
+      );
+    } else {
+      ctx.audio.stop();
+      turn(advance);
+    }
+  }
+
+  function advance(): void {
     index++;
     if (index >= deck.length) {
       const last = deck[deck.length - 1];
@@ -67,10 +79,10 @@ export function cardsView(e: Engine): View {
       index = 0;
     }
     flipped = false;
-    render();
   }
 
-  next();
+  advance();
+  render();
   return {
     el: h('div', { class: 'hj-view hj-cards' }, head.el, h('div', { class: 'hj-cards-body' }, card, nextBtn)),
     start: () => ctx.audio.say(cfg.voices.ask.cards),

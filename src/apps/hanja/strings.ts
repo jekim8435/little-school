@@ -18,7 +18,6 @@ export const HANJA_STRINGS: HanjaStrings = {
   leaveConfirm: '한 번 더 누르면 나가요',
   replay: '다시 듣기',
   next: '다음',
-  flip: '누르면 뒤집혀요',
   soon: '곧 배워요',
   retry: '한 번 더!',
   boardOf: (n, total) => `${n}판 / ${total}판`,
