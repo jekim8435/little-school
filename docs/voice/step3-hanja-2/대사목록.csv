@@ -1,0 +1,2 @@
+﻿파일 이름,읽을 문장,언어,쓰이는 곳,저장 위치,대사 ID
+hanja.ask.cards.mp3,한자를 보고 읽어 봐요. 다음을 누르면 카드가 뒤집혀요,한국어,한자 카드 — 시작할 때,public/apps/hanja/voice,hanja.ask.cards
