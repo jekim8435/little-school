@@ -25,23 +25,11 @@ export interface HanjaSet {
   confusables: string[][];
 }
 
-/** 0 이상 1 미만 난수 (테스트에서 고정값을 넣는다) */
-export type Rng = () => number;
+export { shuffle, type Rng } from '../random';
 
 /** 대사 ID에 쓰는 한자 표기: 海 → u6d77 */
 export function charKey(char: string): string {
   return `u${char.charCodeAt(0).toString(16)}`;
-}
-
-export function shuffle<T>(list: T[], rng: Rng = Math.random): T[] {
-  const a = list.slice();
-  for (let i = a.length - 1; i > 0; i--) {
-    const j = Math.floor(rng() * (i + 1));
-    const t = a[i];
-    a[i] = a[j];
-    a[j] = t;
-  }
-  return a;
 }
 
 /** 순서대로 아직 고르지 않은 앞의 n자 (‘다음 2자 추가’, ‘다음 한자 미리 보기’) */

@@ -5,7 +5,7 @@
  */
 import type { AppContext, AppModule, SettingField } from '../../apps/types';
 import { h } from '../../ui/dom';
-import { drawFromBag, readBag, type BagState } from './bag';
+import { drawFromBag, readBag, type BagState } from '../bag';
 import { ACTIVITIES, MIN_LEARNED, STAR_ACTIVITIES, type ActivityId, type HanjaConfig, type HanjaSettings } from './config';
 import { applyResult, readMastery, type Mastery } from './mastery';
 import { cardsView } from './screens/cards';

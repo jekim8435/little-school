@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import set1 from '../../../src/apps/hanja/data/set-1.json';
-import { drawFromBag, emptyBag, readBag, type BagState } from '../../../src/shared/hanja/bag';
+import { drawFromBag, emptyBag, readBag, type BagState } from '../../../src/shared/bag';
 import { comboKey, partnersOf, pickChoices } from '../../../src/shared/hanja/choices';
 import { applyResult, readMastery } from '../../../src/shared/hanja/mastery';
 import {
