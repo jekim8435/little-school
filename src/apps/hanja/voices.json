@@ -3,462 +3,462 @@
     "text": "한자똑똑",
     "tone": "또박또박, 밝게",
     "where": "허브 — 한자똑똑 타일을 눌렀을 때 (세트와 상관없이 ‘한자똑똑’. hanja-2 등은 file로 이 음원을 함께 씀)",
-    "draft": true
+    "producedText": "한자똑똑"
   },
   "hanja.ask.pick-activity": {
     "text": "무엇을 할까요? 골라 보세요",
     "tone": "다정하게 묻듯",
     "where": "한자 과목 첫 화면 — 활동 고르기",
-    "draft": true
+    "producedText": "무엇을 할까요? 골라 보세요"
   },
   "hanja.ask.cards": {
     "text": "한자를 보고 읽어 봐요. 카드를 누르면 뒤집혀요",
     "tone": "다정하게 안내하듯",
     "where": "한자 카드 — 시작할 때",
-    "draft": true
+    "producedText": "한자를 보고 읽어 봐요. 카드를 누르면 뒤집혀요"
   },
   "hanja.ask.listen": {
     "text": "음과 뜻을 보고 맞는 한자를 찾아봐요",
     "tone": "다정하게 안내하듯",
     "where": "한자 찾기 — 판 시작할 때",
-    "draft": true
+    "producedText": "음과 뜻을 보고 맞는 한자를 찾아봐요"
   },
   "hanja.ask.picture": {
     "text": "이 한자는 어떤 그림일까?",
     "tone": "궁금한 듯 묻듯",
     "where": "그림 고르기 — 판 시작할 때, 다시 듣기",
-    "draft": true
+    "producedText": "이 한자는 어떤 그림일까?"
   },
   "hanja.ask.read": {
     "text": "뭐라고 읽을까?",
     "tone": "궁금한 듯 묻듯",
     "where": "음뜻 고르기 — 판 시작할 때, 다시 듣기",
-    "draft": true
+    "producedText": "뭐라고 읽을까?"
   },
   "hanja.ask.match": {
     "text": "한자와 음뜻의 짝을 찾아봐요",
     "tone": "신나게 안내하듯",
     "where": "짝 맞추기 — 시작할 때",
-    "draft": true
+    "producedText": "한자와 음뜻의 짝을 찾아봐요"
   },
   "hanja.ask.board": {
     "text": "내 한자판이에요. 한자를 눌러 봐요",
     "tone": "다정하게",
     "where": "내 한자판 — 열 때",
-    "draft": true
+    "producedText": "내 한자판이에요. 한자를 눌러 봐요"
   },
   "hanja.ask.locked": {
     "text": "한자를 네 개 배우면 할 수 있어요",
     "tone": "다정하게 달래듯",
     "where": "활동 고르기 — 잠긴 활동을 눌렀을 때",
-    "draft": true
+    "producedText": "한자를 네 개 배우면 할 수 있어요"
   },
   "hanja.ask.leave": {
     "text": "한 번 더 누르면 나가요",
     "tone": "부드럽게",
     "where": "판 진행 중 ‘뒤로’를 한 번 눌렀을 때",
-    "draft": true
+    "producedText": "한 번 더 누르면 나가요"
   },
   "hanja.ask.retry": {
     "text": "아까 틀린 한자를 한 번 더 해 봐요",
     "tone": "응원하듯",
     "where": "판 끝 — 틀린 한자를 다시 낼 때",
-    "draft": true
+    "producedText": "아까 틀린 한자를 한 번 더 해 봐요"
   },
   "hanja.praise.round": {
     "text": "다 했어요! 정말 잘했어요",
     "tone": "크게 칭찬하듯, 신나게",
     "where": "고르기·짝 맞추기 — 한 판 끝",
-    "draft": true
+    "producedText": "다 했어요! 정말 잘했어요"
   },
   "hanja.praise.board": {
     "text": "한 판 끝! 다음 판도 해 봐요",
     "tone": "밝게",
     "where": "짝 맞추기 — 첫 판 끝",
-    "draft": true
+    "producedText": "한 판 끝! 다음 판도 해 봐요"
   },
   "hanja.char.u65e5": {
     "text": "해 일",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 日 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "해 일"
   },
   "hanja.char.u6708": {
     "text": "달 월",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 月 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "달 월"
   },
   "hanja.char.u706b": {
     "text": "불 화",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 火 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "불 화"
   },
   "hanja.char.u6c34": {
     "text": "물 수",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 水 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "물 수"
   },
   "hanja.char.u6728": {
     "text": "나무 목",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 木 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "나무 목"
   },
   "hanja.char.u91d1": {
     "text": "금 금",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 金 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "금 금"
   },
   "hanja.char.u571f": {
     "text": "흙 토",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 土 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "흙 토"
   },
   "hanja.char.u5ddd": {
     "text": "내 천",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 川 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "내 천"
   },
   "hanja.char.u5929": {
     "text": "하늘 천",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 天 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "하늘 천"
   },
   "hanja.char.u5730": {
     "text": "땅 지",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 地 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "땅 지"
   },
   "hanja.char.u5c71": {
     "text": "산 산",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 山 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "산 산"
   },
   "hanja.char.u6797": {
     "text": "수풀 림",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 林 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "수풀 림"
   },
   "hanja.char.u77f3": {
     "text": "돌 석",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 石 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "돌 석"
   },
   "hanja.char.u7530": {
     "text": "밭 전",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 田 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "밭 전"
   },
   "hanja.char.u6c5f": {
     "text": "강 강",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 江 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "강 강"
   },
   "hanja.char.u6d77": {
     "text": "바다 해",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 海 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "바다 해"
   },
   "hanja.char.u53e3": {
     "text": "입 구",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 口 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "입 구"
   },
   "hanja.char.u76ee": {
     "text": "눈 목",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 目 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "눈 목"
   },
   "hanja.char.u624b": {
     "text": "손 수",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 手 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "손 수"
   },
   "hanja.char.u8db3": {
     "text": "발 족",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 足 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "발 족"
   },
   "hanja.char.u4eba": {
     "text": "사람 인",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 人 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "사람 인"
   },
   "hanja.char.u5fc3": {
     "text": "마음 심",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 心 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "마음 심"
   },
   "hanja.char.u529b": {
     "text": "힘 력",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 力 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "힘 력"
   },
   "hanja.char.u8eab": {
     "text": "몸 신",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 身 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "몸 신"
   },
   "hanja.char.u7236": {
     "text": "아버지 부",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 父 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "아버지 부"
   },
   "hanja.char.u6bcd": {
     "text": "어머니 모",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 母 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "어머니 모"
   },
   "hanja.char.u5144": {
     "text": "형 형",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 兄 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "형 형"
   },
   "hanja.char.u5f1f": {
     "text": "동생 제",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 弟 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "동생 제"
   },
   "hanja.char.u5b50": {
     "text": "아들 자",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 子 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "아들 자"
   },
   "hanja.char.u5b5d": {
     "text": "효도 효",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 孝 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "효도 효"
   },
   "hanja.char.u7537": {
     "text": "남자 남",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 男 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "남자 남"
   },
   "hanja.char.u5973": {
     "text": "여자 녀",
     "tone": "또박또박, 천천히",
     "where": "한자 훈음 — 女 (한자 카드·한자 찾기·정답·짝 맞추기·한자판)",
-    "draft": true
+    "producedText": "여자 녀"
   },
   "hanja.meaning.u65e5": {
     "text": "해",
     "tone": "또박또박",
     "where": "한자 뜻만 — 日 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "해"
   },
   "hanja.meaning.u6708": {
     "text": "달",
     "tone": "또박또박",
     "where": "한자 뜻만 — 月 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "달"
   },
   "hanja.meaning.u706b": {
     "text": "불",
     "tone": "또박또박",
     "where": "한자 뜻만 — 火 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "불"
   },
   "hanja.meaning.u6c34": {
     "text": "물",
     "tone": "또박또박",
     "where": "한자 뜻만 — 水 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "물"
   },
   "hanja.meaning.u6728": {
     "text": "나무",
     "tone": "또박또박",
     "where": "한자 뜻만 — 木 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "나무"
   },
   "hanja.meaning.u91d1": {
     "text": "금",
     "tone": "또박또박",
     "where": "한자 뜻만 — 金 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "금"
   },
   "hanja.meaning.u571f": {
     "text": "흙",
     "tone": "또박또박",
     "where": "한자 뜻만 — 土 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "흙"
   },
   "hanja.meaning.u5ddd": {
     "text": "내",
     "tone": "또박또박",
     "where": "한자 뜻만 — 川 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "내"
   },
   "hanja.meaning.u5929": {
     "text": "하늘",
     "tone": "또박또박",
     "where": "한자 뜻만 — 天 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "하늘"
   },
   "hanja.meaning.u5730": {
     "text": "땅",
     "tone": "또박또박",
     "where": "한자 뜻만 — 地 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "땅"
   },
   "hanja.meaning.u5c71": {
     "text": "산",
     "tone": "또박또박",
     "where": "한자 뜻만 — 山 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "산"
   },
   "hanja.meaning.u6797": {
     "text": "수풀",
     "tone": "또박또박",
     "where": "한자 뜻만 — 林 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "수풀"
   },
   "hanja.meaning.u77f3": {
     "text": "돌",
     "tone": "또박또박",
     "where": "한자 뜻만 — 石 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "돌"
   },
   "hanja.meaning.u7530": {
     "text": "밭",
     "tone": "또박또박",
     "where": "한자 뜻만 — 田 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "밭"
   },
   "hanja.meaning.u6c5f": {
     "text": "강",
     "tone": "또박또박",
     "where": "한자 뜻만 — 江 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "강"
   },
   "hanja.meaning.u6d77": {
     "text": "바다",
     "tone": "또박또박",
     "where": "한자 뜻만 — 海 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "바다"
   },
   "hanja.meaning.u53e3": {
     "text": "입",
     "tone": "또박또박",
     "where": "한자 뜻만 — 口 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "입"
   },
   "hanja.meaning.u76ee": {
     "text": "눈",
     "tone": "또박또박",
     "where": "한자 뜻만 — 目 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "눈"
   },
   "hanja.meaning.u624b": {
     "text": "손",
     "tone": "또박또박",
     "where": "한자 뜻만 — 手 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "손"
   },
   "hanja.meaning.u8db3": {
     "text": "발",
     "tone": "또박또박",
     "where": "한자 뜻만 — 足 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "발"
   },
   "hanja.meaning.u4eba": {
     "text": "사람",
     "tone": "또박또박",
     "where": "한자 뜻만 — 人 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "사람"
   },
   "hanja.meaning.u5fc3": {
     "text": "마음",
     "tone": "또박또박",
     "where": "한자 뜻만 — 心 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "마음"
   },
   "hanja.meaning.u529b": {
     "text": "힘",
     "tone": "또박또박",
     "where": "한자 뜻만 — 力 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "힘"
   },
   "hanja.meaning.u8eab": {
     "text": "몸",
     "tone": "또박또박",
     "where": "한자 뜻만 — 身 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "몸"
   },
   "hanja.meaning.u7236": {
     "text": "아버지",
     "tone": "또박또박",
     "where": "한자 뜻만 — 父 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "아버지"
   },
   "hanja.meaning.u6bcd": {
     "text": "어머니",
     "tone": "또박또박",
     "where": "한자 뜻만 — 母 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "어머니"
   },
   "hanja.meaning.u5144": {
     "text": "형",
     "tone": "또박또박",
     "where": "한자 뜻만 — 兄 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "형"
   },
   "hanja.meaning.u5f1f": {
     "text": "동생",
     "tone": "또박또박",
     "where": "한자 뜻만 — 弟 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "동생"
   },
   "hanja.meaning.u5b50": {
     "text": "아들",
     "tone": "또박또박",
     "where": "한자 뜻만 — 子 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "아들"
   },
   "hanja.meaning.u5b5d": {
     "text": "효도",
     "tone": "또박또박",
     "where": "한자 뜻만 — 孝 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "효도"
   },
   "hanja.meaning.u7537": {
     "text": "남자",
     "tone": "또박또박",
     "where": "한자 뜻만 — 男 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "남자"
   },
   "hanja.meaning.u5973": {
     "text": "여자",
     "tone": "또박또박",
     "where": "한자 뜻만 — 女 (그림 고르기 정답 그림)",
-    "draft": true
+    "producedText": "여자"
   }
 }
