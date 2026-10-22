@@ -42,8 +42,9 @@ export default defineConfig({
         lang: 'ko',
         start_url: BASE,
         scope: BASE,
-        // 갤럭시 탭(Chrome): 상태 표시줄까지 가린 전체 화면 + 가로 고정 (iOS 12는 무시, 명세 2-4·11-1)
-        display: 'fullscreen',
+        // 갤럭시 탭(Chrome): 주소창 없는 앱 화면 + 가로 고정 (iOS 12는 무시, 명세 2-4·11-1).
+        // 상태 표시줄(시계)은 아이패드처럼 보이게 둔다 (2026-10-22 부모 결정, 처음에는 fullscreen이었음)
+        display: 'standalone',
         orientation: 'landscape',
         background_color: '#fff8ef',
         theme_color: '#fff8ef',
