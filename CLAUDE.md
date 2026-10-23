@@ -14,7 +14,7 @@
 | 배포·정책·외부 자원·이식성 | `docs/06_배포_스토어_정책.md` (**다른 문서보다 우선**) |
 | 새 글꼴·음원·그림·라이브러리 | `docs/licenses.md` + 부모 모드 앱 정보 화면 |
 
-- **이 저장소(GitHub 비공개)와 Cloudflare Pages 주소는 우리 가족 테스트 전용**(가족용 에디션)이다. `main`에 push하면 Cloudflare Pages가 `npm run build:deploy`로 빌드·배포한다(README ‘배포’). 한자똑똑(가족용 전용)도 여기에 올린다. 공개용 에디션 배포 위치는 B 단계 전에 따로 정한다 (06 문서 1장·10장)
+- **이 저장소(GitHub 비공개)와 Cloudflare Pages 주소(https://little-school.pages.dev/)는 우리 가족 테스트 전용**(가족용 에디션)이다. `main`에 push하면 Cloudflare Pages가 `npm run build:deploy`로 빌드·배포한다(README ‘배포’). 한자똑똑(가족용 전용)도 여기에 올린다. 공개용 에디션 배포 위치는 B 단계 전에 따로 정한다 (06 문서 1장·10장)
 - 기획 논의는 Claude 프로젝트 ‘유아학습App개발’ 대화에서 하고, 결과를 `docs/`에 반영한다. **`docs/`가 기준 문서다.**
 - 구현 중 명세와 다르게 해야 할 이유가 생기면 코드만 바꾸지 말고 해당 문서와 `docs/planning-log.md`도 함께 고친다.
 - 명세가 모호하면 추측해서 구현하지 말고 질문하거나, 선택한 해석을 `planning-log.md`에 남긴다.

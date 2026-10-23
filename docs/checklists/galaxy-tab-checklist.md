@@ -4,7 +4,7 @@
 > (그 전 2026-10-21~22에는 반대로 갤럭시를 보류하고 아이패드로 확인했다. 그때 쌓인 아래 1~3절 항목도 이제 확인 대상이다)
 >
 > 사용법: 단계가 진행될 때마다 이 문서 아래쪽에 확인할 항목을 덧붙인다. 확인하면 `[x]`와 결과(값·증상)를 적는다.
-> 주소: Cloudflare Pages 주소(루트 README ‘배포’, 2026-10-23 옮김 — 옛 주소 https://jekim8435.github.io/little-school/ 의 데이터는 백업·복원으로 옮긴다)
+> 주소: https://little-school.pages.dev/ (Cloudflare Pages, 2026-10-23 옮김 — 옛 주소 https://jekim8435.github.io/little-school/ 의 데이터는 백업·복원으로 옮긴다)
 
 ## 0. 먼저 적어 둘 값 (5:3 화면 배치 기준)
 

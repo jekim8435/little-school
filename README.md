@@ -23,7 +23,7 @@ npm run build:deploy # 배포용: 테스트 → 음원 확인 → 빌드 (Cloudf
 
 ## 배포 (Cloudflare Pages)
 
-주소: (Cloudflare 프로젝트를 만든 뒤 적기 — `https://<프로젝트 이름>.pages.dev/`)
+주소: https://little-school.pages.dev/
 
 `main`에 push하면 Cloudflare Pages가 저장소를 가져가 빌드하고 배포합니다. GitHub 저장소는 비공개입니다.
 테스트·음원 확인·빌드(호환성·프리캐시 검사 포함) 중 하나라도 실패하면 배포되지 않고, 이전 버전이 그대로 남습니다.
