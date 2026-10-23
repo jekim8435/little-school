@@ -8,8 +8,8 @@ declare const process: { env: Record<string, string | undefined> };
 // 네이티브(Capacitor) 빌드: VITE_NATIVE=1 npm run build → 서비스 워커를 만들지 않는다
 const native = process.env.VITE_NATIVE === '1';
 
-// 모든 경로는 상대 경로 (09 문서 4장 1, R-03). 배포 주소(/little-school/)에 의존하지 않는다.
-// manifest의 start_url·scope도 './' → manifest 파일 위치 기준으로 풀린다(GitHub Pages에서는 /little-school/)
+// 모든 경로는 상대 경로 (09 문서 4장 1, R-03). 배포 주소(Cloudflare Pages는 /, 하위 경로도 가능)에 의존하지 않는다.
+// manifest의 start_url·scope도 './' → manifest 파일 위치 기준으로 풀린다
 const BASE = './';
 
 export default defineConfig({
