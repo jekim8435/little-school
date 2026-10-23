@@ -23,6 +23,7 @@ export const HANJA_STRINGS: HanjaStrings = {
   boardOf: (n, total) => `${n}판 / ${total}판`,
   roundDone: '다 했어요!',
   roundDoneSub: '한자 열 개를 모두 했어요',
+  cardsDoneSub: '배운 한자를 모두 봤어요',
   boardDone: '한 판 끝! 다음 판으로 가요',
 };
 

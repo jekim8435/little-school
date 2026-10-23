@@ -30,6 +30,8 @@ export interface HanjaStrings {
   boardOf: (n: number, total: number) => string;
   roundDone: string;
   roundDoneSub: string;
+  /** 한자 카드를 한 바퀴 다 본 칭찬 화면 아랫줄 */
+  cardsDoneSub: string;
   boardDone: string;
 }
 

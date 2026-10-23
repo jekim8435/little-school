@@ -106,7 +106,7 @@ export function createHanjaModule(cfg: HanjaConfig, settingsSchema: SettingField
             { class: 'hj-view hj-praise' },
             h('div', { class: 'hj-praise-star' }, '★'),
             h('p', { class: 'hj-praise-text' }, cfg.strings.roundDone),
-            h('p', { class: 'hj-praise-sub' }, cfg.strings.roundDoneSub),
+            h('p', { class: 'hj-praise-sub' }, activity === 'cards' ? cfg.strings.cardsDoneSub : cfg.strings.roundDoneSub),
           );
           show({ el: node, destroy() {} });
           ctx.audio.sfx('cheer');
